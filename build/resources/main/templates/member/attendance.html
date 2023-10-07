@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleag.org">
+<head>
+    <link rel="icon" href="/image/logo.png"/>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/main.css">
+    <title>근태관리</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body{
+        background-color: #5CD2E6;
+    }
+    header{
+        width: 100%;
+        position: relative;
+    }
+    #log-out{
+        position: absolute;
+        right: 20px;
+        top: 30px;
+        border: 1px solid #000000;
+        border-radius: 30px;
+        padding: 8px;
+        background-color: #5CD2E6;
+    }
+    #log-out label{
+        color: #000000;
+    }
+    #log-out-icon{
+        width: 16px;
+    }
+    #log-out:hover{
+        filter: brightness(90%);
+    }
+    .center{
+            margin: 0 auto;
+    }
+    .width-fit-content{
+            width: fit-content;
+    }
+    .width-100p{
+     width: 100%;
+    }
+    .bar{
+        height: 50px;
+        background-color: #00B4ED;
+        display: flex; 
+    }
+    #category{
+        color: white;
+        margin: 15px;
+    }
+    .boxes{
+        background-color: #E9E9E9;
+        height: 150px;
+        margin: 10px;
+        padding: 10px;
+        width: 33%;
+    overflow: hidden;
+    }
+
+    .flex{
+        display: flex;
+    }
+    #btn-box{
+        background-color: #5CD2E6;
+        padding: 1px;
+        border-radius: 5px;
+        min-width: 214px;
+    }
+    #stop{
+        background-color: #39DD00;
+    }
+    .btns{
+        font-size: 20px;
+        color: white;
+        background-color: #00B4ED;
+        border: none;
+        padding: 7px 13px;
+        border-radius: 5px;
+    }
+    .btns:hover{
+       filter:  brightness(90%);
+    }
+    
+    .font-size-ten{
+        font-size: 13px;
+    }
+    .font-size-thirtytwo{
+        font-size: 32px;
+    }
+    .left-box >*{
+        margin: 6px;
+    }
+    .small-title{
+        background-color: #00B4ED;
+        width: fit-content;
+        padding: 5px;  
+        border-radius: 20px;
+        margin: 0 5px;
+    }
+    .small-title p{
+        color: white;
+    }
+    .justify-contents-space-between{
+       justify-content: space-between;
+    }
+    #crews-div p:first-child{
+        padding: 20px 0;
+        font-size: 34px;
+    }
+    #crews-div p:last-child{
+        font-size: 20px;
+        padding: 10px;
+        text-align: center;
+    }
+    #img-div{
+        background-color: transparent; 
+        position: relative;
+    }
+    #developer-img{
+        width: 250px;
+        justify-content: center;
+        position: absolute;
+        right: 0;
+    }
+    .btns:disabled:hover{
+        filter: brightness(100%);
+    }
+
+    #modalOpenButton, #modalCloseButton {
+    cursor: pointer;
+    }
+
+
+    #modalContainer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    }
+
+    #modalContent {
+    position: absolute;
+    background-color: #5CD2E6;
+    width: 700px;
+    padding: 15px;
+    }
+
+    #modalContainer.hidden {
+    display: none;
+    }
+    #modalContainer *{
+        display: block  ;
+        width: 600px;
+        margin: 22px 0;
+    }
+    #modalContainer .btns{
+        height:70px
+    }
+    #detail{
+        margin: 3px 6px;
+        font-size: 13px;
+    }
+    @media (max-width: 767px){
+        #contents{
+            display: inline;
+        }
+        .boxes{
+            width: calc(100% - 30px);
+            margin: 10px 0;
+        }
+        #modalContent {
+    position: absolute;
+    background-color: #5CD2E6;
+    width: 80%;
+    padding: 15px;
+    }
+
+    #modalContainer.hidden {
+    display: none;
+    }
+    #modalContent *{
+        display: block  ;
+        width: 100%;
+        margin: 22px 0;
+    }
+    #modalContainer .btns{
+        height:70px
+    }
+        
+    }
+
+    #schedule{
+        height: 275px;
+        width: calc(100% - 40px);
+        min-width: 300px;
+    }
+    .stick-graph{
+        height: 136px;
+        width: 40px;
+    }   
+    .stick-graph-day-back{
+        background-color: #5CD2E6;
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+    .stick-graph-day-front{
+        background-color: #00B4ED;
+        width: 100%;
+        height: 30%;
+        position: absolute;
+        bottom: 0;
+    }
+    .stick-graph-weekend-back{
+        background-color: #baea89;
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+    .stick-graph-weekend-front{
+        background-color: #00ED18;
+        width: 100%;
+        height: 60%;
+        position: absolute;
+        bottom: 0;
+    }
+    .week{
+        text-align: center;
+        margin: 13px;
+    }
+    #graph-left{
+        width:70%;
+        justify-content: space-between;
+        margin: 26px 62px ;
+    }
+    #myChartDiv{
+        position: relative;
+    }
+    #myChart{
+        width: 200px;
+    }
+    #percent{
+        position: absolute;
+        top: 40%;
+        left: 40%;
+    }
+    #noWorkList{
+        width: calc(100% - 40px);
+        height: fit-content;
+    }
+    table th{
+        border-bottom: 1px solid gray;
+        border-top: 1px solid gray;
+        padding:5px;
+    }
+    td{
+        border-top: 1px solid gray;
+    }
+    table{
+        text-align: center;
+        margin-top:6px;
+    }
+    table, th, td{
+        border-collapse: collapse;
+    }
+    th:last-child{
+        width: 50%;
+    }
+    td:last-child{
+        width: 50%;
+    }
+</style>
+<body>
+    <header>
+        <div class="width-fit-content center">
+            <img src="/image/logo.png">
+        </div>
+        <div id="log-out">
+            
+            <label>로그아웃</label>
+            <img id="log-out-icon" src="https://cdn4.iconfinder.com/data/icons/liny/24/logout-line-512.png" alt="log-out-icon">
+        </div>
+        <div class="width-100p bar">
+            <label id="category">근태관리</label>
+        </div>
+    </header>
+    <div class="flex"id="contents">
+        <div class="boxes  left-box" >
+            <div class="small-title" id="first-title">
+                <p>오늘 근로한 시간</p>
+            </div>
+            <div>
+                <a class="font-size-thirtytwo"><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></a>
+            </div>
+            <div> 
+                <div class=" width-fit-content" id="btn-box">
+                    <button class="btns" id="start">출근</button>
+                    <button class="btns" id="stop">퇴근</button>
+                    <button class="btns" id="modalOpenButton">미 출근</button>
+                </div>
+            </div>
+            <p class="font-size-ten" id="msg">오늘의 의무출근 시간을 아직 채우지 못했습니다. 어서 출근해서 채워주세요</p>
+        </div>
+        <div class="boxes">
+            <div class="small-title">
+                <p>오늘 근로한 시간</p>
+            </div>
+            <div class="flex justify-contents-space-between " id="crews-div">
+                <div>
+                    <p>02:31:12</p>
+                    <p>최석사</p>
+                </div>
+                <div>
+                    <p>02:42:00</p>
+                    <p>홍박사</p>
+                </div>
+                <div>
+                    <p>02:00:54</p>
+                    <p>김박사</p>
+                </div>
+            </div>
+        </div>
+        <div class="boxes" id="img-div">
+            <img id="developer-img" src="/image/developer.png" alt="developer">
+        </div>
+    </div>
+    <div class="boxes" id="schedule">
+        <div class="small-title" id="first-title">
+            <p>총 근무시간</p>
+        </div>
+        <p id="detail">여러분의 팀장님이 근무 스케줄을 체크합니다.</p>
+        <div class="flex width-100p">
+            <div class="flex "id = "graph-left">
+                <div class="graph-div">
+                    <div class="stick-graph">
+                        <div class="stick-graph-day-back">
+                             <div class="stick-graph-day-front" id="mon">
+                             </div>
+                    </div>
+                       
+                    </div>
+                    <p class="week">월</p>
+                </div>
+                <div class="graph-div">
+                    <div class="stick-graph">
+                        <div class="stick-graph-day-back">
+                            <div class="stick-graph-day-front" id="two"></div>
+                        </div>
+                       
+                    </div>
+                    <p class="week">화</p>
+                </div>
+                <div class="graph-div">
+                    <div class="stick-graph">
+                        <div class="stick-graph-day-back">
+                            <div class="stick-graph-day-front" id="wen"></div>
+                        </div>
+                    </div>
+                    <p class="week">수</p>
+                </div>
+                <div class="graph-div">
+                    <div class="stick-graph">
+                        <div class="stick-graph-day-back">
+                            <div class="stick-graph-day-front" id="thur"></div>
+                        </div>
+                    </div>
+                    <p class="week">목</p>
+                </div>
+                <div class="graph-div">
+                    <div class="stick-graph">
+                        <div class="stick-graph-day-back">
+                            <div class="stick-graph-day-front" id="fri"></div>
+                        </div>
+                    </div>
+                    <p class="week">금</p>
+                </div>
+                <div class="graph-div">
+                    <div class="stick-graph">
+                        <div class="stick-graph-weekend-back">
+                            <div class="stick-graph-weekend-front" id="sat"></div>
+                        </div>
+                    </div>
+                    <p class="week">토</p>
+                </div>
+                <div class="graph-div">
+                    <div class="stick-graph">
+                        <div class="stick-graph-weekend-back">
+                            <div class="stick-graph-weekend-front" id="sun"></div>
+                        </div>
+                    </div>
+                    <p class="week">일</p>
+                </div>
+            
+        </div>
+        <div id="myChartDiv">
+            <canvas id="myChart"></canvas> 
+            <p id="percent"></p>
+        </div>
+    </div>
+    </div>
+    <div class="boxes" id="noWorkList">
+        <div class="small-title" id="first-title">
+            <p>이번주 미출근 사유 작성 내역</p>
+        </div>
+        <table class="width-100p" >
+            <thead>
+                <tr>
+                    <th>처리 상태</th>
+                    <th>신청 일자</th>
+                    <th>범주</th>
+                    <th>상세 내용</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>승인거부</td>
+                    <td>09-30</td>
+                    <td>알바</td>
+                    <td>알빠노ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</td>
+                </tr>
+
+            </tbody>
+           
+        </table>
+
+    </div>
+
+    <div id="modalContainer" class="hidden">
+        <form id="modalContent" >
+            <div class="selectBox">
+            <select class="select">
+                <option disabled selected>범주</option>
+                <option value="알바">알바</option>
+                <option value="병가">병가</option>
+                <option value="기타">기타</option>
+            </select>
+          </div>
+          <textarea name="" id="" cols="30" rows="10" placeholder="필요시 사유를 자세히 작성해주세요"></textarea>
+          <button class="btns" id="noWork">제출</button>
+          <button class="btns" id="modalCloseButton">닫기</button>
+        </form>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="text/javascript" th:inline="javascript">
+
+    let member = [[${member}]];
+    let a = 10;
+    document.getElementById("percent").innerText=a+"%";
+  window.onload = function(){
+           if(member == null){
+               alert("돌아가라")
+           }else{
+               alert(member.memberName+"님, 환영합니다");
+
+           }
+            let myIp = "192.168.0.5";
+            let start = document.getElementById("start");
+            let stop = document.getElementById("stop");
+            let noWork = document.getElementById("noWork")
+            let logOut = document.getElementById("log-out")
+            stop.disabled = true;
+            let timer_sec;
+            let timer_min;
+            let timer_hour;
+            let timer_micro;
+
+            let timer = 0;
+
+            //click start button
+            start.addEventListener("click", function(){
+
+                // 백엔드로 ip를 받아와서 처리해야함.
+                //  if (ip === myIp) {
+                    start.disabled = true;
+                stop.disabled = false;
+                if(timer > 0){
+                    return;
+                }
+                console.log(getIpClient())
+                var sec = parseInt(document.getElementById("sec").innerText);
+                var min = parseInt(document.getElementById("min").innerText);
+                var hour = parseInt(document.getElementById("hour").innerText);
+
+                //start seconds
+                timer_sec = setInterval(function(){
+                    //console.log(i);
+                    sec++;
+                    if(sec == 60) {
+                        sec = "00";
+                    } else if(sec < 10){
+                        sec = "0" + sec;
+                    }
+                    document.getElementById("sec").innerText = sec;
+                }, 1000);
+
+                //start minutes
+                timer_min = setInterval(function(){
+                    min++;
+
+                    if(min == 60) {
+                        min = 0;
+                    } else if(min < 10){
+                        min = "0" + min;
+                    }
+
+                    document.getElementById("min").innerText = min;
+                }, 60000);
+
+                //start hours
+                timer_hour = setInterval(function(){
+                    //console.log(hour);
+                    hour++;
+
+                    if(hour < 10){
+                        hour = "0" + hour;
+                    }
+
+                    document.getElementById("hour").innerText = hour;
+                    console.log(hour)
+                }, 3600000);
+
+                timer++;
+                // }else{
+                //     alert("당신지금 어디야");
+                //     // 백엔드로 ip받아와서 처리해야함
+                // }
+                
+            });
+            //click stop button
+            stop.addEventListener("click", function(){
+                if(hour.innerText<3){
+                let tF= confirm("시간을 충족하지 못했습니다. 그래도 퇴근하시겠습니까?");
+                if(tF){ 
+                    document.getElementById("msg").innerText = "어서 더 채워 주세요!";
+                    clearInterval(timer_micro);
+                    clearInterval(timer_sec);
+                    clearInterval(timer_min);
+                    clearInterval(timer_hour);
+
+                    timer--;
+                    if(timer < 0){
+                        timer = 0;
+                    }
+                    start.disabled = false;
+                    stop.disabled = true;
+                    // 여기에 백엔드 코드
+                }
+                else{
+                //  여기에 백엔드 코드
+                start.disabled = true;
+                stop.disabled = false;
+                }
+            }else{
+                document.getElementById("msg").innerText = "오늘의 할당량을 마치셨습니다!";
+                clearInterval(timer_micro);
+                    clearInterval(timer_sec);
+                    clearInterval(timer_min);
+                    clearInterval(timer_hour);
+
+                    timer--;
+                    if(timer < 0){
+                        timer = 0;
+                    }
+                    start.disabled = false;
+                    stop.disabled = true;
+            }
+            }); 
+
+
+            //click clear button
+
+            // document.getElementById("clear").addEventListener("click", function(){
+            //     stop();
+            //     document.getElementById("micro").innerText = "00";
+            //     document.getElementById("sec").innerText = "00";
+            //     document.getElementById("min").innerText = "00";
+            //     document.getElementById("hour").innerText = "00";
+            // });
+        }
+
+        document.getElementById("log-out").addEventListener('click',()=>{
+            let tf = confirm("로그아웃 하시겠습니까?");
+            if(tf){
+                window.location.href = '/member/logout';
+            }
+        })
+
+
+        const modalOpenButton = document.getElementById('modalOpenButton');
+        const modalCloseButton = document.getElementById('modalCloseButton');
+        const modal = document.getElementById('modalContainer');
+
+        modalOpenButton.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+        });
+
+        modalCloseButton.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        });
+        var context = document
+                .getElementById('myChart')
+                .getContext('2d');
+            var myChart = new Chart(context, {
+                type: 'doughnut', // 차트의 형태
+                data: { // 차트에 들어갈 데이터
+                    datasets: [
+                        { //데이터
+                            label: [
+                                '근무량',
+                                '남은근무'
+                            ], //차트 제목
+                            data: [
+                               a,100-a //x축 label에 대응되는 데이터 값
+                            ],
+                            backgroundColor: [
+                                //색상
+                                '#00B4ED',
+                                '#5CD2E6'
+                            ],
+                            borderWidth: 0 //경계선 굵기
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [
+                            {
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }
+                        ]
+                    }
+                }
+            });
+          
+</script>
+</html>  

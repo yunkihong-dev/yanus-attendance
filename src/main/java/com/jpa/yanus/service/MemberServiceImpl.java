@@ -1,0 +1,28 @@
+package com.jpa.yanus.service;
+
+import com.jpa.yanus.entity.Member;
+import com.jpa.yanus.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+@Transactional @Slf4j
+public class MemberServiceImpl implements MemberService{
+    private final MemberRepository memberRepository;
+
+
+    @Override
+    public Optional<Member> getMember(String memberId, String memberPassword) {
+        return memberRepository.findByMemberIdAndMemberPassword(memberId,memberPassword);
+    }
+
+    @Override
+    public Optional<Member> getMemberById(Long id) {
+        return memberRepository.findById(id);
+    }
+}
