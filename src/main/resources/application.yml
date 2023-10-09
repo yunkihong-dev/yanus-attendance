@@ -1,6 +1,6 @@
 #server
 server:
-  port: 22
+  port: 10001
 
 #jdbc
 spring:
