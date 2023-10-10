@@ -1,30 +1,30 @@
-#server
+# server
 server:
   port: 10001
 
-#jdbc
+# jdbc
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/YANUS?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://yanus-database.cb4pkxlnks4i.ap-northeast-2.rds.amazonaws.com:3306/yanus?useSSL=true&serverTimezone=UTC
     username: root
     password: 12345678
   mvc:
     hiddenmethod:
       filter:
         enabled: true
-  #jpa
+  # jpa
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
-    #jpa format
+    # jpa format
     properties:
       hibernate:
         format_sql: true
     show-sql: true
 
-  #log
+  # log
   output:
     ansi:
       enabled: always
