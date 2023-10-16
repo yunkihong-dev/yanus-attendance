@@ -2,11 +2,12 @@
 server:
   port: 10001
 
+
 # jdbc
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://yanus-database.cb4pkxlnks4i.ap-northeast-2.rds.amazonaws.com:3306/yanus?useSSL=true&serverTimezone=UTC
+    url: jdbc:mysql://yanus-database.cb4pkxlnks4i.ap-northeast-2.rds.amazonaws.com:3306/yanus?useSSL=false&serverTimezone=UTC
     username: root
     password: 12345678
   mvc:

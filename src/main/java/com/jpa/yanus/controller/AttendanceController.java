@@ -46,7 +46,7 @@ public class AttendanceController {
         // 모든 헤더에서 유효한 IPv4 주소를 찾지 못한 경우, 기본적으로 사용자의 IP 주소를 반환합니다.
         ip = request.getRemoteAddr();
         log.info(ip);
-        return ip;
+        return ip; 
 
     }
 
