@@ -9,4 +9,6 @@ public interface MemberService {
     public Optional<Member> getMember(String memberId, String memberPassword);
 
     public Optional<Member> getMemberById(Long id);
+
+    public void insertMember(Member member);
 }

@@ -25,4 +25,9 @@ public class MemberServiceImpl implements MemberService{
     public Optional<Member> getMemberById(Long id) {
         return memberRepository.findById(id);
     }
+
+    @Override
+    public void insertMember(Member member) {
+        memberRepository.save(member);
+    }
 }

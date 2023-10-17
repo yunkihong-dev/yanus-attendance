@@ -1,7 +1,9 @@
 package com.jpa.yanus.entityTest;
 
+import com.jpa.yanus.entity.Member;
 import com.jpa.yanus.repository.MemberRepository;
 import com.jpa.yanus.service.MemberService;
+import com.jpa.yanus.type.MemberType;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,18 @@ public class MemberTest {
     @Test
     public void getMemberServiceTest(){
         log.info(memberService.getMember("ricky0130","yunki123").toString());
+    }
+
+
+
+    @Test
+    public void inputUser(){
+        Member member = new Member();
+        member.setMemberId("test123");
+        member.setMemberName("test123");
+        member.setMemberPassword("tetst123");
+        member.setMemberType(MemberType.NORMAL);
+        memberService.insertMember(member);
     }
 
 }
