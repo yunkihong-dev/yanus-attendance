@@ -21,7 +21,7 @@ public class MemberQueryDSLImpl implements MemberQueryDSL{
     public List<Member> findAll() {
 
         final List<Member> members = query.select(member).from(member).fetch();
-        return null;
+        return members;
     }
 
     @Override

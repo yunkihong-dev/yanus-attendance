@@ -1,5 +1,6 @@
 package com.jpa.yanus.service;
 
+import com.jpa.yanus.domain.MemberDTO;
 import com.jpa.yanus.entity.Member;
 import com.jpa.yanus.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public void insertMember(Member member) {
-        memberRepository.save(member);
+    public void insertMember(MemberDTO memberDTO) {
+        memberRepository.save(toEntity(memberDTO));
     }
 }
