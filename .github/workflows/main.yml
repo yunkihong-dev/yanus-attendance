@@ -64,3 +64,4 @@ jobs:
           docker rm ${{ env.NAME }} || true
           docker rmi ${{ env.DOCKER_IMAGE }}:latest || true
           docker run -d -p 80:10001 --name ${{ env.NAME }} --restart always ${{ env.DOCKER_IMAGE }}:latest
+
