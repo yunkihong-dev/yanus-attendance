@@ -60,8 +60,6 @@ jobs:
       # 이전에 실행 중인 컨테이너 종료, 이미지 삭제 및 새 이미지로 실행
       - name: Docker run
         run: |
-          docker stop ${{ env.NAME }} || true
-          docker rm ${{ env.NAME }} || true
-          docker rmi ${{ env.DOCKER_IMAGE }}:latest || true
-          docker run -d -p 80:10001 --name ${{ env.NAME }} --restart always ${{ env.DOCKER_IMAGE }}:latest
+          docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
+           docker run -d -p 80:10001 --name go_cicd --restart always ${{ env.DOCKER_IMAGE }}:latest
 
