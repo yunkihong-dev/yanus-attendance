@@ -47,9 +47,9 @@ jobs:
 
   # 배포 Job
   deploy:
-    needs: build  # build 후에 실행되도록 정의
+    needs: build
     name: Deploy
-    runs-on: [self-hosted, label-go]  # self-hosted, label-go 대신에 ubuntu-latest로 변경
+    runs-on: ubuntu-latest
     steps:
       - name: Login to ghcr
         uses: docker/login-action@v1
@@ -60,7 +60,8 @@ jobs:
       # 이전에 실행 중인 컨테이너 종료, 이미지 삭제 및 새 이미지로 실행
       - name: Docker run
         run: |
-          sudo docker stop ${{ env.NAME }} || true
-          sudo docker rm ${{ env.NAME }} || true
-          sudo docker rmi ${{ env.DOCKER_IMAGE }}:latest || true
-          sudo docker run -d -p 80:10001 --name ${{ env.NAME }} --restart always ${{ env.DOCKER_IMAGE }}:latest
+          docker stop ${{ env.NAME }} || true
+          docker rm ${{ env.NAME }} || true
+          docker rmi ${{ env.DOCKER_IMAGE }}:latest || true
+          docker run -d -p 80:10001 --name ${{ env.NAME }} --restart always ${{ env.DOCKER_IMAGE }}:latest
+
