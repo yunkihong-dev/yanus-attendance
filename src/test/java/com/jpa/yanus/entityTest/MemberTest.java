@@ -1,5 +1,6 @@
 package com.jpa.yanus.entityTest;
 
+import com.jpa.yanus.domain.MemberDTO;
 import com.jpa.yanus.entity.Member;
 import com.jpa.yanus.repository.MemberRepository;
 import com.jpa.yanus.service.MemberService;
@@ -26,12 +27,12 @@ public class MemberTest {
 
     @Test
     public void inputUser(){
-        Member member = new Member();
-        member.setMemberId("test123");
-        member.setMemberName("test123");
-        member.setMemberPassword("tetst123");
-        member.setMemberType(MemberType.NORMAL);
-        memberService.insertMember(member);
+        MemberDTO memberdto = new MemberDTO();
+        memberdto.setMemberId("test123");
+        memberdto.setMemberName("test123");
+        memberdto.setMemberPassword("tetst123");
+        memberdto.setMemberType(MemberType.NORMAL);
+        memberService.insertMember(memberdto);
     }
 
 }
