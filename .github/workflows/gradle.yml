@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-   build-docker-image:
+  build-docker-image:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,17 +20,18 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+
+  build:
+    needs: build-docker-image
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Build with Gradle
       id: gradle
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
 
-  build-docker-image:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
     - name: docker image build
       run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo .
 
@@ -44,7 +45,7 @@ jobs:
       run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/github-actions-demo
 
   run-docker-image-on-ec2:
-    needs: build-docker-image
+    needs: build
     runs-on: self-hosted
 
     steps:
