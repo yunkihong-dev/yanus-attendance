@@ -6,6 +6,6 @@ version: '3'
     container_name: web
     image: ricky0130/testforcicd
     expose:
-      - 8080
+      - 10001
     ports:
-      - 8080:8080
+      - 10001:10001
