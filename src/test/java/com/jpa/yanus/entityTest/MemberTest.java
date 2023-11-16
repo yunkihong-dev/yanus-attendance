@@ -28,9 +28,9 @@ public class MemberTest {
     @Test
     public void inputUser(){
         MemberDTO memberdto = new MemberDTO();
-        memberdto.setMemberId("test123");
-        memberdto.setMemberName("test123");
-        memberdto.setMemberPassword("tetst123");
+        memberdto.setMemberId("ricky0130");
+        memberdto.setMemberName("홍윤기");
+        memberdto.setMemberPassword("yunki123");
         memberdto.setMemberType(MemberType.NORMAL);
         memberService.insertMember(memberdto);
     }
