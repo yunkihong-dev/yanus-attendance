@@ -1,16 +1,14 @@
-# Dockerfile
+# jdk11 Image Start
+FROM openjdk:11
 
-# jdk17 Image Start
-FROM openjdk:17
-
-# 인자 설정 - JAR_File
+# Argument settings - JAR_File
 ARG JAR_FILE=build/libs/*.jar
 
-# jar 파일 복제
+# Clone jar file
 COPY ${JAR_FILE} app.jar
 
-# 인자 설정 부분과 jar 파일 복제 부분 합쳐서 진행해도 무방
-#COPY build/libs/*.jar app.jar
+# You can proceed by combining the parameter setting part and the jar file replication part.
+# COPY build/libs/*.jar app.jar
 
-# 실행 명령어
+# Run command
 ENTRYPOINT ["java", "-jar", "app.jar"]
