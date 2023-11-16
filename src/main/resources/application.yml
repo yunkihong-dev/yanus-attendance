@@ -5,9 +5,9 @@ server:
 
 # jdbc
 spring:
-  datasource: ${{ secrets.RDS_ADDRESS }}
+  datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url:
+    url:  ${{ secrets.RDS_ADDRESS }}
     username:  ${{ secrets.RDS_USERNAME }}
     password: ${{ secrets.RDS_PASSWORD }}
   mvc:
