@@ -486,59 +486,65 @@
             start.addEventListener("click", function(){
 
                 // 백엔드로 ip를 받아와서 처리해야함.
-                 if (getExternalIp() === myIp) {
-                start.disabled = true;
-                stop.disabled = false;
-                if(timer > 0){
-                    return;
-                }
-                var sec = parseInt(document.getElementById("sec").innerText);
-                var min = parseInt(document.getElementById("min").innerText);
-                var hour = parseInt(document.getElementById("hour").innerText);
+                getExternalIp().then(ip =>{
+                    if ( ip === myIp) {
+                        start.disabled = true;
+                        stop.disabled = false;
+                        if(timer > 0){
+                            return;
+                        }
+                        var sec = parseInt(document.getElementById("sec").innerText);
+                        var min = parseInt(document.getElementById("min").innerText);
+                        var hour = parseInt(document.getElementById("hour").innerText);
 
-                //start seconds
-                timer_sec = setInterval(function(){
-                    //console.log(i);
-                    sec++;
-                    if(sec == 60) {
-                        sec = "00";
-                    } else if(sec < 10){
-                        sec = "0" + sec;
+                        //start seconds
+                        timer_sec = setInterval(function(){
+                            //console.log(i);
+                            sec++;
+                            if(sec == 60) {
+                                sec = "00";
+                            } else if(sec < 10){
+                                sec = "0" + sec;
+                            }
+                            document.getElementById("sec").innerText = sec;
+                        }, 1000);
+
+                        //start minutes
+                        timer_min = setInterval(function(){
+                            min++;
+
+                            if(min == 60) {
+                                min = 0;
+                            } else if(min < 10){
+                                min = "0" + min;
+                            }
+
+                            document.getElementById("min").innerText = min;
+                        }, 60000);
+
+                        //start hours
+                        timer_hour = setInterval(function(){
+                            //console.log(hour);
+                            hour++;
+
+                            if(hour < 10){
+                                hour = "0" + hour;
+                            }
+
+                            document.getElementById("hour").innerText = hour;
+                            console.log(hour)
+                        }, 3600000);
+
+                        timer++;
+                    }else{
+                        alert("당신지금 어디야");
                     }
-                    document.getElementById("sec").innerText = sec;
-                }, 1000);
 
-                //start minutes
-                timer_min = setInterval(function(){
-                    min++;
 
-                    if(min == 60) {
-                        min = 0;
-                    } else if(min < 10){
-                        min = "0" + min;
-                    }
+                }).catch(err=>{
+                    alert("문제가 발생했어요");
+                })
 
-                    document.getElementById("min").innerText = min;
-                }, 60000);
-
-                //start hours
-                timer_hour = setInterval(function(){
-                    //console.log(hour);
-                    hour++;
-
-                    if(hour < 10){
-                        hour = "0" + hour;
-                    }
-
-                    document.getElementById("hour").innerText = hour;
-                    console.log(hour)
-                }, 3600000);
-
-                timer++;
-                }else{
-                    alert("당신지금 어디야");
-                }
-                
             });
             //click stop button
             stop.addEventListener("click", function(){
