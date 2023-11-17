@@ -484,66 +484,70 @@
                 //click start button
                 start.addEventListener("click", function(){
                     getExternalIp().then(ip =>{
-                        if ( ip === myIp) {
-
-                            start.disabled = true;
-                            stop.disabled = false;
-                            if(timer > 0){
-                                return;
-                            }
-                            var sec = parseInt(document.getElementById("sec").innerText);
-                            var min = parseInt(document.getElementById("min").innerText);
-                            var hour = parseInt(document.getElementById("hour").innerText);
-
-                            //start seconds
-                            timer_sec = setInterval(function(){
-                                //console.log(i);
-                                sec++;
-                                if(sec == 60) {
-                                    sec = "00";
-                                } else if(sec < 10){
-                                    sec = "0" + sec;
+                        if ( myIp === myIp) {
+                            gocheckin().then(res => {
+                                start.disabled = true;
+                                stop.disabled = false;
+                                if(timer > 0){
+                                    return;
                                 }
-                                document.getElementById("sec").innerText = sec;
-                            }, 1000);
+                                var sec = parseInt(document.getElementById("sec").innerText);
+                                var min = parseInt(document.getElementById("min").innerText);
+                                var hour = parseInt(document.getElementById("hour").innerText);
 
-                            //start minutes
-                            timer_min = setInterval(function(){
-                                min++;
+                                //start seconds
+                                timer_sec = setInterval(function(){
+                                    //console.log(i);
+                                    sec++;
+                                    if(sec == 60) {
+                                        sec = "00";
+                                    } else if(sec < 10){
+                                        sec = "0" + sec;
+                                    }
+                                    document.getElementById("sec").innerText = sec;
+                                }, 1000);
 
-                                if(min == 60) {
-                                    min = 0;
-                                } else if(min < 10){
-                                    min = "0" + min;
-                                }
+                                //start minutes
+                                timer_min = setInterval(function(){
+                                    min++;
 
-                                document.getElementById("min").innerText = min;
-                            }, 60000);
+                                    if(min == 60) {
+                                        min = 0;
+                                    } else if(min < 10){
+                                        min = "0" + min;
+                                    }
 
-                            //start hours
-                            timer_hour = setInterval(function(){
-                                //console.log(hour);
-                                hour++;
+                                    document.getElementById("min").innerText = min;
+                                }, 60000);
 
-                                if(hour < 10){
-                                    hour = "0" + hour;
-                                }
+                                //start hours
+                                timer_hour = setInterval(function(){
+                                    //console.log(hour);
+                                    hour++;
 
-                                document.getElementById("hour").innerText = hour;
-                                console.log(hour)
-                            }, 3600000);
+                                    if(hour < 10){
+                                        hour = "0" + hour;
+                                    }
 
-                            timer++;
+                                    document.getElementById("hour").innerText = hour;
+                                    console.log(hour)
+                                }, 3600000);
+
+                                timer++;
+                            }).catch(err=>{
+                                alert("문제가 발생했어요 ㅜ")
+                            })
+
                         }else{
                             alert("당신지금 어디야");
                         }
 
 
-                    }).catch(err=>{
-                        alert("문제가 발생했어요");
+                        }).catch(err=>{
+                            alert("문제가 발생했어요");
                     })
 
-                });
+                    });
                 //click stop button
                 stop.addEventListener("click", function(){
                     if(hour.innerText<3){
@@ -595,15 +599,13 @@
     }
 
     async function gocheckin(){
-        fetch('/checkIn', {
+        fetch('/attendance/checkIn', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                memberId: member., // 실제로 사용할 멤버 ID 값으로 대체
-                // 다른 필요한 데이터도 필요에 따라 추가 가능
-            }),
+            // 멤버 ID를 전달할 필요가 없는 경우 아래와 같이 빈 객체로 전달하거나 필요 없는 속성을 생략합니다.
+            body: JSON.stringify({}),
         })
             .then(response => response.json())
             .then(data => {

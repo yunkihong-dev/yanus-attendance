@@ -1,5 +1,6 @@
 package com.jpa.yanus.service;
 
+import com.jpa.yanus.domain.AttendanceDTO;
 import com.jpa.yanus.entity.Attendance;
 import com.jpa.yanus.entity.Member;
 import com.jpa.yanus.repository.AttendanceRepository;
@@ -31,13 +32,12 @@ public class AttendanceServiceImpl implements AttendanceService{
     }
 
     @Override
-    public void checkIn(Long memberId) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new EntityNotFoundException("ID가 " + memberId + "인 회원을 찾을 수 없습니다."));
-
-        Attendance attendance = new Attendance();
-        attendance.setCheckInTime(LocalDateTime.now());
-        attendance.setMember(member);
+    public void checkIn(AttendanceDTO attendanceDTO) {
+        Attendance attendance = Attendance.builder()
+                .checkInTime(attendanceDTO.getCheckInTime())
+                .checkOutTime(attendanceDTO.getCheckOutTime())
+                .member(attendanceDTO.getMember())
+                .build();
 
         attendanceRepository.save(attendance);
     }

@@ -1,18 +1,15 @@
 package com.jpa.yanus.controller;
 
 import com.jpa.yanus.domain.AttendanceDTO;
-import com.jpa.yanus.entity.Attendance;
 import com.jpa.yanus.entity.Member;
+import com.jpa.yanus.repository.MemberRepository;
 import com.jpa.yanus.service.AttendanceService;
-import com.jpa.yanus.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -21,15 +18,26 @@ import java.util.Optional;
 public class AttendanceController {
 
     private final AttendanceService attendanceService;
-    private final MemberService memberService;
-
+    private final MemberRepository memberRepository;
     @PostMapping("/checkIn")
-    public void checkIn(@RequestBody HttpSession session) {
-        attendanceService.checkIn((Long)session.getAttribute("id"));
+    public void checkIn(@SessionAttribute(name = "id", required = false) Long memberId, AttendanceDTO attendanceDTO) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new EntityNotFoundException("Member with id " + memberId + " not found"));
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        attendanceDTO.setCheckInTime(currentDateTime);
+        attendanceDTO.setCheckOutTime(currentDateTime);
+        attendanceDTO.setMember(member);
+
+        attendanceService.checkIn(attendanceDTO);
     }
 
     @GetMapping("/checkOut")
-    public  void checkOut(@RequestBody HttpSession session) {
-        attendanceService.checkOut((Long)session.getAttribute("id"));
+    public  void checkOut(@SessionAttribute(name = "id", required = false) Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new EntityNotFoundException("Member with id " + memberId + " not found"));
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        attendanceService.checkOut(memberId);
     }
 }

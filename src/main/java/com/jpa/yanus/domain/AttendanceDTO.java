@@ -1,5 +1,6 @@
 package com.jpa.yanus.domain;
 
+import com.jpa.yanus.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,5 +18,5 @@ public class AttendanceDTO {
     private Long id;
     private LocalDateTime checkInTime;
     private LocalDateTime checkOutTime;
-    private Long memberId;
+    private Member member;
 }
