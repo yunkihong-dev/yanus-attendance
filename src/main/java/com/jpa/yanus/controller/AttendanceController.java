@@ -19,7 +19,8 @@ public class AttendanceController {
 
     private final AttendanceService attendanceService;
     private final MemberRepository memberRepository;
-    @PostMapping("/checkIn")
+
+    @GetMapping("/checkIn")
     public void checkIn(@SessionAttribute(name = "id", required = false) Long memberId, AttendanceDTO attendanceDTO) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new EntityNotFoundException("Member with id " + memberId + " not found"));

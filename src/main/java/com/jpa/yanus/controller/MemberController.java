@@ -45,6 +45,7 @@ public class MemberController {
     }
     @GetMapping("attendance")
     public void attendance(@SessionAttribute(name = "id", required = false) Long id,Model model){
+        log.info("들어옴");
         Member member = memberService.getMemberById(id).get();
 
         model.addAttribute("member",member);

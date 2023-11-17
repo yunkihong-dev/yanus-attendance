@@ -485,7 +485,7 @@
                 start.addEventListener("click", function(){
                     getExternalIp().then(ip =>{
                         if ( ip === myIp) {
-                            gocheckin().then(res => {
+                            goCheckIn().then(res => {
                                 start.disabled = true;
                                 stop.disabled = false;
                                 if(timer > 0){
@@ -598,29 +598,16 @@
         }
     }
 
-    async function gocheckin(){
-        fetch('/attendance/checkIn', {
+    async function goCheckIn() {
+        const response = await fetch('/attendance/checkIn', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            // 멤버 ID를 전달할 필요가 없는 경우 아래와 같이 빈 객체로 전달하거나 필요 없는 속성을 생략합니다.
             body: JSON.stringify({}),
-        })
-            .then(response => response.json())
-            .then(data => {
-                // 서버에서 전송한 값에 따라 처리
-                if (data === true) {
-                    alert('Check-in 성공');
-                } else {
-                    alert('Check-in 실패');
-                }
-            })
-            .catch(error => {
-                console.error('오류 발생:', error);
-                alert('서버 오류');
-            });
+        });
     }
+
 
     document.getElementById("log-out").addEventListener('click',()=>{
             let tf = confirm("로그아웃 하시겠습니까?");
