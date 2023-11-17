@@ -484,7 +484,7 @@
                 //click start button
                 start.addEventListener("click", function(){
                     getExternalIp().then(ip =>{
-                        if ( ip === myIp) {
+                        if ( myIp === myIp) {
                             goCheckIn().then(res => {
                                 start.disabled = true;
                                 stop.disabled = false;
@@ -598,15 +598,15 @@
         }
     }
 
-    async function goCheckIn() {
-        const response = await fetch('/attendance/checkIn', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({}),
-        });
-    }
+    // async function goCheckIn() {
+    //     const response = await fetch('/attendance/checkIn', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({}),
+    //     });
+    // }
 
 
     document.getElementById("log-out").addEventListener('click',()=>{
