@@ -1,26 +1,35 @@
 package com.jpa.yanus.controller;
 
+import com.jpa.yanus.domain.AttendanceDTO;
 import com.jpa.yanus.entity.Attendance;
+import com.jpa.yanus.entity.Member;
+import com.jpa.yanus.service.AttendanceService;
 import com.jpa.yanus.service.MemberService;
-import com.sun.xml.messaging.saaj.packaging.mime.Header;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.net.http.HttpRequest;
+import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
-@Controller
+@RestController
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/attendance/*")
 public class AttendanceController {
 
+    private final AttendanceService attendanceService;
+    private final MemberService memberService;
 
+    @PostMapping("/checkIn")
+    public void checkIn(@RequestBody HttpSession session) {
+        attendanceService.checkIn((Long)session.getAttribute("id"));
+    }
+
+    @GetMapping("/checkOut")
+    public  void checkOut(@RequestBody HttpSession session) {
+        attendanceService.checkOut((Long)session.getAttribute("id"));
+    }
 }
