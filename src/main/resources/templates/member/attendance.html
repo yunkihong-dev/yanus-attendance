@@ -469,8 +469,7 @@
                alert(member.memberName+"님, 환영합니다");
 
            }
-
-            let myIp = "192.168.0.5";
+            let myIp = 220;
             let start = document.getElementById("start");
             let stop = document.getElementById("stop");
             let noWork = document.getElementById("noWork")
@@ -485,10 +484,10 @@
 
             //click start button
             start.addEventListener("click", function(){
-                getExternalIp()
+
                 // 백엔드로 ip를 받아와서 처리해야함.
-                 if (myIp === myIp) {
-                    start.disabled = true;
+                 if (getExternalIp() === myIp) {
+                start.disabled = true;
                 stop.disabled = false;
                 if(timer > 0){
                     return;
@@ -536,9 +535,8 @@
                 }, 3600000);
 
                 timer++;
-                // }else{
-                //     alert("당신지금 어디야");
-                //     // 백엔드로 ip받아와서 처리해야함
+                }else{
+                    alert("당신지금 어디야");
                 }
                 
             });
@@ -587,8 +585,7 @@
             const response = await fetch('https://ipinfo.io/json');
             const data = await response.json();
             const ipAddress = data.ip;
-            console.log('클라이언트 외부 IP 주소:', ipAddress);
-            alert('클라이언트 외부 IP 주소:'+ ipAddress);
+            return parseInt(ipAddress.split(".")[0],10);
         } catch (error) {
             console.error('외부 IP 주소를 가져오는 중 오류 발생:', error);
         }
