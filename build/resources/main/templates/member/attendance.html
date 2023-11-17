@@ -581,18 +581,10 @@
                     stop.disabled = true;
             }
             });
-            //click clear button
-            // document.getElementById("clear").addEventListener("click", function(){
-            //     stop();
-            //     document.getElementById("micro").innerText = "00";
-            //     document.getElementById("sec").innerText = "00";
-            //     document.getElementById("min").innerText = "00";
-            //     document.getElementById("hour").innerText = "00";
-            // });
         }
     async function getExternalIp() {
         try {
-            const response = await fetch('https://ipinfo.io/json');
+            const response = await fetch('/attendance/getIp');
             const data = await response.json();
             const ipAddress = data.ip;
             console.log('클라이언트 외부 IP 주소:', ipAddress);

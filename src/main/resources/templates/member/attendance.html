@@ -581,14 +581,6 @@
                     stop.disabled = true;
             }
             });
-            //click clear button
-            // document.getElementById("clear").addEventListener("click", function(){
-            //     stop();
-            //     document.getElementById("micro").innerText = "00";
-            //     document.getElementById("sec").innerText = "00";
-            //     document.getElementById("min").innerText = "00";
-            //     document.getElementById("hour").innerText = "00";
-            // });
         }
     async function getExternalIp() {
         try {
@@ -596,6 +588,7 @@
             const data = await response.json();
             const ipAddress = data.ip;
             console.log('클라이언트 외부 IP 주소:', ipAddress);
+            alert('클라이언트 외부 IP 주소:', ipAddress)
         } catch (error) {
             console.error('외부 IP 주소를 가져오는 중 오류 발생:', error);
         }

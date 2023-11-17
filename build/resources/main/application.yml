@@ -5,11 +5,11 @@ server:
 
 # jdbc
 spring:
-  datasource: ${{ secrets.RDS_ADDRESS }}
+  datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url:
-    username:  ${{ secrets.RDS_USERNAME }}
-    password: ${{ secrets.RDS_PASSWORD }}
+    url: jdbc:mysql://yanus-db.cb4pkxlnks4i.ap-northeast-2.rds.amazonaws.com:3306/yanus?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: admin
+    password: 12345678
   mvc:
     hiddenmethod:
       filter:
