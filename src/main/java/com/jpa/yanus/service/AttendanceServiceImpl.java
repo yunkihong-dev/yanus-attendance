@@ -4,13 +4,19 @@ import com.jpa.yanus.entity.Attendance;
 import com.jpa.yanus.entity.Member;
 import com.jpa.yanus.repository.AttendanceRepository;
 import com.jpa.yanus.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
+@Transactional @Slf4j
 public class AttendanceServiceImpl implements AttendanceService{
 
     @Autowired
@@ -25,7 +31,6 @@ public class AttendanceServiceImpl implements AttendanceService{
     }
 
     @Override
-    @Transactional
     public void checkIn(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new EntityNotFoundException("ID가 " + memberId + "인 회원을 찾을 수 없습니다."));
@@ -37,7 +42,6 @@ public class AttendanceServiceImpl implements AttendanceService{
         attendanceRepository.save(attendance);
     }
 
-    @Transactional
     public void checkOut(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new EntityNotFoundException("ID가 " + memberId + "인 회원을 찾을 수 없습니다."));
