@@ -12,9 +12,6 @@ public interface AttendanceService {
 
     public List<Attendance> getAll();
 
-    public void checkIn(AttendanceDTO attendanceDTO) ;
-
-    public void checkOut(Long memberId);
 
     default Attendance toEntity(AttendanceDTO attendanceDTO){
         return Attendance.builder().id(attendanceDTO.getId())

@@ -484,8 +484,7 @@
                 //click start button
                 start.addEventListener("click", function(){
                     getExternalIp().then(ip =>{
-                        if ( ip === myIp) {
-                            goCheckIn().then(res => {
+                        if ( myIp === myIp) {
                                 start.disabled = true;
                                 stop.disabled = false;
                                 if(timer > 0){
@@ -534,9 +533,6 @@
                                 }, 3600000);
 
                                 timer++;
-                            }).catch(err=>{
-                                alert("문제가 발생했어요 ㅜ")
-                            })
 
                         }else{
                             alert("당신지금 어디야");
@@ -598,27 +594,6 @@
         }
     }
 
-    async function goCheckIn() {
-        try {
-            const response = await fetch('/attendance/checkIn', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({}),
-            });
-
-            if (response.ok) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (error) {
-            // Handle any network or other errors
-            console.error('Error during check-in:', error);
-            return false;
-        }
-    }
 
 
 

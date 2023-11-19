@@ -31,28 +31,4 @@ public class AttendanceServiceImpl implements AttendanceService{
         return attendanceRepository.findAll();
     }
 
-    @Override
-    public void checkIn(AttendanceDTO attendanceDTO) {
-        Attendance attendance = Attendance.builder()
-                .checkInTime(attendanceDTO.getCheckInTime())
-                .checkOutTime(attendanceDTO.getCheckOutTime())
-                .member(attendanceDTO.getMember())
-                .build();
-
-        attendanceRepository.save(attendance);
-    }
-
-    public void checkOut(Long memberId) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new EntityNotFoundException("ID가 " + memberId + "인 회원을 찾을 수 없습니다."));
-
-        Attendance attendance = attendanceRepository.findTopByMemberOrderByIdDesc(member);
-
-        if (attendance == null || attendance.getCheckOutTime() != null) {
-            // 오류 처리 또는 예외 처리, 예를 들어 이미 체크아웃된 회원
-        }
-
-        attendance.setCheckOutTime(LocalDateTime.now());
-        attendanceRepository.save(attendance);
-    }
 }
