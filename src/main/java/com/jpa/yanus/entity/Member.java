@@ -1,5 +1,6 @@
 package com.jpa.yanus.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jpa.yanus.type.MemberType;
 import lombok.*;
 
@@ -20,6 +21,7 @@ public class Member {
     private MemberType memberType;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Attendance> attendances;
 
 

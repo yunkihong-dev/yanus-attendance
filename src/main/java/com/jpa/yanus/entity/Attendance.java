@@ -1,5 +1,6 @@
 package com.jpa.yanus.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class Attendance {
     @NotNull private LocalDateTime checkInTime;
     private LocalDateTime checkOutTime;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Member member;
 
 
