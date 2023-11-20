@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 
 @Entity @Getter
 @ToString @Setter
+@NoArgsConstructor
 @Table(name = "tbl_attendance")
 public class Attendance {
     @Id @GeneratedValue
@@ -21,5 +22,13 @@ public class Attendance {
     @JsonBackReference
     private Member member;
 
+
+    @Builder
+    public Attendance(Long id, LocalDateTime checkInTime,  LocalDateTime checkOutTime, Member member){
+        this.id = id;
+        this.checkInTime = checkInTime;
+        this.checkOutTime = checkOutTime;
+        this.member = member;
+    }
 
 }
