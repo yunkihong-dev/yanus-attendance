@@ -317,7 +317,7 @@
         </div>
         <div class="boxes">
             <div class="small-title">
-                <p>오늘 근로한 시간</p>
+                <p>팀원이 출근한 시간</p>
             </div>
             <div class="flex justify-contents-space-between " id="crews-div">
                 <div>
@@ -604,61 +604,68 @@
 
 
     document.getElementById("log-out").addEventListener('click',()=>{
-            let tf = confirm("로그아웃 하시겠습니까?");
-            if(tf){
-                window.location.href = '/member/logout';
-            }
-        })
+        let tf = confirm("로그아웃 하시겠습니까?");
+        if(tf){
+            window.location.href = '/member/logout';
+        }
+    })
 
 
-        const modalOpenButton = document.getElementById('modalOpenButton');
-        const modalCloseButton = document.getElementById('modalCloseButton');
-        const modal = document.getElementById('modalContainer');
+    const modalOpenButton = document.getElementById('modalOpenButton');
+    const modalCloseButton = document.getElementById('modalCloseButton');
+    const modal = document.getElementById('modalContainer');
+    const noWork = document.getElementById('noWork');
+    modalOpenButton.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    });
 
-        modalOpenButton.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-        });
-
-        modalCloseButton.addEventListener('click', () => {
+    modalCloseButton.addEventListener('click', (e) => {
+        e.preventDefault();
         modal.classList.add('hidden');
-        });
-        var context = document
-                .getElementById('myChart')
-                .getContext('2d');
-            var myChart = new Chart(context, {
-                type: 'doughnut', // 차트의 형태
-                data: { // 차트에 들어갈 데이터
-                    datasets: [
-                        { //데이터
-                            label: [
-                                '근무량',
-                                '남은근무'
-                            ], //차트 제목
-                            data: [
-                               a,100-a //x축 label에 대응되는 데이터 값
-                            ],
-                            backgroundColor: [
-                                //색상
-                                '#00B4ED',
-                                '#5CD2E6'
-                            ],
-                            borderWidth: 0 //경계선 굵기
+
+    });
+
+    noWork.addEventListener('click',(e)=>{
+        e.preventDefault();
+    })
+
+    var context = document
+            .getElementById('myChart')
+            .getContext('2d');
+        var myChart = new Chart(context, {
+            type: 'doughnut', // 차트의 형태
+            data: { // 차트에 들어갈 데이터
+                datasets: [
+                    { //데이터
+                        label: [
+                            '근무량',
+                            '남은근무'
+                        ], //차트 제목
+                        data: [
+                           a,100-a //x축 label에 대응되는 데이터 값
+                        ],
+                        backgroundColor: [
+                            //색상
+                            '#00B4ED',
+                            '#5CD2E6'
+                        ],
+                        borderWidth: 0 //경계선 굵기
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true
+                            }
                         }
                     ]
-                },
-                options: {
-                    scales: {
-                        yAxes: [
-                            {
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }
-                        ]
-                    }
                 }
-            });
-          
+            }
+        });
+
 </script>
 
 </html>
