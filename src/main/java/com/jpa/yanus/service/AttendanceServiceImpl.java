@@ -31,4 +31,20 @@ public class AttendanceServiceImpl implements AttendanceService{
         return attendanceRepository.findAll();
     }
 
+    @Override
+    public void getCheckIn(AttendanceDTO attendanceDTO) {
+        attendanceRepository.save(toEntity(attendanceDTO));
+    }
+
+    @Override
+    public void getCheckOut(AttendanceDTO attendanceDTO) {
+        attendanceRepository.save(toEntity(attendanceDTO));
+    }
+
+    @Override
+    public Attendance findMostRecentAttendanceByMember(Member member) {
+        return attendanceRepository.findMostRecentAttendanceByMember(member);
+    }
+
+
 }

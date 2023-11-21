@@ -484,7 +484,8 @@
                 //click start button
                 start.addEventListener("click", function(){
                     getExternalIp().then(ip =>{
-                        if ( myIp === myIp) {
+                        goCheckIn().then(ok=>{
+                            if ( myIp === myIp) {
                                 start.disabled = true;
                                 stop.disabled = false;
                                 if(timer > 0){
@@ -534,13 +535,17 @@
 
                                 timer++;
 
-                        }else{
-                            alert("당신지금 어디야");
-                        }
+                            }else{
+                                alert("당신지금 어디야");
+                            }
+                        }).catch(error=>{
+                            alert("출근하는데 문제가 생겼어요..\n에러는 : ",error)
+                        })
+
 
 
                         }).catch(err=>{
-                            alert("문제가 발생했어요");
+                            alert("ip를 받아오는데 문제가 발생했어요\n에러는 : ",err);
                     })
 
                     });
@@ -609,7 +614,35 @@
             window.location.href = '/member/logout';
         }
     })
+    async function goCheckIn() {
+        try {
+            const response = await fetch('/api/checkIn', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({}),
+            });
 
+            if (response.status === 404) {
+                // Handle NOT_FOUND response
+                return 'Member not found in the session';
+                // You can display an error message to the user or perform other actions
+            } else if (response.ok) {
+                // Handle successful response
+                return
+                // You can update the UI or perform other actions based on the response
+            } else {
+                // Handle other error responses
+                return 'Error during check-in' ;
+                // You can display an error message to the user or perform other actions
+            }
+        } catch (error) {
+            // Handle fetch error
+            return error;
+            // You can display an error message to the user or perform other actions
+        }
+    }
 
     const modalOpenButton = document.getElementById('modalOpenButton');
     const modalCloseButton = document.getElementById('modalCloseButton');

@@ -8,5 +8,5 @@ import java.util.List;
 public interface AttendanceQueryDSL {
     public List<Attendance> findAll();
 
-
+    public Attendance findMostRecentAttendanceByMember(Member member);
 }

@@ -21,6 +21,12 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL{
         return attendances;
     }
 
-
+    @Override
+    public Attendance findMostRecentAttendanceByMember(Member member) {
+        return query.selectFrom(attendance)
+                .where(attendance.member.eq(member))
+                .orderBy(attendance.checkInTime.desc())
+                .fetchFirst();
+    }
 
 }

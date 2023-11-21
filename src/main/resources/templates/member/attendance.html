@@ -484,7 +484,8 @@
                 //click start button
                 start.addEventListener("click", function(){
                     getExternalIp().then(ip =>{
-                        if ( myIp === myIp) {
+                        goCheckIn().then(ok=>{
+                            if ( myIp === myIp) {
                                 start.disabled = true;
                                 stop.disabled = false;
                                 if(timer > 0){
@@ -534,13 +535,17 @@
 
                                 timer++;
 
-                        }else{
-                            alert("당신지금 어디야");
-                        }
+                            }else{
+                                alert("당신지금 어디야");
+                            }
+                        }).catch(error=>{
+                            alert("출근하는데 문제가 생겼어요..\n에러는 : ",error)
+                        })
+
 
 
                         }).catch(err=>{
-                            alert("문제가 발생했어요");
+                            alert("ip를 받아오는데 문제가 발생했어요\n에러는 : ",err);
                     })
 
                     });
@@ -561,11 +566,15 @@
                             }
                             start.disabled = false;
                             stop.disabled = true;
-                            // 여기에 백엔드 코드
+
                         }else{
-                            //  여기에 백엔드 코드
-                            start.disabled = true;
-                            stop.disabled = false;
+                            goCheckOut().then(res =>{
+                                start.disabled = true;
+                            stop.disabled = false;}
+                            ).catch(err=>{
+                                alert("퇴근하는데 문제가 생겼어요..\n에러는 : ",err);
+                            })
+
                         }
                     }else{
                         document.getElementById("msg").innerText = "오늘의 할당량을 마치셨습니다!";
@@ -609,6 +618,58 @@
             window.location.href = '/member/logout';
         }
     })
+
+
+
+
+    async function goCheckIn() {
+        try {
+            const response = await fetch('/api/checkIn', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({}),
+            });
+
+            if (response.status === 404) {
+                return 'Member not found in the session';
+            } else if (response.ok) {
+                return response;
+            } else {
+                return 'Error during check-in' ;
+            }
+        } catch (error) {
+            return error;
+        }
+    }
+
+    async function goCheckOut(){
+        try{
+            const response = await fetch('/api/checkOut',{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({}),
+            });
+
+            if (response.status === 404) {
+                return 'Member not found in the session';
+            } else if (response.ok) {
+                return response;
+            } else {
+                return 'Error during check-in' ;
+            }
+        } catch (error) {
+            return error;
+        }
+    }
+
+
+
+
+
 
 
     const modalOpenButton = document.getElementById('modalOpenButton');
