@@ -566,11 +566,15 @@
                             }
                             start.disabled = false;
                             stop.disabled = true;
-                            // 여기에 백엔드 코드
+
                         }else{
-                            //  여기에 백엔드 코드
-                            start.disabled = true;
-                            stop.disabled = false;
+                            goCheckOut().then(res =>{
+                                start.disabled = true;
+                            stop.disabled = false;}
+                            ).catch(err=>{
+                                alert("퇴근하는데 문제가 생겼어요..\n에러는 : ",err);
+                            })
+
                         }
                     }else{
                         document.getElementById("msg").innerText = "오늘의 할당량을 마치셨습니다!";
@@ -614,6 +618,10 @@
             window.location.href = '/member/logout';
         }
     })
+
+
+
+
     async function goCheckIn() {
         try {
             const response = await fetch('/api/checkIn', {
@@ -625,24 +633,44 @@
             });
 
             if (response.status === 404) {
-                // Handle NOT_FOUND response
                 return 'Member not found in the session';
-                // You can display an error message to the user or perform other actions
             } else if (response.ok) {
-                // Handle successful response
-                return
-                // You can update the UI or perform other actions based on the response
+                return response;
             } else {
-                // Handle other error responses
                 return 'Error during check-in' ;
-                // You can display an error message to the user or perform other actions
             }
         } catch (error) {
-            // Handle fetch error
             return error;
-            // You can display an error message to the user or perform other actions
         }
     }
+
+    async function goCheckOut(){
+        try{
+            const response = await fetch('/api/checkOut',{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({}),
+            });
+
+            if (response.status === 404) {
+                return 'Member not found in the session';
+            } else if (response.ok) {
+                return response;
+            } else {
+                return 'Error during check-in' ;
+            }
+        } catch (error) {
+            return error;
+        }
+    }
+
+
+
+
+
+
 
     const modalOpenButton = document.getElementById('modalOpenButton');
     const modalCloseButton = document.getElementById('modalCloseButton');

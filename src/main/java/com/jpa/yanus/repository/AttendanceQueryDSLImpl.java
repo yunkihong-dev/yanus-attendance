@@ -3,12 +3,14 @@ package com.jpa.yanus.repository;
 import com.jpa.yanus.entity.Attendance;
 import com.jpa.yanus.entity.Member;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 import static com.jpa.yanus.entity.QAttendance.attendance;
 
+@Slf4j
 public class AttendanceQueryDSLImpl implements AttendanceQueryDSL{
 
 
@@ -23,10 +25,12 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL{
 
     @Override
     public Attendance findMostRecentAttendanceByMember(Member member) {
-        return query.selectFrom(attendance)
+        final Attendance foundAttendance = query.selectFrom(attendance)
                 .where(attendance.member.eq(member))
                 .orderBy(attendance.checkInTime.desc())
                 .fetchFirst();
+        log.info(foundAttendance.toString());
+        return foundAttendance;
     }
 
 }
