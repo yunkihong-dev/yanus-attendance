@@ -564,16 +564,15 @@
                             if(timer < 0){
                                 timer = 0;
                             }
+                            goCheckOut().then(res =>{
                             start.disabled = false;
                             stop.disabled = true;
-
-                        }else{
-                            goCheckOut().then(res =>{
-                                start.disabled = true;
-                            stop.disabled = false;}
-                            ).catch(err=>{
+                            }).catch(err=>{
                                 alert("퇴근하는데 문제가 생겼어요..\n에러는 : ",err);
                             })
+                        }else{
+                                start.disabled = true;
+                            stop.disabled = false;
 
                         }
                     }else{
@@ -587,8 +586,12 @@
                         if(timer < 0){
                             timer = 0;
                         }
+                        goCheckOut().then(res =>{
                         start.disabled = false;
                         stop.disabled = true;
+                        }).catch(err=>{
+                            alert("퇴근하는데 문제가 생겼어요..\n에러는 : ",err);
+                        })
                     }
                 });
             }

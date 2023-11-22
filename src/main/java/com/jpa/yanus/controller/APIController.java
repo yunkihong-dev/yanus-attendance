@@ -82,6 +82,7 @@ public class APIController {
             // 최근 출석 기록의 checkOutTime을 업데이트
             mostRecentAttendance.setCheckOutTime(currentDateTime);
 
+            log.info(mostRecentAttendance.toString());
             // attendanceService.getCheckOut 메서드가 AttendanceDTO를 기대하므로, toDTO 메서드를 사용하여 변환
             attendanceService.getCheckOut(attendanceService.toDTO(mostRecentAttendance));
 
