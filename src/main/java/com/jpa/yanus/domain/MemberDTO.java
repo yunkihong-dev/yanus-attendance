@@ -18,4 +18,5 @@ public class MemberDTO {
     private String memberId;
     private String memberPassword;
     private MemberType memberType;
+
 }

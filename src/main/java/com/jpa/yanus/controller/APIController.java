@@ -59,23 +59,21 @@ public class APIController {
 
 
     @PostMapping("checkOut")
-    public ResponseEntity<String> checkOut(@SessionAttribute(name = "id", required = false) Long memberId, AttendanceDTO attendanceDTO) {
+    public ResponseEntity<String> checkOut(@SessionAttribute(name = "id", required = false) Long memberId) {
         try {
             if (memberId == null) {
                 // memberId가 세션에 없는 경우, 404 응답 반환
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("세션에서 회원을 찾을 수 없음");
             }
-
-            Member member = memberService.getMemberById(memberId)
-                    .orElseThrow(() -> new EntityNotFoundException("ID가 " + memberId + "인 회원을 찾을 수 없음"));
-
             // 회원의 최근 출석 기록을 찾음
-            Attendance mostRecentAttendance = attendanceService.findMostRecentAttendanceByMember(member);
+            AttendanceDTO mostRecentAttendance = attendanceService.toDTO(attendanceService.findMostRecentAttendanceByMember(memberId));
 
             if (mostRecentAttendance == null) {
                 // 회원의 출석 기록을 찾을 수 없는 경우
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("회원의 출석 기록을 찾을 수 없음");
             }
+
+            log.info(mostRecentAttendance.toString());
 
             LocalDateTime currentDateTime = LocalDateTime.now();
 
@@ -84,7 +82,7 @@ public class APIController {
 
             log.info(mostRecentAttendance.toString());
             // attendanceService.getCheckOut 메서드가 AttendanceDTO를 기대하므로, toDTO 메서드를 사용하여 변환
-            attendanceService.getCheckOut(attendanceService.toDTO(mostRecentAttendance));
+            attendanceService.getCheckOut(mostRecentAttendance);
 
             // 성공 응답 반환
             return ResponseEntity.ok("체크아웃 성공");
@@ -96,11 +94,6 @@ public class APIController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("체크아웃 중 오류 발생");
         }
     }
-
-
-
-
-
 
 
 }

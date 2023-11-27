@@ -5,20 +5,21 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity @Getter
-@ToString @Setter
+@ToString(exclude = "member")@Setter
 @NoArgsConstructor
 @Table(name = "tbl_attendance")
 public class Attendance {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
     @NotNull private LocalDateTime checkInTime;
     private LocalDateTime checkOutTime;
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     @JsonBackReference
     private Member member;
 

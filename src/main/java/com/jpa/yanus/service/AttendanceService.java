@@ -16,7 +16,7 @@ public interface AttendanceService {
 
     public void getCheckOut(AttendanceDTO attendanceDTO);
 
-    public Attendance findMostRecentAttendanceByMember(Member member);
+    public Attendance findMostRecentAttendanceByMember(Long memberId);
 
     default Attendance toEntity(AttendanceDTO attendanceDTO){
         return Attendance.builder().id(attendanceDTO.getId())

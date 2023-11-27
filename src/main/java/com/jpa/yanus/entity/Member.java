@@ -6,7 +6,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-@Entity @ToString
+
+@Entity @ToString(exclude = "attendances")
 @Getter @Setter
 @NoArgsConstructor
 @Table(name = "tbl_member")
@@ -20,7 +21,7 @@ public class Member {
     private String memberPassword;
     private MemberType memberType;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<Attendance> attendances;
 

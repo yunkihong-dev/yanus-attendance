@@ -42,8 +42,8 @@ public class AttendanceServiceImpl implements AttendanceService{
     }
 
     @Override
-    public Attendance findMostRecentAttendanceByMember(Member member) {
-        return attendanceRepository.findMostRecentAttendanceByMember(member);
+    public Attendance findMostRecentAttendanceByMember(Long memberId) {
+        return attendanceRepository.findMostRecentAttendanceByMember(memberId);
     }
 
 
