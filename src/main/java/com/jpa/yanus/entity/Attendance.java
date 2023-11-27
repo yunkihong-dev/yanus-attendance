@@ -8,11 +8,11 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity @Getter
-@ToString(exclude = "member")@Setter
+@ToString @Setter
 @NoArgsConstructor
 @Table(name = "tbl_attendance")
 public class Attendance {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @EqualsAndHashCode.Include
     private Long id;
     @NotNull private LocalDateTime checkInTime;
