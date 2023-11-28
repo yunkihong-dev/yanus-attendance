@@ -19,6 +19,7 @@ public class Member {
     private String memberName;
     private String memberId;
     private String memberPassword;
+    private int memberTeamNum;
     private MemberType memberType;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)

@@ -30,6 +30,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath memberPassword = createString("memberPassword");
 
+    public final NumberPath<Integer> memberTeamNum = createNumber("memberTeamNum", Integer.class);
+
     public final EnumPath<com.jpa.yanus.type.MemberType> memberType = createEnum("memberType", com.jpa.yanus.type.MemberType.class);
 
     public QMember(String variable) {
