@@ -1,8 +1,6 @@
 package com.jpa.yanus.repository;
 
 import com.jpa.yanus.entity.Attendance;
-import com.jpa.yanus.entity.Member;
-import com.querydsl.core.NonUniqueResultException;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,7 @@ import static com.jpa.yanus.entity.QAttendance.attendance;
 @Slf4j
 @Repository
 
-public class AttendanceQueryDSLImpl implements AttendanceQueryDSL{
+public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
 
 
     @Autowired

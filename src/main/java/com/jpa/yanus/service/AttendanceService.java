@@ -1,9 +1,7 @@
 package com.jpa.yanus.service;
 
 import com.jpa.yanus.domain.AttendanceDTO;
-import com.jpa.yanus.domain.MemberDTO;
 import com.jpa.yanus.entity.Attendance;
-import com.jpa.yanus.entity.Member;
 
 import java.util.List;
 

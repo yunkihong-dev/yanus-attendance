@@ -180,7 +180,7 @@ header{
     #modalContainer.hidden {
         display: none;
     }
-    #modalContent *{
+    #modalContent *:not(.calendar-container, .calendar-container *){
         display: block  ;
         width: 100%;
         margin: 22px 0;

@@ -26,15 +26,20 @@ public class Member {
     @JsonManagedReference
     private List<Attendance> attendances;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<NoWork> noWorks;
+
 
     @Builder
-    public Member(Long id, String memberName, String memberId, String memberPassword, MemberType memberType, List<Attendance> attendances) {
+    public Member(Long id, String memberName, String memberId, String memberPassword, MemberType memberType, List<Attendance> attendances, List<NoWork> noWorks) {
         this.id = id;
         this.memberName = memberName;
         this.memberId = memberId;
         this.memberPassword = memberPassword;
         this.memberType = memberType;
         this.attendances = attendances;
+        this.noWorks = noWorks;
     }
 }
 

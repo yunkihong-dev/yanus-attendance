@@ -77,15 +77,13 @@
         <div class="width-fit-content center">
             <img src="/image/logo.png">
         </div>
-        
     </header>
     <div class="body-div">
-
         <div class="login-div center"  th:object="${member}" >
-            <form class="login-form width-fit-content center " th:action="@{/member/login/}" method="post">
-                <input th:field="*{memberId}" class="inputs" type="text"placeholder="아이디를 입력하세요">
-                <input th:field="*{memberPassword}" class="inputs" type="password" placeholder="비밀번호를 입력하세요">
-                <button class="login-btn border-none">로그인</button>
+                <form class="login-form width-fit-content center " th:action="@{/member/login/}" method="post">
+                    <input th:field="*{memberId}" class="inputs" type="text"placeholder="아이디를 입력하세요">
+                    <input th:field="*{memberPassword}" class="inputs" type="password" placeholder="비밀번호를 입력하세요">
+                    <button class="login-btn border-none">로그인</button>
             </form>
         </div>
     </div>

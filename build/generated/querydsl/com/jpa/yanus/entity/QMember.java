@@ -34,6 +34,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final EnumPath<com.jpa.yanus.type.MemberType> memberType = createEnum("memberType", com.jpa.yanus.type.MemberType.class);
 
+    public final ListPath<NoWork, QNoWork> noWorks = this.<NoWork, QNoWork>createList("noWorks", NoWork.class, QNoWork.class, PathInits.DIRECT2);
+
     public QMember(String variable) {
         super(Member.class, forVariable(variable));
     }

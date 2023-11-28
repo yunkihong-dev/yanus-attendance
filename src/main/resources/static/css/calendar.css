@@ -34,9 +34,13 @@
     background-color: #f0f0f0;
 }
 .selected {
-    background-color: #6c5ce7;
+    background-color: #5CD2E6;
     color: white;
 }
+.selected:hover{
+
+    background-color: #acf4ff !important;
+}
 .today {
-    border: 2px solid #6c5ce7;
+    border: 2px solid #5CD2E6;
 }

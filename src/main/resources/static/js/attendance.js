@@ -175,7 +175,7 @@ async function goCheckIn() {
         });
 
         if (response.status === 404) {
-            return 'Member not found in the session';
+            alert("세션이 종료되었습니다. 다시 로그인해주세요")
         } else if (response.ok) {
             return response;
         } else {
@@ -197,7 +197,7 @@ async function goCheckOut(){
         });
 
         if (response.status === 404) {
-            return 'Member not found in the session';
+            alert('세션이 종료되었습니다. 다시 로그인해주세요');
         } else if (response.ok) {
             return response;
         } else {
@@ -208,11 +208,48 @@ async function goCheckOut(){
     }
 }
 
+document.getElementById('noWork').addEventListener('click', async (e) => {
+    e.preventDefault();
+
+    // 선택된 범주 값을 가져오기
+    const categorySelect = document.getElementById('categorySelect');
+    const selectedCategory = categorySelect.options[categorySelect.selectedIndex].value;
+
+    // 입력된 텍스트 가져오기
+    const detailTextarea = document.getElementById('detailTextarea');
+    const detailText = detailTextarea.value;
+
+    console.log(selectedDateInput.value);
+    try {
+        const response = await fetch('/api/noWork', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                category: selectedCategory,
+                detail: detailText,
+                selectedDate: selectedDateInput.value
+            }),
+        });
+
+        if (response.status === 404) {
+            alert('세션이 종료되었습니다. 다시 로그인해주세요');
+        } else if (response.ok) {
+            return response;
+        } else {
+            alert("오류입니다");
+        }
+    } catch (error) {
+        return error;
+    }
+});
+
+
 
 const modalOpenButton = document.getElementById('modalOpenButton');
 const modalCloseButton = document.getElementById('modalCloseButton');
 const modal = document.getElementById('modalContainer');
-const noWork = document.getElementById('noWork');
 modalOpenButton.addEventListener('click', () => {
     modal.classList.remove('hidden');
 });
@@ -223,9 +260,6 @@ modalCloseButton.addEventListener('click', (e) => {
 
 });
 
-noWork.addEventListener('click',(e)=>{
-    e.preventDefault();
-})
 
 var context = document
     .getElementById('myChart')

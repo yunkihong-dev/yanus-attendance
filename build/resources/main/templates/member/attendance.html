@@ -8,7 +8,6 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--    <link rel="stylesheet" href="/css/.css">-->
     <title>근태관리</title>
 </head>
 <body>
@@ -175,18 +174,19 @@
                 <span id="next-month">&gt;</span>
             </div>
             <div class="calendar-body">
-                <!-- JavaScript will generate the calendar days here -->
+<!--                 JavaScript will generate the calendar days here -->
             </div>
         </div>
         <div class="selectBox">
-            <select class="select">
+            <select id="categorySelect" class="select">
                 <option disabled selected>범주</option>
                 <option value="알바">알바</option>
                 <option value="병가">병가</option>
                 <option value="기타">기타</option>
             </select>
         </div>
-        <textarea name="" id="" cols="30" rows="10" placeholder="필요시 사유를 자세히 작성해주세요"></textarea>
+        <textarea name="detail" id="detailTextarea" cols="30" rows="10" placeholder="필요시 사유를 자세히 작성해주세요"></textarea>
+        <input type="hidden" id="selected-date" name="date">
         <button class="btns" id="noWork">제출</button>
         <button class="btns" id="modalCloseButton">닫기</button>
     </form>
@@ -199,7 +199,6 @@
 <script type="application/javascript" th:inline="javascript">
 
     let member = [[${member}]];
-
 
 </script>
 

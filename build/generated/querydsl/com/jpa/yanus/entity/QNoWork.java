@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,6 +18,8 @@ public class QNoWork extends EntityPathBase<NoWork> {
 
     private static final long serialVersionUID = 1280891923L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QNoWork noWork = new QNoWork("noWork");
 
     public final StringPath category = createString("category");
@@ -25,18 +28,31 @@ public class QNoWork extends EntityPathBase<NoWork> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final QMember member;
+
+    public final DatePath<java.time.LocalDate> selectedDate = createDate("selectedDate", java.time.LocalDate.class);
+
     public final DatePath<java.time.LocalDate> uploadDate = createDate("uploadDate", java.time.LocalDate.class);
 
     public QNoWork(String variable) {
-        super(NoWork.class, forVariable(variable));
+        this(NoWork.class, forVariable(variable), INITS);
     }
 
     public QNoWork(Path<? extends NoWork> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QNoWork(PathMetadata metadata) {
-        super(NoWork.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QNoWork(PathMetadata metadata, PathInits inits) {
+        this(NoWork.class, metadata, inits);
+    }
+
+    public QNoWork(Class<? extends NoWork> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
     }
 
 }
