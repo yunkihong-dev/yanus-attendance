@@ -207,7 +207,9 @@ async function goCheckOut(){
         return error;
     }
 }
-
+document.getElementById("go-admin-btn").addEventListener('click', ()=>{
+   location.href='/admin/adminpage';
+});
 document.getElementById('noWork').addEventListener('click', async (e) => {
     e.preventDefault();
 

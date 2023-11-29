@@ -15,6 +15,9 @@
     <div class="width-fit-content center">
         <img src="/image/logo.png">
     </div>
+    <div  th:if="(member.memberType().toString().equals('ADMIN'))" id="go-admin-btn" >
+        <label>관리자페이지로 이동</label>
+    </div>
     <div id="log-out">
 
         <label>로그아웃</label>

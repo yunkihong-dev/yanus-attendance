@@ -173,7 +173,6 @@ header{
     #modalContent {
         position: absolute;
         background-color: #5CD2E6;
-        width: 80%;
         padding: 15px;
     }
 
@@ -187,6 +186,12 @@ header{
     }
     #modalContainer .btns{
         height:70px
+    }
+    #modalContent {
+        position: absolute;
+        background-color: #5CD2E6;
+        width: 80% !important;
+        padding: 15px;
     }
 
 }
@@ -271,4 +276,16 @@ th:last-child{
 td:last-child{
     width: 50%;
 }
-
+#go-admin-btn{
+    cursor: pointer;
+    position: absolute;
+    right: 119px;
+    top: 30px;
+    border: 1px solid #000000;
+    border-radius: 30px;
+    padding: 8px;
+    background-color: #5CD2E6;
+}
+#go-admin-btn :hover{
+    filter:  brightness(90%);
+}

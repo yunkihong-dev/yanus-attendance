@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/image/logo.png"/>
+    <link rel="stylesheet" href="/css/adminpage.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>관리자페이지</title>
+</head>
+<body>
+    <header>
+        <div class="width-fit-content center">
+            <img src="/image/logo.png">
+        </div>
+        <div id="toggle-switch-div">
+            <label for="toggle" class="toggleSwitch">
+                <span id="toggle" class="toggleButton">학기중</span>
+              </label>
+        </div>
+        <div id="log-out">
+            
+         <p> 관리자님, 반갑습니다!</p>
+        </div>
+
+        <div class="width-100p bar">
+            <label id="category">관리자 페이지</label>
+        </div>
+    </header>
+
+    <div>
+        <div class="flex justify-contents-space-between boxes" >
+            <div class="small-title" id="first-title">
+                <p>회원정보</p>
+            </div>
+            <div class="flex">
+                <button class="btns small-title">회원 삭제</button>
+                <button class="btns small-title">관리자로 전환</button>
+            </div>
+        </div>
+        <div class="boxes tableDiv">
+            <table class="width-90p" >
+                <thead>
+                    <tr>
+                        <th><input name="members" value="selectAll" onclick="selectAll(this)" type="checkbox"></th>
+                        <th>회원구분</th>
+                        <th>이름</th>
+                        <th>소속 팀</th>
+                        <th>상태</th>
+                        <th>출근 시간</th>
+                        <th>퇴근 시간</th>
+                        <th>금주 의무출근 시간</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input name="members" type="checkbox"></td>
+                        <td>ADMIN</td>
+                        <td>홍길동</td>
+                        <td>1팀</td>
+                        <td>출근</td>
+                        <td>17:00:00</td>
+                        <td>--:--:--</td>
+                        <td>30%</td>
+                    </tr>
+                   
+    
+                </tbody>
+               
+            </table>
+            <button class="center btns show-more-btn" >더보기</button>
+        </div>
+    </div>
+
+
+</body>
+<script src="/js/adminpage.js"></script>
+<script type="application/javascript" th:inline="javascript">
+
+    let member = [[${member}]];
+
+</script>
+
+</html>
