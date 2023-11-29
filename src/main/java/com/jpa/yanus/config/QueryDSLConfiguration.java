@@ -1,4 +1,4 @@
-package com.jpa.yanus;
+package com.jpa.yanus.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;

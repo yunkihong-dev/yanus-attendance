@@ -1,4 +1,4 @@
-package com.jpa.yanus;
+package com.jpa.yanus.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ public class SessionListener implements HttpSessionListener {
 
     public void sessionCreated(HttpSessionEvent se) {
 
-        se.getSession().setMaxInactiveInterval(60*60*10); //세션만료60분
+        se.getSession().setMaxInactiveInterval(60*60*24); //세션만료60분
 
     }
 
