@@ -26,3 +26,10 @@ document.getElementById("log-out").addEventListener('click', () => {
         window.location.href = '/member/logout';
     }
 })
+document.getElementById('logout-text').addEventListener('mouseover', function () {
+    this.textContent = '로그아웃?';
+});
+
+document.getElementById('logout-text').addEventListener('mouseout', function () {
+    this.textContent = ' 관리자님, 반갑습니다!';
+});
