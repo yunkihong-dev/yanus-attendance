@@ -235,6 +235,7 @@ document.getElementById('noWork').addEventListener('click', async (e) => {
 
         if (response.status === 404) {
             alert('세션이 종료되었습니다. 다시 로그인해주세요');
+            window.location == '/member/login'
         } else if (response.ok) {
             return response;
         } else {
