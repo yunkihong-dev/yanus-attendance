@@ -154,14 +154,6 @@ document.getElementById("log-out").addEventListener('click', () => {
 
 
 
-document.getElementById("log-out").addEventListener('click',()=>{
-    let tf = confirm("로그아웃 하시겠습니까?");
-    if(tf){
-        window.location.href = '/member/logout';
-    }
-})
-
-
 
 
 async function goCheckIn() {
@@ -207,9 +199,6 @@ async function goCheckOut(){
         return error;
     }
 }
-document.getElementById("go-admin-btn").addEventListener('click', ()=>{
-   location.href='/admin/adminpage';
-});
 document.getElementById('noWork').addEventListener('click', async (e) => {
     e.preventDefault();
 
