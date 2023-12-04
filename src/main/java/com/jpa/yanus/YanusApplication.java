@@ -13,16 +13,4 @@ public class YanusApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(YanusApplication.class, args);
 	}
-	@Bean
-
-	public SessionListener httpSessionListener(){
-
-		return new SessionListener() {
-			@Override
-			public void sessionEvent(SessionEvent event) {
-
-			}
-		};
-
-	}
 }

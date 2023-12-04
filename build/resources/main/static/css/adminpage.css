@@ -22,6 +22,7 @@ header{
     filter: brightness(90%);
 }
 
+
 #toggle-switch-div{
     position: absolute;
     top: 0;
@@ -31,7 +32,6 @@ header{
     width: 100px;
     margin: 30px;
     height: 35px;
-    display: block;
     position: relative;
     border-radius: 30px;
     background-color: #E9E9E9;
@@ -130,14 +130,14 @@ header{
 }
 table th{
     border-bottom: 1px solid gray;
-    padding:13px;
+    padding:13px 0;
 }
 table, th, td{
     border-collapse: collapse;
 }
 td{
     border-top: 1px solid gray;
-    padding: 13px;
+    padding: 13px 0;
 }
 table{
     text-align: center;
