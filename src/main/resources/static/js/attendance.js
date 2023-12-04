@@ -178,6 +178,7 @@ async function goCheckIn() {
     }
 }
 
+
 async function goCheckOut(){
     try{
         const response = await fetch('/api/checkOut',{
