@@ -9,9 +9,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://yanus-db.cb4pkxlnks4i.ap-northeast-2.rds.amazonaws.com:3306/yanus?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: admin
-    password: 12345678
+    url:  ${{ secrets.RDS_ADDRESS }}
+    username: ${{ secrets.RDS_USERNAME }}
+    password: ${{ secrets.RDS_PASSWORD }}
   mvc:
     hiddenmethod:
       filter:
