@@ -1,6 +1,6 @@
 # server
 server:
-  port: 10001
+  port: 80
   servlet:
     session:
       timeout: 86400 # 세션 타임아웃을 초 단위로 설정 (24시간)

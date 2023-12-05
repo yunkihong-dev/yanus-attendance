@@ -294,7 +294,13 @@ td:last-child{
     border-radius: 30px;
     padding: 8px;
     background-color: #5CD2E6;
+    color: black; /* 텍스트 색상을 검정색으로 변경 */
+    text-decoration: none; /* 밑줄을 없앰 */
 }
 #go-admin-btn:hover{
     filter:  brightness(90%);
+}
+a{
+    color: black; /* 텍스트 색상을 검정색으로 변경 */
+    text-decoration: none; /* 밑줄을 없앰 */
 }

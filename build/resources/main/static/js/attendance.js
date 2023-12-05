@@ -155,7 +155,7 @@ document.getElementById("log-out").addEventListener('click', () => {
 
 
 
-
+// 출근 로직
 async function goCheckIn() {
     try {
         const response = await fetch('/api/checkIn', {
@@ -178,6 +178,7 @@ async function goCheckIn() {
     }
 }
 
+// 퇴근 로직
 async function goCheckOut(){
     try{
         const response = await fetch('/api/checkOut',{

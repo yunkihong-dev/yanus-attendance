@@ -49,7 +49,7 @@ jobs:
         run: sudo docker stop $(sudo docker ps -q) 2>/dev/null || true
 
       - name: docker run new container
-        run: sudo docker run --name my-app-container --rm -d -p 10001:10001 ${{ secrets.DOCKERHUB_USERNAME }}/testforcicd
+        run: sudo docker run --name my-app-container --rm -d -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/testforcicd
 
       - name: delete old docker image
         run: sudo docker system prune -f
