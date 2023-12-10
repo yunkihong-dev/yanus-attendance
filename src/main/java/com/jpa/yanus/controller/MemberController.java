@@ -26,7 +26,11 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("login")
-    public void login(Model model){ model.addAttribute("member", new MemberDTO());}
+    public void login(Model model){
+
+
+
+        model.addAttribute("member", new MemberDTO());}
 
     @PostMapping("login")
     public RedirectView login(Member member, HttpSession httpSession, HttpServletRequest request){
