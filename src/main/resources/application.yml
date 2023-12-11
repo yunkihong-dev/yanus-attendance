@@ -1,32 +1,33 @@
-#server
+# server
 server:
   port: 80
   servlet:
     session:
       timeout: 86400 # 세션 타임아웃을 초 단위로 설정 (24시간)
-#jdbc
+
+# jdbc
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/YANUSTEST?useSSL=false&serverTimezone=UTC
-    username: root
+    url: jdbc:mysql://yanus-db.cb4pkxlnks4i.ap-northeast-2.rds.amazonaws.com:3306/yanus?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: admin
     password: 12345678
   mvc:
     hiddenmethod:
       filter:
         enabled: true
-  #jpa
+  # jpa
   jpa:
     hibernate:
       ddl-auto: update
 
-    #jpa format
+    # jpa format
     properties:
       hibernate:
         format_sql: true
     show-sql: true
 
-  #log
+  # log
   output:
     ansi:
       enabled: always
