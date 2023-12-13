@@ -2,81 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleag.org">
 <head>
     <link rel="icon" href="/image/logo.png"/>
+    <link rel="stylesheet" href="/image/login.css">
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>로그인</title>
-
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        body{
-            background-color: #5CD2E6;
-        }
-        header{
-            width: 100%;
-        }
-        .center{
-            margin: 0 auto;
-        }
-        .width-fit-content{
-            width: fit-content;
-        }
-        .border-none{
-            border:none;
-        }
-        .login-form *{
-            display: block;
-        }
-        .inputs{
-            border: 1px solid #A9A9A9;
-            padding: 10px;
-            margin: 10px;
-            width: 300px;
-            height: 40px;
-            font-size: 15px;
-        }
-        .inputs:focus{
-            border: 1px solid #39DD00;
-            outline: none;
-        }
-        .body-div{
-            width: 100%;
-        }
-        .login-div{
-            width: 400px;
-            height: 300px;
-            border-radius: 60px;
-            background-color: #E9E9E9;
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            margin: 0 auto;
-        }
-       
-        .login-btn{
-            margin: 10px auto ;
-            padding: 15px;
-            font-size: 20px;
-            width: 55%;
-            height: 70px;
-            background-color: #00B4ED;
-            border-radius: 25px;
-        }
-        .login-form{
-           height: fit-content;
-        }
-
-    </style>
 </head>
 <body>
     <header>
-        <div class="width-fit-content center">
+        <a class="width-fit-content center block" href="/">
             <img src="/image/logo.png">
-        </div>
+        </a>
     </header>
     <div class="body-div">
         <div class="login-div center"  th:object="${member}" >
@@ -88,8 +25,4 @@
         </div>
     </div>
 </body>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script>
-
-</script>
 </html>

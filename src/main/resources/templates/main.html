@@ -1,72 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/image/logo.png"/>
+    <link rel="stylesheet" href="/css/main.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #5CD2E6;
-            color: #333;
-        }
-
-        header {
-            background-color: #FFF;
-            padding: 1em;
-            text-align: center;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        h1 {
-            margin: 0;
-        }
-
-        button {
-            padding: 0.5em 1em;
-            font-size: 16px;
-            background-color: #333;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #555;
-        }
-
-        section {
-            max-width: 800px;
-            margin: 2em auto;
-            padding: 1em;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-        }
-
-        footer {
-            background-color: #FFF;
-            padding: 1em;
-            text-align: center;
-        }
-
-        /* 추가된 스타일 */
-        .login-button {
-            background-color: #007BFF;
-            margin-left: 10px;
-        }
-    </style>
+    <title>메인페이지</title>
 </head>
 <body>
 <header>
+
     <h1>Welcome to Our Website</h1>
-    <a href="/member/login" class="login-button">
+    <a href="/member/login" class="login-button" th:if="${member == null}">
         <button>Login</button>
+    </a>
+    <!-- 출근하러가기 버튼, member 객체가 존재하면 보여줌 -->
+    <a href="/member/attendance" class="work-button" th:if="${member != null}">
+        <button>출근하러가기</button>
+    </a>
+    <a href="/member/logout" class="work-button" th:if="${member != null}">
+        <button>로그아웃</button>
     </a>
 </header>
 

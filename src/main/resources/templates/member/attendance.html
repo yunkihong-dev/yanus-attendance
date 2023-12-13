@@ -12,9 +12,9 @@
 </head>
 <body>
 <header>
-    <div class="width-fit-content center">
+    <a class="width-fit-content center block" href="/">
         <img src="/image/logo.png">
-    </div>
+    </a>
     <div th:if="${member.memberType.toString() == 'ADMIN'}"  id="go-admin-btn">
         <a href="/admin/adminpage">
             <label>관리자페이지로 이동</label>

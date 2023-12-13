@@ -304,3 +304,6 @@ a{
     color: black; /* 텍스트 색상을 검정색으로 변경 */
     text-decoration: none; /* 밑줄을 없앰 */
 }
+.block{
+    display: block;
+}
