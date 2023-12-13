@@ -7,8 +7,7 @@ server:
 
 # jdbc
 
-#로컬용
-
+#로컬 테스트용
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -17,7 +16,6 @@ spring:
     password: 12345678
 
 # 배포용
-
 #spring:
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
