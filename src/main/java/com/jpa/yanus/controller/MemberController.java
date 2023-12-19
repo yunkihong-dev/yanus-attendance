@@ -26,11 +26,18 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("login")
-    public void login(Model model){
+    public String login(Model model, HttpServletRequest request) {
+        HttpSession httpSession = request.getSession(false);
 
+        // 세션이 null이거나 세션의 "id" 속성이 null인 경우 로그인 페이지로 이동
+        if (httpSession == null || httpSession.getAttribute("id") == null) {
+            model.addAttribute("member", new MemberDTO());
+            return "member/login";  // 리디렉션 대신 뷰 이름 직접 반환
+        } else {
+            return "redirect:/";  // 이미 로그인된 사용자는 메인 페이지로 리디렉션
+        }
+    }
 
-
-        model.addAttribute("member", new MemberDTO());}
 
     @PostMapping("login")
     public RedirectView login(Member member, HttpSession httpSession, HttpServletRequest request){
@@ -48,12 +55,30 @@ public class MemberController {
 
     }
     @GetMapping("attendance")
-    public void attendance(@SessionAttribute(name = "id", required = false) Long id,Model model){
-        log.info(id.toString());
-        Member member = memberService.getMemberById(id).get();
+    public String attendance(Model model, HttpServletRequest request) {
+        HttpSession httpSession = request.getSession(false);
 
-        model.addAttribute("member",member);
+        // 세션이 null인 경우 로그인 페이지로 리디렉션
+        if (httpSession == null) {
+            return "redirect:/member/login";
+        }
+
+        Long id = (Long) httpSession.getAttribute("id");
+
+        // id가 null인 경우 로그인 페이지로 리디렉션
+        if (id == null) {
+            return "redirect:/member/login";
+        }
+
+        Optional<Member> member = memberService.getMemberById(id);
+        if (member.isPresent()) {
+            model.addAttribute("member", member.get());
+            return "member/attendance"; // 직접 뷰 이름 반환
+        } else {
+            return "redirect:/member/login";
+        }
     }
+
 
     @GetMapping("logout")
     public RedirectView logout(HttpSession session){

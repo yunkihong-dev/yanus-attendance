@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(NoProductException.class)
-    protected RedirectView handleViewProductException(NoProductException noProductException){
+    @ExceptionHandler(value = {Exception.class})
+    protected RedirectView handleViewProductException(Exception e, HttpServletRequest request){
         return new RedirectView("/error/500");
     }
 }
