@@ -15,7 +15,6 @@ server:
 #    username: root
 #    password: 12345678
 
-
 # 배포용
 spring:
   datasource:
