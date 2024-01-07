@@ -51,9 +51,17 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
         LocalDateTime endOfToday = today.plusDays(1).atStartOfDay();
 
         QAttendance attendance = QAttendance.attendance;
+        QAttendance subAttendance = new QAttendance("subAttendance");
         QMember member = QMember.member;
 
-        // QueryDSL을 사용하여 쿼리를 작성합니다.
+        // 각 회원별 최초 출근 시간 찾기
+        JPQLQuery<LocalDateTime> subQuery = JPAExpressions
+                .select(subAttendance.checkInTime.min())
+                .from(subAttendance)
+                .where(subAttendance.member.id.eq(member.id)
+                        .and(subAttendance.checkInTime.between(startOfToday, endOfToday)));
+
+        // 서브쿼리를 사용하여 각 회원별 최초 출근 기록만 가져오기
         return query
                 .select(Projections.constructor(AttendanceMemberJoinDTO.class,
                         attendance.id,
@@ -64,7 +72,7 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
                 .from(attendance)
                 .join(attendance.member, member)
                 .where(member.memberTeamNum.eq(memberTeamNum)
-                        .and(attendance.checkInTime.between(startOfToday, endOfToday)))
+                        .and(attendance.checkInTime.eq(subQuery)))
                 .orderBy(attendance.checkInTime.asc())
                 .fetch();
     }
