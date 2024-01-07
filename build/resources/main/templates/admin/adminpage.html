@@ -89,7 +89,7 @@
                     <td th:text="${attendanceList.memberTeamNum}">1팀</td>
                     <td th:if="${attendanceList}">출근</td>
                     <td th:text="${attendanceList.formattedCheckInTime}">17:00:00</td>
-                    <td th:if="${attendanceList.formattedCheckInTime == attendanceList.formattedCheckOutTime}" th:text="--:--:--"></td>
+                    <td th:if="${attendanceList.formattedCheckInTime == attendanceList.formattedCheckOutTime}">--:--:--</td>
                     <td th:if="${attendanceList.formattedCheckInTime != attendanceList.formattedCheckOutTime}" th:text="${attendanceList.formattedCheckOutTime}"></td>
                 </tr>
                 </tbody>
