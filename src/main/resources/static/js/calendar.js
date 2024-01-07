@@ -37,7 +37,7 @@ function selectDate(day, element) {
     }
     selectedDate = element;
     element.classList.add('selected');
-    selectedDateInput.value = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${day}`;
+    selectedDateInput.value = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1)<10? "0"+(currentDate.getMonth() + 1):(currentDate.getMonth() + 1) }-${ day < 10 ? ( "0" + day ) : day }`;
 }
 
 // Event listeners for the previous and next buttons

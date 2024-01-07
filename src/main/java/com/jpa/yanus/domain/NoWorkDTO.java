@@ -1,5 +1,6 @@
 package com.jpa.yanus.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jpa.yanus.entity.Member;
 import lombok.*;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ public class NoWorkDTO {
     private Long id;
     private String category;
     private String detail;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate selectedDate;
     private LocalDate uploadDate;
     private Member member;
