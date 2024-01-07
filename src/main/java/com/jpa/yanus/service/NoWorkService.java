@@ -3,8 +3,11 @@ package com.jpa.yanus.service;
 import com.jpa.yanus.domain.NoWorkDTO;
 import com.jpa.yanus.entity.NoWork;
 
+import java.util.List;
+
 public interface NoWorkService {
 
+    public List<NoWork> getAll();
 
 
     public void insertNoWork(NoWorkDTO noWorkDTO);

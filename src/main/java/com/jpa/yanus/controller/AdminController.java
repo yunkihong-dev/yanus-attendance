@@ -1,8 +1,13 @@
 package com.jpa.yanus.controller;
 
+import com.jpa.yanus.domain.AttendanceDTO;
+import com.jpa.yanus.domain.AttendanceMemberJoinDTO;
+import com.jpa.yanus.entity.Attendance;
 import com.jpa.yanus.entity.Member;
+import com.jpa.yanus.entity.NoWork;
 import com.jpa.yanus.service.AttendanceService;
 import com.jpa.yanus.service.MemberService;
+import com.jpa.yanus.service.NoWorkService;
 import com.jpa.yanus.type.MemberType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -28,6 +34,9 @@ public class AdminController {
 
     @Autowired
     private AttendanceService attendanceService;
+
+    @Autowired
+    private NoWorkService noWorkService;
 
     @GetMapping("adminpage")
     public String goAdmin(Model model, HttpServletRequest request) {
@@ -48,6 +57,25 @@ public class AdminController {
         Optional<Member> member = memberService.getMemberById(memberId);
         if (member.isPresent()) {
             if (member.get().getMemberType().equals(MemberType.ADMIN) || member.get().getMemberType().equals(MemberType.SUPERADMIN)) {
+
+                List<Member> memberList = memberService.getAllMembers();
+
+                model.addAttribute("memberList",memberList);
+
+                List<NoWork> noWorkList = noWorkService.getAll();
+
+                model.addAttribute("noWorkList",noWorkList);
+
+                if(member.get().getMemberType().equals(MemberType.SUPERADMIN)){
+                    List<AttendanceMemberJoinDTO> attendanceList = attendanceService.findAllAttendanceToday();
+                    model.addAttribute("attendanceList",attendanceList);
+
+                }else{
+                    List<AttendanceMemberJoinDTO> attendanceList = attendanceService.findMyTeamAttendanceToday(member.get().getMemberTeamNum());
+                    model.addAttribute("attendanceList",attendanceList);
+                }
+
+                model.addAttribute("member",member.get());
                 return "admin/adminpage";
             } else {
                 return "redirect:/";
@@ -57,8 +85,6 @@ public class AdminController {
         }
     }
 
-//    @PostMapping("getmymembersandnowork")
-//    public ResponseEntity<>
 
 
 

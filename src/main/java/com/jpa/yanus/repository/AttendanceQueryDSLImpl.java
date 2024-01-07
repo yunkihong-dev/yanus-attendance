@@ -1,11 +1,20 @@
 package com.jpa.yanus.repository;
 
+import com.jpa.yanus.domain.AttendanceMemberJoinDTO;
 import com.jpa.yanus.entity.Attendance;
+import com.jpa.yanus.entity.QAttendance;
+import com.jpa.yanus.entity.QMember;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import static com.jpa.yanus.entity.QAttendance.attendance;
@@ -34,5 +43,55 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
 
         return foundAttendance;
     }
+
+    @Override
+    public List<AttendanceMemberJoinDTO> findMostResentAttendanceByTeamNum(int memberTeamNum) {
+        LocalDate today = LocalDate.now();
+        LocalDateTime startOfToday = today.atStartOfDay();
+        LocalDateTime endOfToday = today.plusDays(1).atStartOfDay();
+
+        QAttendance attendance = QAttendance.attendance;
+        QMember member = QMember.member;
+
+        // QueryDSL을 사용하여 쿼리를 작성합니다.
+        return query
+                .select(Projections.constructor(AttendanceMemberJoinDTO.class,
+                        attendance.id,
+                        attendance.checkInTime,
+                        attendance.checkOutTime,
+                        member.memberName,
+                        member.memberTeamNum))
+                .from(attendance)
+                .join(attendance.member, member)
+                .where(member.memberTeamNum.eq(memberTeamNum)
+                        .and(attendance.checkInTime.between(startOfToday, endOfToday)))
+                .orderBy(attendance.checkInTime.asc())
+                .fetch();
+    }
+
+    @Override
+    public List<AttendanceMemberJoinDTO> findAllMostResentAttendance() {
+        LocalDate today = LocalDate.now();
+        LocalDateTime startOfToday = today.atStartOfDay();
+        LocalDateTime endOfToday = today.plusDays(1).atStartOfDay();
+
+        QAttendance attendance = QAttendance.attendance;
+        QMember member = QMember.member;
+
+        // QueryDSL을 사용하여 쿼리를 작성합니다.
+        return query
+                .select(Projections.constructor(AttendanceMemberJoinDTO.class,
+                        attendance.id,
+                        attendance.checkInTime,
+                        attendance.checkOutTime,
+                        member.memberName,
+                        member.memberTeamNum))
+                .from(attendance)
+                .join(attendance.member, member)
+                .where(attendance.checkInTime.between(startOfToday, endOfToday))
+                .orderBy(attendance.checkInTime.asc())
+                .fetch();
+    }
+
 
 }

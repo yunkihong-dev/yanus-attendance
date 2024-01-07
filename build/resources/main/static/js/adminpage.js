@@ -14,9 +14,9 @@ document.getElementById("log-out").addEventListener('click', () => {
     }
 })
 document.getElementById('logout-text').addEventListener('mouseover', function () {
-    this.textContent = '로그아웃?';
+    this.textContent = '로그아웃';
 });
 
 document.getElementById('logout-text').addEventListener('mouseout', function () {
-    this.textContent = ' 관리자님, 반갑습니다!';
+    this.textContent = member.memberName+ ' 관리자님, 반갑습니다!';
 });

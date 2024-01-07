@@ -22,51 +22,6 @@ header{
     filter: brightness(90%);
 }
 
-
-#toggle-switch-div{
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.toggleSwitch {
-    width: 100px;
-    margin: 30px;
-    height: 35px;
-    position: relative;
-    border-radius: 30px;
-    background-color: #E9E9E9;
-    box-shadow: 0 0 16px 3px rgba(0 0 0 / 15%);
-    cursor: pointer;
-    overflow: hidden;
-    display: flex;
-}
-
-.toggleSwitch .toggleButton {
-    width: 42px;
-    position: absolute;
-    top: 50%;
-    left: 0px;
-    transform: translateY(-50%);
-    border-radius: 40px;
-    background: #00ED18;
-    padding: 9px;
-
-}
-
-.toggleSwitch.active {
-    background: #00ED18;
-}
-
-.toggleSwitch.active .toggleButton {
-    left: calc(100% - 60px);
-    background: #fff !important;
-    color: black;
-    content: "방학중";
-}
-
-.toggleSwitch, .toggleButton {
-    transition: all 0.2s ease-in;
-}
 .center{
     margin: 0 auto;
 }
@@ -160,7 +115,6 @@ table{
 }
 #attendancediv{
     width: 66%;
-    margin-top: 20px;
 }
 #members{
     justify-content: space-around;
@@ -173,4 +127,7 @@ td:last-child{
 }
 #noWork-NoBtn{
     background-color: #FF6767;
+}
+.block{
+    display: block;
 }

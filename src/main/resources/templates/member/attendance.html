@@ -15,7 +15,7 @@
     <a class="width-fit-content center block" href="/">
         <img src="/image/logo.png">
     </a>
-    <div th:if="${member.memberType.toString() == 'ADMIN'}"  id="go-admin-btn">
+    <div th:if="${member.memberType.toString() == 'ADMIN' || member.memberType.toString() == 'SUPERADMIN'}"  id="go-admin-btn">
         <a href="/admin/adminpage">
             <label>관리자페이지로 이동</label>
         </a>

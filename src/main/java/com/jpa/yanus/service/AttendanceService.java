@@ -1,6 +1,7 @@
 package com.jpa.yanus.service;
 
 import com.jpa.yanus.domain.AttendanceDTO;
+import com.jpa.yanus.domain.AttendanceMemberJoinDTO;
 import com.jpa.yanus.entity.Attendance;
 
 import java.util.List;
@@ -15,6 +16,13 @@ public interface  AttendanceService {
     public void getCheckOut(AttendanceDTO attendanceDTO);
 
     public Attendance findMostRecentAttendanceByMember(Long memberId);
+
+    public List<AttendanceMemberJoinDTO> findMyTeamAttendanceToday(int memberTeamNum);
+
+    public List<AttendanceMemberJoinDTO> findAllAttendanceToday();
+
+
+
 
     default Attendance toEntity(AttendanceDTO attendanceDTO){
         return Attendance.builder().id(attendanceDTO.getId())

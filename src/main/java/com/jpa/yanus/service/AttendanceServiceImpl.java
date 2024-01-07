@@ -1,6 +1,7 @@
 package com.jpa.yanus.service;
 
 import com.jpa.yanus.domain.AttendanceDTO;
+import com.jpa.yanus.domain.AttendanceMemberJoinDTO;
 import com.jpa.yanus.entity.Attendance;
 import com.jpa.yanus.repository.AttendanceRepository;
 import com.jpa.yanus.repository.MemberRepository;
@@ -41,6 +42,16 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public Attendance findMostRecentAttendanceByMember(Long memberId) {
         return attendanceRepository.findMostRecentAttendanceByMember(memberId);
+    }
+
+    @Override
+    public List<AttendanceMemberJoinDTO> findMyTeamAttendanceToday(int memberTeamNum) {
+        return attendanceRepository.findMostResentAttendanceByTeamNum(memberTeamNum);
+    }
+
+    @Override
+    public List<AttendanceMemberJoinDTO> findAllAttendanceToday() {
+        return attendanceRepository.findAllMostResentAttendance();
     }
 
 

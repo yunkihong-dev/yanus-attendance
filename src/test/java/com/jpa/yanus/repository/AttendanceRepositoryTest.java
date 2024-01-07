@@ -1,6 +1,7 @@
 package com.jpa.yanus.repository;
 
 
+import com.jpa.yanus.domain.AttendanceMemberJoinDTO;
 import com.jpa.yanus.entity.Attendance;
 import com.jpa.yanus.entity.Member;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @SpringBootTest @Slf4j @Rollback(false) @Transactional
 public class AttendanceRepositoryTest {
@@ -24,4 +26,10 @@ public class AttendanceRepositoryTest {
         Attendance attendance =attendanceRepository.findMostRecentAttendanceByMember(1L);
         log.info(attendance.toString());
     }
+    @Test
+    public void findMostResentAttendanceByTeamNum(){
+        List<AttendanceMemberJoinDTO> attendancelist = attendanceRepository.findMostResentAttendanceByTeamNum(1);
+        log.info(attendancelist.toString());
+    }
+
 }

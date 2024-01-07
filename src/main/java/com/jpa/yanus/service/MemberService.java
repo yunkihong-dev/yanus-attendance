@@ -3,9 +3,11 @@ package com.jpa.yanus.service;
 import com.jpa.yanus.domain.MemberDTO;
 import com.jpa.yanus.entity.Member;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MemberService {
+    public List<Member> getAllMembers();
 
     public Optional<Member> getMember(String memberId, String memberPassword);
 

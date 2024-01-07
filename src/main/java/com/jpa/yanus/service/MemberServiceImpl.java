@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,6 +17,11 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
+
+    @Override
+    public List<Member> getAllMembers() {
+        return memberRepository.findAll();
+    }
 
     @Override
     public Optional<Member> getMember(String memberId, String memberPassword) {

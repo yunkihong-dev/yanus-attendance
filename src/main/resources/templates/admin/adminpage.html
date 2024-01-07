@@ -11,11 +11,11 @@
 </head>
 <body>
 <header>
-    <div class="width-fit-content center">
+    <a class="width-fit-content center block" href="/">
         <img src="/image/logo.png">
-    </div>
+    </a>
     <div id="log-out">
-        <p id="logout-text"> 관리자님, 반갑습니다!</p>
+        <p th:utext="${member.memberName}+ ' 관리자님, 반갑습니다!' " id="logout-text"></p>
     </div>
 
     <div class="width-100p bar">
@@ -45,11 +45,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
+                <tr th:each="memberList : ${memberList}">
                     <td><input name="members" type="checkbox"></td>
-                    <td>홍길동</td>
-                    <td>ADMIN</td>
-                    <td>1팀</td>
+                    <td th:text="${memberList.memberName}">이름</td>
+                    <td th:text="${memberList.memberTeamNum}+'팀'">소속팀</td>
+                    <td>
+                        <span th:if="${memberList.memberType.toString() == 'NORMAL'}">일반</span>
+                        <span th:if="${memberList.memberType.toString() == 'ADMIN'}">팀장</span>
+                        <span th:if="${memberList.memberType.toString() == 'SUPERADMIN'}">셀</span>
+                    </td>
+
                 </tr>
                 </tbody>
             </table>
@@ -57,28 +62,35 @@
         </div>
     </div>
     <div id="attendancediv">
+        <div class="flex justify-contents-space-between boxes" >
+            <div class="small-title" id="first-title">
+                <p>나의 팀 출근정보</p>
+            </div>
+            <div class="flex">
+                <button class="btns small-title">회원 삭제</button>
+                <button class="btns small-title">관리자로 전환</button>
+                <button class="btns small-title">팀 전환</button>
+            </div>
+        </div>
         <div class="boxes tableDiv">
             <table class="width-98p" >
                 <thead>
                 <tr>
-                    <th>회원구분</th>
                     <th>이름</th>
                     <th>소속 팀</th>
                     <th>상태</th>
                     <th>출근 시간</th>
                     <th>퇴근 시간</th>
-                    <th>금주 의무출근 시간</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>ADMIN</td>
-                    <td>홍길동</td>
-                    <td>1팀</td>
-                    <td>출근</td>
-                    <td>17:00:00</td>
-                    <td>--:--:--</td>
-                    <td>30%</td>
+                <tr th:each="attendanceList : ${attendanceList}">
+                    <td th:text="${attendanceList.memberName}">홍길동</td>
+                    <td th:text="${attendanceList.memberTeamNum}">1팀</td>
+                    <td th:if="${attendanceList}">출근</td>
+                    <td th:text="${attendanceList.formattedCheckInTime}">17:00:00</td>
+                    <td th:if="${attendanceList.formattedCheckInTime == attendanceList.formattedCheckOutTime}" th:text="--:--:--"></td>
+                    <td th:if="${attendanceList.formattedCheckInTime != attendanceList.formattedCheckOutTime}" th:text="${attendanceList.formattedCheckOutTime}"></td>
                 </tr>
                 </tbody>
 
@@ -135,7 +147,12 @@
 <script type="application/javascript" th:inline="javascript">
 
     let member = [[${member}]];
-
+    let noWorkList = [[${noWorkList}]];
+    let memberList = [[${memberList}]];
+    let attendanceList = [[${attendanceList}]];
+    console.log(noWorkList);
+    console.log(memberList);
+    console.log(attendanceList);
 </script>
 
 </html>
