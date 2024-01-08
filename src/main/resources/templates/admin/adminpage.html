@@ -46,7 +46,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="memberList, iterStat : ${memberList}" th:class="${iterStat.count > 5} ? 'hidden-member' : ''">
-                        <td><input name="members" type="checkbox"></td>
+                        <td><input th:value="memberList.id" name="members" type="checkbox"></td>
                         <td th:text="${memberList.memberName}">이름</td>
                         <td th:text="${memberList.memberTeamNum}+'팀'">소속팀</td>
                         <td>
@@ -123,23 +123,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="noWorkList : ${noWorkList}">
+                <tr th:each="noWorkList, iterStat : ${noWorkList}"  th:class="${iterStat.count > 5} ? 'hidden-noWork' : ''">
                     <td ><input th:value="${noWorkList.id}" name="noWorks" type="checkbox"></td>
-
                     <td th:if="${noWorkList.status.toString() == 'WAITING'}">대기</td>
                     <td th:if="${noWorkList.status.toString() == 'ABLE'}">승인</td>
                     <td th:if="${noWorkList.status.toString() == 'UNABLE'}">거절</td>
                     <td th:text="${noWorkList.selectedDate}">작성일</td>
                     <td th:text="${noWorkList.memberName}">이름</td>
                     <td th:text="${noWorkList.category}">알바</td>
-                    <td th:text="${noWorkList.detail}">사장님이 빵꾸났다고 인원요청하셔서 갑니다 ㅠㅠㅠㅠㅁㅇㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㅁㄴㅇㅁㅂㄴㅈㅇ니ㅏㄹ훔ㅇ나ㅣ/ㅇㄹ허ㅜㅏㅣ'ㅇㄴ;러ㅏㅣ';ㄴㅜㅠ ....</td>
+                    <td th:text="${noWorkList.detail}">디테일</td>
                 </tr>
-
-
                 </tbody>
-
             </table>
-            <button class="show-more-btn center btns">더보기</button>
+            <button class="show-more-btn center btns" id="noWork-show-more-btn" onclick="showMoreNoWork()" >더보기</button>
         </div>
     </div>
 </div>
@@ -148,10 +144,10 @@
 <script type="application/javascript" th:inline="javascript">
 
     let member = [[${member}]];
-    // let noWorkList = [[${noWorkList}]];
+    let noWorkList = [[${noWorkList}]];
     let memberList = [[${memberList}]];
     let attendanceList = [[${attendanceList}]];
-    // console.log(noWorkList);
+    console.log(noWorkList);
     console.log(memberList);
     console.log(attendanceList);
 </script>

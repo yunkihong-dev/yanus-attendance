@@ -134,3 +134,6 @@ td:last-child{
 .hidden-member {
     display: none;
 }
+.hidden-noWork {
+    display: none;
+}
