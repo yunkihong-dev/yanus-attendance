@@ -45,20 +45,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="memberList : ${memberList}">
-                    <td><input name="members" type="checkbox"></td>
-                    <td th:text="${memberList.memberName}">이름</td>
-                    <td th:text="${memberList.memberTeamNum}+'팀'">소속팀</td>
-                    <td>
-                        <span th:if="${memberList.memberType.toString() == 'NORMAL'}">일반</span>
-                        <span th:if="${memberList.memberType.toString() == 'ADMIN'}">팀장</span>
-                        <span th:if="${memberList.memberType.toString() == 'SUPERADMIN'}">셀</span>
-                    </td>
-
-                </tr>
+                    <tr th:each="memberList, iterStat : ${memberList}" th:class="${iterStat.count > 5} ? 'hidden-member' : ''">
+                        <td><input name="members" type="checkbox"></td>
+                        <td th:text="${memberList.memberName}">이름</td>
+                        <td th:text="${memberList.memberTeamNum}+'팀'">소속팀</td>
+                        <td>
+                            <span th:if="${memberList.memberType.toString() == 'NORMAL'}">일반</span>
+                            <span th:if="${memberList.memberType.toString() == 'ADMIN'}">팀장</span>
+                            <span th:if="${memberList.memberType.toString() == 'SUPERADMIN'}">셀장</span>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-            <button class="show-more-btn center btns">더보기</button>
+            <button class="show-more-btn center btns" id="show-more-btn" onclick="showMore()">더보기</button>
         </div>
     </div>
     <div id="attendancediv">
@@ -119,20 +118,21 @@
                     <th>처리상태</th>
                     <th>작성날짜</th>
                     <th>이름</th>
-                    <th>소속 팀</th>
                     <th>범주</th>
                     <th>세부 내용</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><input name="noWorks" type="checkbox"></td>
-                    <td>승인완료</td>
-                    <td>10월 1일</td>
-                    <td>홍길동</td>
-                    <td>1팀</td>
-                    <td>알바</td>
-                    <td>사장님이 빵꾸났다고 인원요청하셔서 갑니다 ㅠㅠㅠㅠㅁㅇㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㅁㄴㅇㅁㅂㄴㅈㅇ니ㅏㄹ훔ㅇ나ㅣ/ㅇㄹ허ㅜㅏㅣ'ㅇㄴ;러ㅏㅣ';ㄴㅜㅠ ....</td>
+                <tr th:each="noWorkList : ${noWorkList}">
+                    <td ><input th:value="${noWorkList.id}" name="noWorks" type="checkbox"></td>
+
+                    <td th:if="${noWorkList.status.toString() == 'WAITING'}">대기</td>
+                    <td th:if="${noWorkList.status.toString() == 'ABLE'}">승인</td>
+                    <td th:if="${noWorkList.status.toString() == 'UNABLE'}">거절</td>
+                    <td th:text="${noWorkList.selectedDate}">작성일</td>
+                    <td th:text="${noWorkList.memberName}">이름</td>
+                    <td th:text="${noWorkList.category}">알바</td>
+                    <td th:text="${noWorkList.detail}">사장님이 빵꾸났다고 인원요청하셔서 갑니다 ㅠㅠㅠㅠㅁㅇㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㅁㄴㅇㅁㅂㄴㅈㅇ니ㅏㄹ훔ㅇ나ㅣ/ㅇㄹ허ㅜㅏㅣ'ㅇㄴ;러ㅏㅣ';ㄴㅜㅠ ....</td>
                 </tr>
 
 
@@ -148,10 +148,10 @@
 <script type="application/javascript" th:inline="javascript">
 
     let member = [[${member}]];
-    let noWorkList = [[${noWorkList}]];
+    // let noWorkList = [[${noWorkList}]];
     let memberList = [[${memberList}]];
     let attendanceList = [[${attendanceList}]];
-    console.log(noWorkList);
+    // console.log(noWorkList);
     console.log(memberList);
     console.log(attendanceList);
 </script>

@@ -6,7 +6,6 @@ server:
       timeout: 86400 # 세션 타임아웃을 초 단위로 설정 (24시간)
 
 # jdbc
-
 #로컬 테스트용
 spring:
   datasource:
@@ -15,6 +14,7 @@ spring:
     username: root
     password: 12345678
 
+
 # 배포용
 #spring:
 #  datasource:
@@ -22,6 +22,9 @@ spring:
 #    url: jdbc:mysql://yanus-db.cb4pkxlnks4i.ap-northeast-2.rds.amazonaws.com:3306/yanus?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
 #    username: admin
 #    password: 12345678
+
+
+
   mvc:
     hiddenmethod:
       filter:
@@ -29,7 +32,7 @@ spring:
   # jpa
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 
     # jpa format
     properties:

@@ -20,13 +20,13 @@ public class NoWorkServiceImpl implements NoWorkService {
 
 
     @Override
-    public List<NoWork> getAll() {
-        return noWorkRepository.findAll();
+    public List<NoWorkDTO> getAllNoWorkWithMemberName() {
+        return noWorkRepository.findAllWithMemberName();
     }
 
     @Override
-    public void insertNoWork(NoWorkDTO noWorkDTO) {
-        noWorkRepository.save(toEntity(noWorkDTO));
+    public void insertNoWork(NoWork noWork) {
+        noWorkRepository.save(noWork);
     }
 
 }

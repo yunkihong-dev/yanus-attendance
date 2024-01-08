@@ -131,3 +131,6 @@ td:last-child{
 .block{
     display: block;
 }
+.hidden-member {
+    display: none;
+}

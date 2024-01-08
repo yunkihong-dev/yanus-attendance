@@ -2,6 +2,7 @@ package com.jpa.yanus.controller;
 
 import com.jpa.yanus.domain.AttendanceDTO;
 import com.jpa.yanus.domain.AttendanceMemberJoinDTO;
+import com.jpa.yanus.domain.NoWorkDTO;
 import com.jpa.yanus.entity.Attendance;
 import com.jpa.yanus.entity.Member;
 import com.jpa.yanus.entity.NoWork;
@@ -62,7 +63,7 @@ public class AdminController {
 
                 model.addAttribute("memberList",memberList);
 
-                List<NoWork> noWorkList = noWorkService.getAll();
+                List<NoWorkDTO> noWorkList = noWorkService.getAllNoWorkWithMemberName();
 
                 model.addAttribute("noWorkList",noWorkList);
 

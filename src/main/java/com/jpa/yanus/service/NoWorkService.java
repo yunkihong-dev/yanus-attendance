@@ -7,20 +7,9 @@ import java.util.List;
 
 public interface NoWorkService {
 
-    public List<NoWork> getAll();
+    public List<NoWorkDTO> getAllNoWorkWithMemberName();
 
 
-    public void insertNoWork(NoWorkDTO noWorkDTO);
+    public void insertNoWork(NoWork noWork);
 
-
-
-    default NoWork toEntity(NoWorkDTO noWorkDTO){
-        return NoWork.builder().id(noWorkDTO.getId())
-                .category(noWorkDTO.getCategory())
-                .detail(noWorkDTO.getDetail())
-                .selectedDate(noWorkDTO.getSelectedDate())
-                .uploadDate(noWorkDTO.getUploadDate())
-                .member(noWorkDTO.getMember())
-                .build();
-    }
 }

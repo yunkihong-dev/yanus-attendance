@@ -30,13 +30,13 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public void getCheckIn(AttendanceDTO attendanceDTO) {
-        attendanceRepository.save(toEntity(attendanceDTO));
+    public void getCheckIn(Attendance attendance) {
+        attendanceRepository.save(attendance);
     }
 
     @Override
-    public void getCheckOut(AttendanceDTO attendanceDTO) {
-        attendanceRepository.save(toEntity(attendanceDTO));
+    public void getCheckOut(Attendance attendance) {
+        attendanceRepository.save(attendance);
     }
 
     @Override

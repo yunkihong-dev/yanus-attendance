@@ -20,3 +20,19 @@ document.getElementById('logout-text').addEventListener('mouseover', function ()
 document.getElementById('logout-text').addEventListener('mouseout', function () {
     this.textContent = member.memberName+ ' 관리자님, 반갑습니다!';
 });
+
+function showMore() {
+    let hiddenRows = Array.from(document.querySelectorAll('.hidden-member'));
+    let nextRows = hiddenRows.slice(0, 5);
+    nextRows.forEach(function(row) {
+        row.classList.remove('hidden-member');
+    });
+
+    // "더보기" 버튼을 숨김 처리하기 위한 조건 검사
+    if (hiddenRows.length <= 5) {
+        document.getElementById('show-more-btn').style.display = 'none';
+    }
+}
+
+
+

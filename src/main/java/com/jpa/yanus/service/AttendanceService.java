@@ -11,9 +11,9 @@ public interface  AttendanceService {
 
     public List<Attendance> getAll();
 
-    public void getCheckIn(AttendanceDTO attendanceDTO);
+    public void getCheckIn(Attendance attendance);
 
-    public void getCheckOut(AttendanceDTO attendanceDTO);
+    public void getCheckOut(Attendance attendance);
 
     public Attendance findMostRecentAttendanceByMember(Long memberId);
 

@@ -1,12 +1,13 @@
 package com.jpa.yanus.controller;
 
 
-import com.jpa.yanus.domain.AttendanceDTO;
-import com.jpa.yanus.domain.NoWorkDTO;
+import com.jpa.yanus.entity.Attendance;
 import com.jpa.yanus.entity.Member;
+import com.jpa.yanus.entity.NoWork;
 import com.jpa.yanus.service.AttendanceService;
 import com.jpa.yanus.service.MemberService;
 import com.jpa.yanus.service.NoWorkService;
+import com.jpa.yanus.type.StatusType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class APIController {
     private final NoWorkService noWorkService;
 
     @PostMapping("checkIn")
-    public ResponseEntity<String> checkIn(@SessionAttribute(name = "id", required = false) Long memberId, AttendanceDTO attendanceDTO){
+    public ResponseEntity<String> checkIn(@SessionAttribute(name = "id", required = false) Long memberId, Attendance attendance){
         try {
             if (memberId == null) {
                 // 세션 값이 없을 경우에 대한 처리
@@ -46,11 +47,11 @@ public class APIController {
 
             LocalDateTime currentDateTime = LocalDateTime.now();
 
-            attendanceDTO.setCheckInTime(currentDateTime);
-            attendanceDTO.setCheckOutTime(currentDateTime);
-            attendanceDTO.setMember(member);
+            attendance.setCheckInTime(currentDateTime);
+            attendance.setCheckOutTime(currentDateTime);
+            attendance.setMember(member);
 
-            attendanceService.getCheckIn(attendanceDTO);
+            attendanceService.getCheckIn(attendance);
 
             // Return a success response
             return ResponseEntity.ok("Check-in successful");
@@ -73,7 +74,7 @@ public class APIController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("세션에서 회원을 찾을 수 없음");
             }
             // 회원의 최근 출석 기록을 찾음
-            AttendanceDTO mostRecentAttendance = attendanceService.toDTO(attendanceService.findMostRecentAttendanceByMember(memberId));
+            Attendance mostRecentAttendance = attendanceService.findMostRecentAttendanceByMember(memberId);
 
             if (mostRecentAttendance == null) {
                 // 회원의 출석 기록을 찾을 수 없는 경우
@@ -103,7 +104,7 @@ public class APIController {
     }
 
     @PostMapping("noWork")
-    public ResponseEntity<String> sendNoWork(@SessionAttribute(name = "id", required = false) Long memberId, @RequestBody NoWorkDTO noWorkDTO) {
+    public ResponseEntity<String> sendNoWork(@SessionAttribute(name = "id", required = false) Long memberId, @RequestBody NoWork noWork) {
         try {
             if (memberId == null) {
                 // memberId가 세션에 없는 경우, 404 응답 반환
@@ -113,13 +114,13 @@ public class APIController {
                     .orElseThrow(() -> new EntityNotFoundException("Member with id " + memberId + " not found"));
 
             LocalDate localDate = LocalDate.now();
-            noWorkDTO.setMember(member);
-            noWorkDTO.setUploadDate(localDate);
+            noWork.setMember(member);
+            noWork.setUploadDate(localDate);
+            noWork.setStatus(StatusType.WAITING);
 
             // noWorkDTO에 이미 selectedDate가 있으므로 따로 파싱할 필요 없음
-            log.info(noWorkDTO.getSelectedDate().toString());
-            log.info(noWorkDTO.getMember().getId().toString());
-            noWorkService.insertNoWork(noWorkDTO);
+
+            noWorkService.insertNoWork(noWork);
 
             // 성공 응답 반환
             return ResponseEntity.ok("체크아웃 성공");

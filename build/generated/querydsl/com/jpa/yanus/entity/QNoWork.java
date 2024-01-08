@@ -32,6 +32,8 @@ public class QNoWork extends EntityPathBase<NoWork> {
 
     public final DatePath<java.time.LocalDate> selectedDate = createDate("selectedDate", java.time.LocalDate.class);
 
+    public final EnumPath<com.jpa.yanus.type.StatusType> status = createEnum("status", com.jpa.yanus.type.StatusType.class);
+
     public final DatePath<java.time.LocalDate> uploadDate = createDate("uploadDate", java.time.LocalDate.class);
 
     public QNoWork(String variable) {
