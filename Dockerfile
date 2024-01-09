@@ -7,8 +7,8 @@ ARG JAR_FILE=build/libs/*.jar
 # Clone jar file
 COPY ${JAR_FILE} app.jar
 
-# Copy adminpage.js to the image
-COPY path/to/adminpage.js /path/in/container/adminpage.js
+# You can proceed by combining the parameter setting part and the jar file replication part.
+# COPY build/libs/*.jar app.jar
 
 # Run command
 ENTRYPOINT ["java", "-jar", "app.jar"]
