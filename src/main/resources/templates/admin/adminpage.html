@@ -140,7 +140,17 @@
     </div>
 </div>
 </body>
+<script src="/js/adminpage.js"></script>
 <script type="application/javascript" th:inline="javascript">
+
+    let member = [[${member}]];
+    let noWorkList = [[${noWorkList}]];
+    let memberList = [[${memberList}]];
+    let attendanceList = [[${attendanceList}]];
+    console.log(noWorkList);
+    console.log(memberList);
+    console.log(attendanceList);
+
     function selectAll(selectAll){
         const checkboxes = document.getElementsByName('members');
 
