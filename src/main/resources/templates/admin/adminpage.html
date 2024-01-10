@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleag.org">
 <head>
     <link rel="icon" href="/image/logo.png"/>
     <link rel="stylesheet" href="/css/adminpage.css"/>
@@ -45,14 +45,17 @@
                 </tr>
                 </thead>
                 <tbody>
+                    <tr th:if="${memberList.isEmpty()}">
+                        <td colspan="4">등록된 멤버가 없습니다.</td>
+                    </tr>
                     <tr th:each="memberList, iterStat : ${memberList}" th:class="${iterStat.count > 5} ? 'hidden-member' : ''">
                         <td><input th:value="memberList.id" name="members" type="checkbox"></td>
                         <td th:text="${memberList.memberName}">이름</td>
                         <td th:text="${memberList.memberTeamNum}+'팀'">소속팀</td>
                         <td>
-                            <span th:if="${memberList.memberType.toString() == 'NORMAL'}">일반</span>
-                            <span th:if="${memberList.memberType.toString() == 'ADMIN'}">팀장</span>
-                            <span th:if="${memberList.memberType.toString() == 'SUPERADMIN'}">셀장</span>
+                            <span th:if="${memberList.memberType == T(com.jpa.yanus.type.MemberType).NORMAL}">일반</span>
+                            <span th:if="${memberList.memberType == T(com.jpa.yanus.type.MemberType).ADMIN}">팀장</span>
+                            <span th:if="${memberList.memberType == T(com.jpa.yanus.type.MemberType).SUPERADMIN}">셀장</span>
                         </td>
                     </tr>
                 </tbody>
@@ -83,6 +86,9 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr th:if="${attendanceList.isEmpty()}">
+                    <td colspan="5">출근한 인원이 없습니다.</td>
+                </tr>
                 <tr th:each="attendanceList : ${attendanceList}">
                     <td th:text="${attendanceList.memberName}">홍길동</td>
                     <td th:text="${attendanceList.memberTeamNum}">1팀</td>
@@ -96,7 +102,7 @@
 
             </table>
         </div>
-    </div>
+    </div>이
 
 </div>
 <div class="width-98p center">
@@ -123,6 +129,9 @@
                 </tr>
                 </thead>
                 <tbody>
+                <tr th:if="${noWorkList.isEmpty()}">
+                    <td colspan="6">미출근 사유 신청서가 없습니다.</td>
+                </tr>
                 <tr th:each="noWorkList, iterStat : ${noWorkList}"  th:class="${iterStat.count > 5} ? 'hidden-noWork' : ''">
                     <td ><input th:value="${noWorkList.id}" name="noWorks" type="checkbox"></td>
                     <td th:if="${noWorkList.status.toString() == 'WAITING'}">대기</td>
@@ -135,7 +144,9 @@
                 </tr>
                 </tbody>
             </table>
-            <button class="show-more-btn center btns" id="noWork-show-more-btn" onclick="showMoreNoWork()" >더보기</button>
+            <button class="show-more-btn center btns" id="noWork-show-more-btn" onclick="showMoreNoWork()"
+                    th:if="${noWorkList != null && noWorkList.size() > 5}">더보기</button>
+
         </div>
     </div>
 </div>

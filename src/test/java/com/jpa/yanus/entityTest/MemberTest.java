@@ -35,4 +35,10 @@ public class MemberTest {
         memberService.insertMember(memberdto);
     }
 
+    @Test
+    public void findByMemberId(){
+        log.info(memberService.getMemberById(2L).toString());
+    }
+
+
 }
