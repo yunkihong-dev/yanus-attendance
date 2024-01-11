@@ -1,19 +1,21 @@
 package com.jpa.yanus.repository;
 
 import com.jpa.yanus.domain.NoWorkDTO;
-import com.jpa.yanus.entity.QMember;
+import com.jpa.yanus.domain.NoWorkWithOutMemberDTO;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import static com.jpa.yanus.entity.QNoWork.noWork;
+import static com.jpa.yanus.entity.QMember.member;
 
 @Slf4j
+@RequiredArgsConstructor
 public class NoWorkQueryDSLImpl implements NoWorkQueryDSL {
-    @Autowired
-    private JPAQueryFactory query;
+
+    private final JPAQueryFactory query;
 
 
     @Override
@@ -22,14 +24,30 @@ public class NoWorkQueryDSLImpl implements NoWorkQueryDSL {
                 noWork.id,
                 noWork.category,
                 noWork.detail,
-                QMember.member.memberName,
+                member.memberName,
                 noWork.selectedDate,
                 noWork.uploadDate,
                 noWork.status
                 ))
                 .from(noWork)
-                .join(noWork.member, QMember.member)
+                .join(noWork.member, member)
                 .orderBy(noWork.status.asc(),noWork.uploadDate.asc())
                 .fetch();
     }
+
+    @Override
+    public List<NoWorkWithOutMemberDTO> findAllByMemberId(Long memberId) {
+        return query.select(Projections.constructor(NoWorkWithOutMemberDTO.class,
+                noWork.id,
+                noWork.category,
+                noWork.detail,
+                noWork.selectedDate,
+                noWork.uploadDate,
+                noWork.status))
+                .from(noWork)
+                .where(noWork.member.id.eq(memberId))
+                .fetch();
+    }
+
+
 }

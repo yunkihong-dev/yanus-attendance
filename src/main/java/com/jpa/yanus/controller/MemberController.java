@@ -40,43 +40,19 @@ public class MemberController {
 
 
     @PostMapping("login")
-    public RedirectView login(Member member, HttpSession httpSession, HttpServletRequest request){
+    public String login(Member member, HttpSession httpSession, HttpServletRequest request){
         final Optional<Member> foundMember = memberService.getMember(member.getMemberId(),member.getMemberPassword());
         if(foundMember.isPresent()){
             log.info("로그인 성공!");
             httpSession.setAttribute("id", foundMember.get().getId());
 
-            return new RedirectView("/member/attendance");
+            return "/attendance/";
         }
         else {
             log.info("로그인 실패!");
-            return new RedirectView("/member/login");
+            return "/member/login";
         }
 
-    }
-    @GetMapping("attendance")
-    public String attendance(Model model, HttpServletRequest request) {
-        HttpSession httpSession = request.getSession(false);
-
-        // 세션이 null인 경우 로그인 페이지로 리디렉션
-        if (httpSession == null) {
-            return "redirect:/member/login";
-        }
-
-        Long id = (Long) httpSession.getAttribute("id");
-
-        // id가 null인 경우 로그인 페이지로 리디렉션
-        if (id == null) {
-            return "redirect:/member/login";
-        }
-
-        Optional<Member> member = memberService.getMemberById(id);
-        if (member.isPresent()) {
-            model.addAttribute("member", member.get());
-            return "member/attendance"; // 직접 뷰 이름 반환
-        } else {
-            return "redirect:/member/login";
-        }
     }
 
 

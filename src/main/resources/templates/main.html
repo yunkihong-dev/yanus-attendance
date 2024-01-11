@@ -33,8 +33,7 @@
         <button>Login</button>
     </a>
     <button class="login-button" id="modalOpenButton">머리식히기</button>
-    <!-- 출근하러가기 버튼, member 객체가 존재하면 보여줌 -->
-    <a href="/member/attendance" class="work-button" th:if="${member != null}">
+    <a href="/attendance/" class="work-button" th:if="${member != null}">
         <button>출근하러가기</button>
     </a>
     <a href="/member/logout" class="work-button" th:if="${member != null}">

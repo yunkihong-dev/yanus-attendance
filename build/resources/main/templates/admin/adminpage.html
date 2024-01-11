@@ -8,6 +8,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>관리자페이지</title>
+    <script src="/js/admin.js"></script>
 </head>
 <body>
 <header>
@@ -87,7 +88,7 @@
                 </thead>
                 <tbody>
                 <tr th:if="${attendanceList.isEmpty()}">
-                    <td colspan="5">출근한 인원 없습니다.</td>
+                    <td colspan="5">출근한 인원이 없습니다.</td>
                 </tr>
                 <tr th:each="attendanceList : ${attendanceList}">
                     <td th:text="${attendanceList.memberName}">홍길동</td>
@@ -102,7 +103,7 @@
 
             </table>
         </div>
-    </div>이
+    </div>
 
 </div>
 <div class="width-98p center">
@@ -112,7 +113,7 @@
         </div>
         <div class="flex">
             <button id="noWork-YesBtn" class="btns small-title">승인</button>
-            <button id="noWork-NoBtn" class="btns small-title">거절</button>
+            <button id="noWork-NoBtn" class="btns small-title">거절</button>
         </div>
     </div>
     <div id="noWorks-div">
@@ -151,16 +152,12 @@
     </div>
 </div>
 </body>
-<script src="/js/admin.js"></script>
 <script type="application/javascript" th:inline="javascript">
 
     let member = [[${member}]];
     let noWorkList = [[${noWorkList}]];
     let memberList = [[${memberList}]];
     let attendanceList = [[${attendanceList}]];
-    console.log(noWorkList);
-    console.log(memberList);
-    console.log(attendanceList);
 
 </script>
 

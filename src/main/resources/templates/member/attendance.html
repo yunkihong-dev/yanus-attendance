@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleag.org">
 <head>
     <link rel="icon" href="/image/logo.png"/>
     <link rel="stylesheet" href="/css/attendance.css"/>
@@ -161,16 +161,22 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>승인거부</td>
-            <td>09-30</td>
-            <td>알바</td>
-            <td>알빠노ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</td>
+        <tr th:if="${noWorkList.isEmpty()}">
+            <td colspan="4">미출근 사유 신청서가 없습니다.</td>
         </tr>
-
-        </tbody>
+        <tr th:each="noWorkList, iterStat : ${noWorkList}"  th:class="${iterStat.count > 5} ? 'hidden-noWork' : ''">
+            <td th:if="${noWorkList.status.toString() == 'WAITING'}">대기</td>
+            <td th:if="${noWorkList.status.toString() == 'ABLE'}">승인</td>
+            <td th:if="${noWorkList.status.toString() == 'UNABLE'}">거절</td>
+            <td th:text="${noWorkList.selectedDate}">작성일</td>
+            <td th:text="${noWorkList.category}">알바</td>
+            <td th:text="${noWorkList.detail}">디테일</td>
+        </tr>
+      </tbody>
 
     </table>
+    <button class="show-more-btn center btns" id="noWork-show-more-btn" onclick="showMoreNoWork()"
+            th:if="${noWorkList != null && noWorkList.size() > 5}">더보기</button>
 
 </div>
 

@@ -1,6 +1,7 @@
 package com.jpa.yanus.service;
 
 import com.jpa.yanus.domain.NoWorkDTO;
+import com.jpa.yanus.domain.NoWorkWithOutMemberDTO;
 import com.jpa.yanus.entity.NoWork;
 import com.jpa.yanus.repository.NoWorkRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,11 @@ public class NoWorkServiceImpl implements NoWorkService {
     @Override
     public void insertNoWork(NoWork noWork) {
         noWorkRepository.save(noWork);
+    }
+
+    @Override
+    public List<NoWorkWithOutMemberDTO> getMyAllNoWork(Long id) {
+        return noWorkRepository.findAllByMemberId(id);
     }
 
 }

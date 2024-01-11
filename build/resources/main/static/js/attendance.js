@@ -290,3 +290,16 @@ var myChart = new Chart(context, {
         }
     }
 });
+
+function showMoreNoWork(){
+    let hiddenRows = Array.from(document.querySelectorAll('.hidden-noWork'));
+    let nextRows = hiddenRows.slice(0, 5);
+    nextRows.forEach(function(row) {
+        row.classList.remove('hidden-noWork');
+    });
+
+    // "더보기" 버튼을 숨김 처리하기 위한 조건 검사
+    if (hiddenRows.length <= 5) {
+        document.getElementById('noWork-show-more-btn').style.display = 'none';
+    }
+}
