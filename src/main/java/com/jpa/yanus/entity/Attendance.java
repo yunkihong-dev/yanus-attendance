@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity @Getter
 @ToString @Setter
@@ -15,8 +16,8 @@ public class Attendance {
     @Id @GeneratedValue
     @EqualsAndHashCode.Include
     private Long id;
-    @NotNull private LocalDateTime checkInTime;
-    private LocalDateTime checkOutTime;
+    @NotNull private ZonedDateTime checkInTime;
+    private ZonedDateTime checkOutTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -25,7 +26,7 @@ public class Attendance {
 
 
     @Builder
-    public Attendance(Long id, LocalDateTime checkInTime,  LocalDateTime checkOutTime, Member member){
+    public Attendance(Long id, ZonedDateTime checkInTime,  ZonedDateTime checkOutTime, Member member){
         this.id = id;
         this.checkInTime = checkInTime;
         this.checkOutTime = checkOutTime;

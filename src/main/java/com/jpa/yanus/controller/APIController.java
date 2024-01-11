@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 @RestController
 @Slf4j
@@ -45,10 +47,12 @@ public class APIController {
             Member member = memberService.getMemberById(memberId)
                     .orElseThrow(() -> new EntityNotFoundException("Member with id " + memberId + " not found"));
 
-            LocalDateTime currentDateTime = LocalDateTime.now();
+            ZonedDateTime currentKST = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
-            attendance.setCheckInTime(currentDateTime);
-            attendance.setCheckOutTime(currentDateTime);
+
+
+            attendance.setCheckInTime(currentKST);
+            attendance.setCheckOutTime(currentKST);
             attendance.setMember(member);
 
             attendanceService.getCheckIn(attendance);
@@ -83,7 +87,7 @@ public class APIController {
 
             log.info(mostRecentAttendance.toString());
 
-            LocalDateTime currentDateTime = LocalDateTime.now();
+            ZonedDateTime currentDateTime = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
 
             // 최근 출석 기록의 checkOutTime을 업데이트
             mostRecentAttendance.setCheckOutTime(currentDateTime);

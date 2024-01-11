@@ -162,7 +162,7 @@
         </thead>
         <tbody>
         <tr th:if="${noWorkList.isEmpty()}">
-            <td colspan="4">미출근 사유 신청서가 없습니다.</td>
+            <td colspan="4">미출근 사유 신청 내역이 없습니다.</td>
         </tr>
         <tr th:each="noWorkList, iterStat : ${noWorkList}"  th:class="${iterStat.count > 5} ? 'hidden-noWork' : ''">
             <td th:if="${noWorkList.status.toString() == 'WAITING'}">대기</td>

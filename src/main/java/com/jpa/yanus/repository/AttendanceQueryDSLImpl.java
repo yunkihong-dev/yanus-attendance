@@ -12,9 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.List;
 
 import static com.jpa.yanus.entity.QAttendance.attendance;
@@ -46,21 +44,24 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
 
     @Override
     public List<AttendanceMemberJoinDTO> findMostResentAttendanceByTeamNum(int memberTeamNum) {
-        LocalDate today = LocalDate.now();
-        LocalDateTime startOfToday = today.atStartOfDay();
-        LocalDateTime endOfToday = today.plusDays(1).atStartOfDay();
+        ZoneId zoneId = ZoneId.of("Asia/Seoul"); // 한국 시간대 설정
+        ZonedDateTime today = ZonedDateTime.now(zoneId);
+        ZonedDateTime startOfToday = ZonedDateTime.now(zoneId).toLocalDate().atStartOfDay(zoneId);
+        ZonedDateTime endOfToday = startOfToday.plusDays(1);
+
 
         QAttendance attendance = QAttendance.attendance;
         QAttendance subAttendance = new QAttendance("subAttendance");
         QMember member = QMember.member;
 
         // 각 회원별 최초 출근 시간 찾기
-        JPQLQuery<LocalDateTime> subQuery = JPAExpressions
+
+        JPQLQuery<ZonedDateTime> subQuery = JPAExpressions
                 .select(subAttendance.checkInTime.min())
                 .from(subAttendance)
                 .where(subAttendance.member.id.eq(member.id)
-                        .and(subAttendance.checkInTime.between(startOfToday, endOfToday)));
-
+                        .and(subAttendance.checkInTime.goe(startOfToday))
+                        .and(subAttendance.checkInTime.loe(endOfToday)));
         // 서브쿼리를 사용하여 각 회원별 최초 출근 기록만 가져오기
         return query
                 .select(Projections.constructor(AttendanceMemberJoinDTO.class,
@@ -72,21 +73,33 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
                 .from(attendance)
                 .join(attendance.member, member)
                 .where(member.memberTeamNum.eq(memberTeamNum)
-                        .and(attendance.checkInTime.eq(subQuery)))
+                        .and(attendance.checkInTime.in(subQuery)))
                 .orderBy(attendance.checkInTime.asc())
                 .fetch();
     }
 
+
     @Override
     public List<AttendanceMemberJoinDTO> findAllMostResentAttendance() {
-        LocalDate today = LocalDate.now();
-        LocalDateTime startOfToday = today.atStartOfDay();
-        LocalDateTime endOfToday = today.plusDays(1).atStartOfDay();
+        ZoneId zoneId = ZoneId.of("Asia/Seoul"); // 한국 시간대 설정
+        ZonedDateTime startOfToday = ZonedDateTime.now(zoneId).toLocalDate().atStartOfDay(zoneId);
+        ZonedDateTime endOfToday = startOfToday.plusDays(1);
 
         QAttendance attendance = QAttendance.attendance;
+        QAttendance subAttendance = new QAttendance("subAttendance");
         QMember member = QMember.member;
 
-        // QueryDSL을 사용하여 쿼리를 작성합니다.
+        // 각 회원별 최초 출근 시간 찾기
+
+
+        JPQLQuery<ZonedDateTime> subQuery = JPAExpressions
+                .select(subAttendance.checkInTime.min())
+                .from(subAttendance)
+                .where(subAttendance.member.id.eq(member.id)
+                        .and(subAttendance.checkInTime.goe(startOfToday))
+                        .and(subAttendance.checkInTime.loe(endOfToday)));
+
+        // 서브쿼리를 사용하여 각 회원별 최초 출근 기록만 가져오기
         return query
                 .select(Projections.constructor(AttendanceMemberJoinDTO.class,
                         attendance.id,
@@ -96,7 +109,7 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
                         member.memberTeamNum))
                 .from(attendance)
                 .join(attendance.member, member)
-                .where(attendance.checkInTime.between(startOfToday, endOfToday))
+                .where(attendance.checkInTime.in(subQuery))
                 .orderBy(attendance.checkInTime.asc())
                 .fetch();
     }

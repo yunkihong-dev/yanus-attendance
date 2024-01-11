@@ -22,9 +22,9 @@ public class QAttendance extends EntityPathBase<Attendance> {
 
     public static final QAttendance attendance = new QAttendance("attendance");
 
-    public final DateTimePath<java.time.LocalDateTime> checkInTime = createDateTime("checkInTime", java.time.LocalDateTime.class);
+    public final DateTimePath<java.time.ZonedDateTime> checkInTime = createDateTime("checkInTime", java.time.ZonedDateTime.class);
 
-    public final DateTimePath<java.time.LocalDateTime> checkOutTime = createDateTime("checkOutTime", java.time.LocalDateTime.class);
+    public final DateTimePath<java.time.ZonedDateTime> checkOutTime = createDateTime("checkOutTime", java.time.ZonedDateTime.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
