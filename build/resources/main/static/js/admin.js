@@ -7,6 +7,14 @@ function selectAll(selectAll){
     })
 }
 
+function selectAllNoWork(selectAll){
+    const checkboxes = document.getElementsByName('noWorks');
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = selectAll.checked;
+    })
+}
+
 document.getElementById("log-out").addEventListener('click', () => {
     let tf = confirm("로그아웃 하시겠습니까?");
     if (tf) {

@@ -8,7 +8,6 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>관리자페이지</title>
-    <script src="/js/admin.js"></script>
 </head>
 <body>
 <header>
@@ -18,7 +17,6 @@
     <div id="log-out">
         <p th:utext="${member.memberName}+ ' 관리자님, 반갑습니다!' " id="logout-text"></p>
     </div>
-
     <div class="width-100p bar">
         <label id="category">관리자 페이지</label>
     </div>
@@ -121,7 +119,7 @@
             <table class="width-98p" >
                 <thead>
                 <tr>
-                    <th><input name="noWorks" value="selectAll" onclick="selectAll(this)" type="checkbox"></th>
+                    <th><input name="noWorks" value="selectAll" onclick="selectAllnoWork(this)" type="checkbox"></th>
                     <th>처리상태</th>
                     <th>작성날짜</th>
                     <th>이름</th>
@@ -152,6 +150,7 @@
     </div>
 </div>
 </body>
+<script src="/js/admin.js"></script>
 <script type="application/javascript" th:inline="javascript">
 
     let member = [[${member}]];
