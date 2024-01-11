@@ -46,7 +46,7 @@ public class MemberController {
             log.info("로그인 성공!");
             httpSession.setAttribute("id", foundMember.get().getId());
 
-            return "/attendance/";
+            return "redirect:/";
         }
         else {
             log.info("로그인 실패!");
