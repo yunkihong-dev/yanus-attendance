@@ -43,7 +43,7 @@ public class APIController {
                     .orElseThrow(() -> new EntityNotFoundException("Member with id " + memberId + " not found"));
 
             LocalDateTime currentDateTime = LocalDateTime.now();
-
+            log.info(currentDateTime.toString());
             attendance.setCheckInTime(currentDateTime);
             attendance.setCheckOutTime(currentDateTime);
             attendance.setMember(member);
