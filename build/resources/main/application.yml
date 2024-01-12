@@ -7,21 +7,21 @@ server:
 
 # jdbc
 #로컬 테스트용
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/YANUSTEST?useSSL=false&serverTimezone=UTC
-    username: root
-    password: 12345678
-
-
-# 배포용
 #spring:
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://yanus-db.cb4pkxlnks4i.ap-northeast-2.rds.amazonaws.com:3306/yanus?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-#    username: admin
+#    url: jdbc:mysql://localhost:3306/YANUSTEST?useSSL=false&serverTimezone=UTC
+#    username: root
 #    password: 12345678
+#
+
+# 배포용
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://yanus-db.cb4pkxlnks4i.ap-northeast-2.rds.amazonaws.com:3306/yanus?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: admin
+    password: 12345678
 
 
 

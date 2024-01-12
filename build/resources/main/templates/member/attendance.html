@@ -51,21 +51,12 @@
             <p>팀원이 출근한 시간</p>
         </div>
         <div class="flex justify-contents-space-between " id="crews-div">
-            <div>
-                <p>02:31:12</p>
-                <p>최석사</p>
+            <div class="center" th:if="${myTeamAttendanceList.isEmpty()}">
+                출근한 팀원이 없어요!
             </div>
-            <div>
-                <p>02:42:00</p>
-                <p>홍박사</p>
-            </div>
-            <div>
-                <p>02:00:54</p>
-                <p>김박사</p>
-            </div>
-            <div>
-                <p>02:00:54</p>
-                <p>김박사</p>
+            <div th:each="myTeamAttendanceList : ${myTeamAttendanceList}"  th:unless="${myTeamAttendanceList.memberName.equals(member.memberName)}">
+                <p th:text="${myTeamAttendanceList.formattedCheckOutTime}">출근한 시간</p>
+                <p th:text="${myTeamAttendanceList.memberName}">이름</p>
             </div>
         </div>
     </div>
