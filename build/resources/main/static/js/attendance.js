@@ -24,7 +24,7 @@ window.onload = function(){
     start.addEventListener("click", function(){
         getExternalIp().then(ip =>{
             goCheckIn().then(ok=>{
-                if ( myIp === myIp) {
+                if ( ip === myIp) {
                     start.disabled = true;
                     stop.disabled = false;
                     if(timer > 0){

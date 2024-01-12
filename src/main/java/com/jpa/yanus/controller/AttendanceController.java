@@ -1,5 +1,6 @@
 package com.jpa.yanus.controller;
 
+import com.jpa.yanus.domain.AttendanceMemberJoinDTO;
 import com.jpa.yanus.domain.NoWorkWithOutMemberDTO;
 import com.jpa.yanus.entity.Member;
 import com.jpa.yanus.repository.MemberRepository;
@@ -50,6 +51,9 @@ public class AttendanceController {
 
             model.addAttribute("noWorkList",noWorkList);
 
+            List<AttendanceMemberJoinDTO> myTeamAttendanceList = attendanceService.findMyTeamAttendanceToday(member.get().getMemberTeamNum());
+
+            model.addAttribute("myTeamAttendanceList",myTeamAttendanceList);
             model.addAttribute("member", member.get());
 
 
