@@ -31,6 +31,8 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public void getCheckIn(Attendance attendance) {
+
+        log.info(attendance.getCheckInTime().toString()+"서비스");
         attendanceRepository.save(attendance);
     }
 
