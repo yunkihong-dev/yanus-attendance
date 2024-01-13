@@ -129,7 +129,10 @@ public class APIController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류 발생");
         }
     }
-
+    @GetMapping("currentTime")
+    public ResponseEntity<String> getCurrentTime() {
+        return ResponseEntity.ok(LocalDateTime.now().toString());
+    }
 
 
 }

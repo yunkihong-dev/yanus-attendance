@@ -100,7 +100,7 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
                 .where(attendance.checkInTime.between(startOfToday, endOfToday))
                 .orderBy(attendance.checkInTime.asc())
                 .fetch();
-        log.info(result.toString()+"QueryDSL");
+        log.info(result.toString() + "QueryDSL");
         return result;
     }
 
