@@ -56,4 +56,54 @@ function showMoreNoWork(){
 }
 
 
+// AJAX 또는 Fetch API를 사용하여 서버로 selectedItems를 전송
+function OkToNoWork() {
+    const selectedItems = Array.from(document.querySelectorAll('input[type="checkbox"][name="noWorks"]:checked')).map(checkbox => checkbox.value);
+
+    if(selectedItems[0] === 'selectAll'){
+        selectedItems.shift();
+    }
+    // AJAX 또는 Fetch API를 사용하여 서버로 selectedItems를 전송
+    fetch('/api/NoWorkOk', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(selectedItems),
+    })
+        .then(response => response.text()) // 응답을 텍스트로 처리
+        .then(data => {
+            alert(data); // "정상처리 되었습니다" 출력
+            location.reload();
+        })
+        .catch(error => {
+            alert('Error:', error);
+        });
+
+}
+function NotOkToNoWork() {
+    const selectedItems = Array.from(document.querySelectorAll('input[type="checkbox"][name="noWorks"]:checked')).map(checkbox => checkbox.value);
+
+    if(selectedItems[0] === 'selectAll'){
+        selectedItems.shift();
+    }
+    // AJAX 또는 Fetch API를 사용하여 서버로 selectedItems를 전송
+    fetch('/api/NoWorkNotOk', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(selectedItems),
+    })
+        .then(response => response.text()) // 응답을 텍스트로 처리
+        .then(data => {
+            alert(data); // "정상처리 되었습니다" 출력
+            location.reload();
+        })
+        .catch(error => {
+            alert('Error:', error);
+        });
+
+}
+
 

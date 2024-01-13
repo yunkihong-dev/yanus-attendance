@@ -7,132 +7,7 @@ window.onload = function(){
     }else{
         alert(member.memberName+"님, 환영합니다");
     }
-    let myIp = "220.69";
-    let start = document.getElementById("start");
-    let stop = document.getElementById("stop");
-    let noWork = document.getElementById("noWork")
-    let logOut = document.getElementById("log-out")
-    stop.disabled = true;
-    let timer_sec;
-    let timer_min;
-    let timer_hour;
-    let timer_micro;
 
-    let timer = 0;
-
-    //click start button
-    start.addEventListener("click", function(){
-        getExternalIp().then(ip =>{
-            goCheckIn().then(ok=>{
-                if ( ip === myIp) {
-                    start.disabled = true;
-                    stop.disabled = false;
-                    if(timer > 0){
-                        return;
-                    }
-                    var sec = parseInt(document.getElementById("sec").innerText);
-                    var min = parseInt(document.getElementById("min").innerText);
-                    var hour = parseInt(document.getElementById("hour").innerText);
-
-                    //start seconds
-                    timer_sec = setInterval(function(){
-                        //console.log(i);
-                        sec++;
-                        if(sec == 60) {
-                            sec = "00";
-                        } else if(sec < 10){
-                            sec = "0" + sec;
-                        }
-                        document.getElementById("sec").innerText = sec;
-                    }, 1000);
-
-                    //start minutes
-                    timer_min = setInterval(function(){
-                        min++;
-
-                        if(min == 60) {
-                            min = 0;
-                        } else if(min < 10){
-                            min = "0" + min;
-                        }
-
-                        document.getElementById("min").innerText = min;
-                    }, 60000);
-
-                    //start hours
-                    timer_hour = setInterval(function(){
-                        //console.log(hour);
-                        hour++;
-
-                        if(hour < 10){
-                            hour = "0" + hour;
-                        }
-
-                        document.getElementById("hour").innerText = hour;
-                        console.log(hour)
-                    }, 3600000);
-
-                    timer++;
-
-                }else{
-                    alert("당신지금 어디야");
-                }
-            }).catch(error=>{
-                alert("출근하는데 문제가 생겼어요..\n에러는 : ",error)
-            })
-
-
-
-        }).catch(err=>{
-            alert("ip를 받아오는데 문제가 발생했어요\n에러는 : ",err);
-        })
-
-    });
-    //click stop button
-    stop.addEventListener("click", function(){
-        if(hour.innerText<2){
-            let tF= confirm("시간을 충족하지 못했습니다. 그래도 퇴근하시겠습니까?");
-            if(tF){
-                document.getElementById("msg").innerText = "어서 더 채워 주세요!";
-                clearInterval(timer_micro);
-                clearInterval(timer_sec);
-                clearInterval(timer_min);
-                clearInterval(timer_hour);
-
-                timer--;
-                if(timer < 0){
-                    timer = 0;
-                }
-                goCheckOut().then(res =>{
-                    start.disabled = false;
-                    stop.disabled = true;
-                }).catch(err=>{
-                    alert("퇴근하는데 문제가 생겼어요..\n에러는 : ",err);
-                })
-            }else{
-                start.disabled = true;
-                stop.disabled = false;
-
-            }
-        }else{
-            document.getElementById("msg").innerText = "오늘의 할당량을 마치셨습니다!";
-            clearInterval(timer_micro);
-            clearInterval(timer_sec);
-            clearInterval(timer_min);
-            clearInterval(timer_hour);
-
-            timer--;
-            if(timer < 0){
-                timer = 0;
-            }
-            goCheckOut().then(res =>{
-                start.disabled = false;
-                stop.disabled = true;
-            }).catch(err=>{
-                alert("퇴근하는데 문제가 생겼어요..\n에러는 : ",err);
-            })
-        }
-    });
 }
 async function getExternalIp() {
     try {
@@ -152,6 +27,136 @@ document.getElementById("log-out").addEventListener('click', () => {
     }
 })
 
+let myIp = "220.69";
+let start = document.getElementById("start");
+let stop = document.getElementById("stop");
+let noWork = document.getElementById("noWork")
+let logOut = document.getElementById("log-out")
+stop.disabled = true;
+let timer_sec;
+let timer_min;
+let timer_hour;
+let timer_micro;
+let timer = 0;
+
+//click start button
+start.addEventListener("click",getCheckIn);
+//click stop button
+stop.addEventListener("click", getCheckOut);
+
+
+
+function getCheckIn(){
+    getExternalIp().then(ip =>{
+        goCheckIn().then(ok=>{
+            if ( ip === myIp) {
+                start.disabled = true;
+                stop.disabled = false;
+                if(timer > 0){
+                    return;
+                }
+                let sec = parseInt(document.getElementById("sec").innerText);
+                let min = parseInt(document.getElementById("min").innerText);
+                let hour = parseInt(document.getElementById("hour").innerText);
+
+                //start seconds
+                timer_sec = setInterval(function(){
+                    //console.log(i);
+                    sec++;
+                    if(sec == 60) {
+                        sec = "00";
+                    } else if(sec < 10){
+                        sec = "0" + sec;
+                    }
+                    document.getElementById("sec").innerText = sec;
+                }, 1000);
+
+                //start minutes
+                timer_min = setInterval(function(){
+                    min++;
+
+                    if(min == 60) {
+                        min = 0;
+                    } else if(min < 10){
+                        min = "0" + min;
+                    }
+
+                    document.getElementById("min").innerText = min;
+                }, 60000);
+
+                //start hours
+                timer_hour = setInterval(function(){
+                    //console.log(hour);
+                    hour++;
+
+                    if(hour < 10){
+                        hour = "0" + hour;
+                    }
+
+                    document.getElementById("hour").innerText = hour;
+                    console.log(hour)
+                }, 3600000);
+
+                timer++;
+
+            }else{
+                alert("당신지금 어디야");
+            }
+        }).catch(error=>{
+            alert("출근하는데 문제가 생겼어요..\n에러는 : ",error)
+        })
+
+
+
+    }).catch(err=>{
+        alert("ip를 받아오는데 문제가 발생했어요\n에러는 : ",err);
+    })
+
+}
+function getCheckOut(){
+    if(hour.innerText<2){
+        let tF= confirm("시간을 충족하지 못했습니다. 그래도 퇴근하시겠습니까?");
+        if(tF){
+            document.getElementById("msg").innerText = "어서 더 채워 주세요!";
+            clearInterval(timer_micro);
+            clearInterval(timer_sec);
+            clearInterval(timer_min);
+            clearInterval(timer_hour);
+
+            timer--;
+            if(timer < 0){
+                timer = 0;
+            }
+            goCheckOut().then(res =>{
+                start.disabled = false;
+                stop.disabled = true;
+            }).catch(err=>{
+                alert("퇴근하는데 문제가 생겼어요..\n에러는 : ",err);
+            })
+        }else{
+            start.disabled = true;
+            stop.disabled = false;
+
+        }
+    }else{
+        document.getElementById("msg").innerText = "오늘의 할당량을 마치셨습니다!";
+        clearInterval(timer_micro);
+        clearInterval(timer_sec);
+        clearInterval(timer_min);
+        clearInterval(timer_hour);
+
+        timer--;
+        if(timer < 0){
+            timer = 0;
+        }
+        goCheckOut().then(res =>{
+            start.disabled = false;
+            stop.disabled = true;
+        }).catch(err=>{
+            alert("퇴근하는데 문제가 생겼어요..\n에러는 : ",err);
+        })
+    }
+}
 
 
 

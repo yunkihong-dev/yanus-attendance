@@ -67,11 +67,6 @@
             <div class="small-title" id="first-title">
                 <p>나의 팀 출근정보</p>
             </div>
-            <div class="flex">
-                <button class="btns small-title">회원 삭제</button>
-                <button class="btns small-title">관리자로 전환</button>
-                <button class="btns small-title">팀 전환</button>
-            </div>
         </div>
         <div class="boxes tableDiv">
             <table class="width-98p" >
@@ -110,8 +105,8 @@
             <p>회원정보</p>
         </div>
         <div class="flex">
-            <button id="noWork-YesBtn" class="btns small-title">승인</button>
-            <button id="noWork-NoBtn" class="btns small-title">거절</button>
+            <button id="noWork-YesBtn" class="btns small-title" onclick="OkToNoWork()">승인</button>
+            <button id="noWork-NoBtn" class="btns small-title" onclick="NotOkToNoWork()">거절</button>
         </div>
     </div>
     <div id="noWorks-div">

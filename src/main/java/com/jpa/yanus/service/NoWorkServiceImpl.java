@@ -4,6 +4,7 @@ import com.jpa.yanus.domain.NoWorkDTO;
 import com.jpa.yanus.domain.NoWorkWithOutMemberDTO;
 import com.jpa.yanus.entity.NoWork;
 import com.jpa.yanus.repository.NoWorkRepository;
+import com.jpa.yanus.type.StatusType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,28 @@ public class NoWorkServiceImpl implements NoWorkService {
     @Override
     public List<NoWorkWithOutMemberDTO> getMyAllNoWork(Long id) {
         return noWorkRepository.findAllByMemberId(id);
+    }
+
+    @Override
+    public void noWorkOk(List<Long> noWorkList) {
+        List<NoWork> noWorkLists= noWorkRepository.findAllById(noWorkList);
+
+        for(NoWork noWork : noWorkLists){
+            noWork.setStatus(StatusType.ABLE);
+        }
+
+        noWorkRepository.saveAll(noWorkLists);
+    }
+
+    @Override
+    public void noWorkNotOk(List<Long> noWorkList) {
+        List<NoWork> noWorkLists= noWorkRepository.findAllById(noWorkList);
+
+        for(NoWork noWork : noWorkLists){
+            noWork.setStatus(StatusType.UNABLE);
+        }
+
+        noWorkRepository.saveAll(noWorkLists);
     }
 
 }

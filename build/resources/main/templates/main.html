@@ -84,16 +84,4 @@
 </footer>
 </body>
 <script src="js/main.js"></script>
-<script>
-    fetch('/api/currentTime')
-        .then(response => response.text())
-        .then(data => {
-            // 서버에서 받아온 문자열을 Date 객체로 변환
-
-            // 변환된 Date 객체를 이용하여 필요한 작업 수행
-            console.log(data);
-        })
-        .catch(error => console.error('Error fetching server time:', error));
-
-</script>
 </html>

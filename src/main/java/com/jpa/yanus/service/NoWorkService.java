@@ -14,4 +14,8 @@ public interface NoWorkService {
     public void insertNoWork(NoWork noWork);
 
     public List<NoWorkWithOutMemberDTO> getMyAllNoWork(Long id);
+
+    public void noWorkOk(List<Long> noWorkList);
+
+    public void noWorkNotOk(List<Long> noWorkList);
 }

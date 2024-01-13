@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -129,9 +131,57 @@ public class APIController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류 발생");
         }
     }
-    @GetMapping("currentTime")
-    public ResponseEntity<String> getCurrentTime() {
-        return ResponseEntity.ok(LocalDateTime.now().toString());
+    @PostMapping("NoWorkOk")
+    public ResponseEntity<String> noWorkOk(@SessionAttribute(name = "id", required = false) Long memberId,
+                                           @RequestBody List<String> noWorkList) {
+        try {
+            if (memberId == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("세션에서 회원을 찾을 수 없음");
+            }
+
+            // List<String>을 List<Long>으로 변환
+            List<Long> convertedNoWorkList = noWorkList.stream()
+                    .map(Long::valueOf)
+                    .collect(Collectors.toList());
+
+            noWorkService.noWorkOk(convertedNoWorkList);
+
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("정상처리 되었습니다");
+
+        } catch (NumberFormatException e) {
+            // 변환 오류가 발생한 경우
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 형식의 데이터가 포함되어 있습니다");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("회원을 찾을 수 없음");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류 발생");
+        }
+    }
+    @PostMapping("NoWorkNotOk")
+    public ResponseEntity<String> noWorkNotOk(@SessionAttribute(name = "id", required = false) Long memberId,
+                                           @RequestBody List<String> noWorkList) {
+        try {
+            if (memberId == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("세션에서 회원을 찾을 수 없음");
+            }
+
+            // List<String>을 List<Long>으로 변환
+            List<Long> convertedNoWorkList = noWorkList.stream()
+                    .map(Long::valueOf)
+                    .collect(Collectors.toList());
+
+            noWorkService.noWorkNotOk(convertedNoWorkList);
+
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body("정상처리 되었습니다");
+
+        } catch (NumberFormatException e) {
+            // 변환 오류가 발생한 경우
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("잘못된 형식의 데이터가 포함되어 있습니다");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("회원을 찾을 수 없음");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류 발생");
+        }
     }
 
 
