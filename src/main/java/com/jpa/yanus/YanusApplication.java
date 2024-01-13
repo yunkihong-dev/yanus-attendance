@@ -7,9 +7,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 @SpringBootApplication
-@CrossOrigin(origins = "http://52.78.57.113:10001/")
 public class YanusApplication {
+	@PostConstruct
+	public void started() {
+		// timezone KST 셋팅
+		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(YanusApplication.class, args);
 	}
