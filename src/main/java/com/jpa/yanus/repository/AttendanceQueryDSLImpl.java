@@ -61,7 +61,7 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
                         .and(subAttendance.checkInTime.between(startOfToday, endOfToday)));
 
         // 서브쿼리를 사용하여 각 회원별 최초 출근 기록만 가져오기
-        return query
+                List<AttendanceMemberJoinDTO> result = query
                 .select(Projections.constructor(AttendanceMemberJoinDTO.class,
                         attendance.id,
                         attendance.checkInTime,
@@ -74,6 +74,8 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
                         .and(attendance.checkInTime.eq(subQuery)))
                 .orderBy(attendance.checkInTime.asc())
                 .fetch();
+        log.info(result.toString()+"QueryDSL");
+        return result;
     }
 
     @Override
@@ -86,7 +88,7 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
         QMember member = QMember.member;
 
         // QueryDSL을 사용하여 쿼리를 작성합니다.
-        return query
+        List<AttendanceMemberJoinDTO> result = query
                 .select(Projections.constructor(AttendanceMemberJoinDTO.class,
                         attendance.id,
                         attendance.checkInTime,
@@ -98,6 +100,8 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
                 .where(attendance.checkInTime.between(startOfToday, endOfToday))
                 .orderBy(attendance.checkInTime.asc())
                 .fetch();
+        log.info(result.toString()+"QueryDSL");
+        return result;
     }
 
 

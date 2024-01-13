@@ -48,10 +48,10 @@ public class AttendanceController {
         Optional<Member> member = memberService.getMemberById(id);
         if (member.isPresent()) {
             List<NoWorkWithOutMemberDTO> noWorkList =  noWorkService.getMyAllNoWork(member.get().getId());
-
             model.addAttribute("noWorkList",noWorkList);
 
             List<AttendanceMemberJoinDTO> myTeamAttendanceList = attendanceService.findMyTeamAttendanceToday(member.get().getMemberTeamNum());
+            log.info(myTeamAttendanceList.toString() +"컨트롤러");
 
             model.addAttribute("myTeamAttendanceList",myTeamAttendanceList);
             model.addAttribute("member", member.get());

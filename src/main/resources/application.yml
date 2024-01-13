@@ -13,8 +13,6 @@ server:
 #    url: jdbc:mysql://localhost:3306/YANUSTEST?useSSL=false&serverTimezone=Asia/Seoul
 #    username: root
 #    password: 12345678
-#  jackson:
-#    time-zone: Asia/Seoul
 
 # 배포용
 spring:
@@ -23,8 +21,6 @@ spring:
     url: jdbc:mysql://yanus-db.cb4pkxlnks4i.ap-northeast-2.rds.amazonaws.com:3306/yanus?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useTimezone=true
     username: admin
     password: 12345678
-  jackson:
-    time-zone: Asia/Seoul
 
   mvc:
     hiddenmethod:

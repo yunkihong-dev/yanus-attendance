@@ -48,6 +48,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public List<AttendanceMemberJoinDTO> findMyTeamAttendanceToday(int memberTeamNum) {
+        log.info(attendanceRepository.findMostResentAttendanceByTeamNum(memberTeamNum)+"서비스");
         return attendanceRepository.findMostResentAttendanceByTeamNum(memberTeamNum);
     }
 

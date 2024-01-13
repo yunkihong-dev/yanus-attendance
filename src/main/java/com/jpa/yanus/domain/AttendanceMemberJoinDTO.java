@@ -1,5 +1,6 @@
 package com.jpa.yanus.domain;
 
+import com.jpa.yanus.type.MemberType;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
