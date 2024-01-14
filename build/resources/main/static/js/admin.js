@@ -63,6 +63,10 @@ function OkToNoWork() {
     if(selectedItems[0] === 'selectAll'){
         selectedItems.shift();
     }
+    if(selectedItems.length === 0 ){
+        alert("한개 이상 선택해주세요");
+        return;
+    }
     // AJAX 또는 Fetch API를 사용하여 서버로 selectedItems를 전송
     fetch('/api/NoWorkOk', {
         method: 'POST',
@@ -86,6 +90,10 @@ function NotOkToNoWork() {
 
     if(selectedItems[0] === 'selectAll'){
         selectedItems.shift();
+    }
+    if(selectedItems.length ===0){
+        alert("한개 이상 선택해주세요");
+        return;
     }
     // AJAX 또는 Fetch API를 사용하여 서버로 selectedItems를 전송
     fetch('/api/NoWorkNotOk', {
