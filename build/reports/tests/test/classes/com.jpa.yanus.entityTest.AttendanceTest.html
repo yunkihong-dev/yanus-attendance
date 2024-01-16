@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - AttendanceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>AttendanceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.jpa.yanus.entityTest.html">com.jpa.yanus.entityTest</a> &gt; AttendanceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">1.030s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">findWeekAttendanceById()</td>
+<td class="success">1.030s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>17:47:38.515 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+17:47:38.564 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+17:47:38.760 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.jpa.yanus.entityTest.AttendanceTest] from class [org.springframework.boot.test.context.SpringBootTestContextBootstrapper]
+17:47:38.797 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.jpa.yanus.entityTest.AttendanceTest], using SpringBootContextLoader
+17:47:38.807 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.jpa.yanus.entityTest.AttendanceTest]: class path resource [com/jpa/yanus/entityTest/AttendanceTest-context.xml] does not exist
+17:47:38.808 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.jpa.yanus.entityTest.AttendanceTest]: class path resource [com/jpa/yanus/entityTest/AttendanceTestContext.groovy] does not exist
+17:47:38.808 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.jpa.yanus.entityTest.AttendanceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+17:47:38.809 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.jpa.yanus.entityTest.AttendanceTest]: AttendanceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+17:47:38.926 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.jpa.yanus.entityTest.AttendanceTest]
+17:47:39.116 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/rickyhong/Desktop/Projects/testforcicd/build/classes/java/main/com/jpa/yanus/YanusApplication.class]
+17:47:39.119 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.jpa.yanus.YanusApplication for test class com.jpa.yanus.entityTest.AttendanceTest
+17:47:39.422 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - @TestExecutionListeners is not present for class [com.jpa.yanus.entityTest.AttendanceTest]: using defaults.
+17:47:39.423 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+17:47:39.454 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@88d6f9b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@47d93e0d, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@475b7792, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@751e664e, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@160c3ec1, org.springframework.test.context.support.DirtiesContextTestExecutionListener@182b435b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4d0402b, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@2fa7ae9, org.springframework.test.context.event.EventPublishingTestExecutionListener@7577b641, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3704122f, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@3153ddfc, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@60afd40d, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@28a2a3e7, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@3f2049b6, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@10b3df93]
+17:47:39.465 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@5a2f016d testClass = AttendanceTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@1a38ba58 testClass = AttendanceTest, locations = '{}', classes = '{class com.jpa.yanus.YanusApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@2fc0cc3, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@53812a9b, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@d8305c2, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@531c311e, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@37b70343, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@75c56eb9], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true]], class annotated with @DirtiesContext [false] with mode [null].
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+?[32m :: Spring Boot :: ?[39m              ?[2m (v2.7.5)?[0;39m
+
+?[2m2024-01-15 17:47:41.706?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mcom.jpa.yanus.entityTest.AttendanceTest ?[0;39m ?[2m:?[0;39m Starting AttendanceTest using Java 11.0.15 on rickyui-MacBookAir.local with PID 6707 (started by rickyhong in /Users/rickyhong/Desktop/Projects/testforcicd)
+?[2m2024-01-15 17:47:41.724?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mcom.jpa.yanus.entityTest.AttendanceTest ?[0;39m ?[2m:?[0;39m No active profile set, falling back to 1 default profile: &quot;default&quot;
+?[2m2024-01-15 17:47:44.195?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36m.s.d.r.c.RepositoryConfigurationDelegate?[0;39m ?[2m:?[0;39m Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+?[2m2024-01-15 17:47:44.758?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36m.s.d.r.c.RepositoryConfigurationDelegate?[0;39m ?[2m:?[0;39m Finished Spring Data repository scanning in 551 ms. Found 3 JPA repository interfaces.
+?[2m2024-01-15 17:47:45.788?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mtrationDelegate$BeanPostProcessorChecker?[0;39m ?[2m:?[0;39m Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$3bba84d0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+?[2m2024-01-15 17:47:45.957?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36m.w.s.a.s.AnnotationActionEndpointMapping?[0;39m ?[2m:?[0;39m Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+?[2m2024-01-15 17:47:46.965?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mo.hibernate.jpa.internal.util.LogHelper ?[0;39m ?[2m:?[0;39m HHH000204: Processing PersistenceUnitInfo [name: default]
+?[2m2024-01-15 17:47:47.059?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36morg.hibernate.Version                   ?[0;39m ?[2m:?[0;39m HHH000412: Hibernate ORM core version 5.6.12.Final
+?[2m2024-01-15 17:47:47.376?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mo.hibernate.annotations.common.Version  ?[0;39m ?[2m:?[0;39m HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+?[2m2024-01-15 17:47:47.620?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mcom.zaxxer.hikari.HikariDataSource      ?[0;39m ?[2m:?[0;39m HikariPool-1 - Starting...
+?[2m2024-01-15 17:47:48.231?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mcom.zaxxer.hikari.HikariDataSource      ?[0;39m ?[2m:?[0;39m HikariPool-1 - Start completed.
+?[2m2024-01-15 17:47:48.272?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36morg.hibernate.dialect.Dialect           ?[0;39m ?[2m:?[0;39m HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+?[2m2024-01-15 17:47:50.022?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mo.h.e.t.j.p.i.JtaPlatformInitiator      ?[0;39m ?[2m:?[0;39m HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+?[2m2024-01-15 17:47:50.038?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mj.LocalContainerEntityManagerFactoryBean?[0;39m ?[2m:?[0;39m Initialized JPA EntityManagerFactory for persistence unit 'default'
+?[2m2024-01-15 17:47:52.264?[0;39m ?[33m WARN?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mJpaBaseConfiguration$JpaWebConfiguration?[0;39m ?[2m:?[0;39m spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+?[2m2024-01-15 17:47:54.445?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mcom.jpa.yanus.entityTest.AttendanceTest ?[0;39m ?[2m:?[0;39m Started AttendanceTest in 14.689 seconds (JVM running for 18.746)
+?[2m2024-01-15 17:47:54.540?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mo.s.t.c.transaction.TransactionContext  ?[0;39m ?[2m:?[0;39m Began transaction (1) for test context [DefaultTestContext@5a2f016d testClass = AttendanceTest, testInstance = com.jpa.yanus.entityTest.AttendanceTest@624268ab, testMethod = findWeekAttendanceById@AttendanceTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@1a38ba58 testClass = AttendanceTest, locations = '{}', classes = '{class com.jpa.yanus.YanusApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@2fc0cc3, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@53812a9b, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@d8305c2, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@531c311e, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@37b70343, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@75c56eb9], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@162a5c4c]; rollback [false]
+?[2m2024-01-15 17:47:54.950?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mc.j.y.repository.AttendanceQueryDSLImpl ?[0;39m ?[2m:?[0;39m 2024-01-15T00:00
+?[2m2024-01-15 17:47:54.951?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mc.j.y.repository.AttendanceQueryDSLImpl ?[0;39m ?[2m:?[0;39m 2024-01-21T23:59:59.999999999
+Hibernate: 
+    select
+        sum(case 
+            when attendance0_.check_in_time&gt;=? 
+            and attendance0_.check_out_time&lt;=? 
+            and dayofweek(attendance0_.check_in_time)=? then TIMESTAMPDIFF(SECOND,
+            attendance0_.check_in_time,
+            attendance0_.check_out_time) 
+            else 0 
+        end) as col_0_0_,
+        sum(case 
+            when attendance0_.check_in_time&gt;=? 
+            and attendance0_.check_out_time&lt;=? 
+            and dayofweek(attendance0_.check_in_time)=? then TIMESTAMPDIFF(SECOND,
+            attendance0_.check_in_time,
+            attendance0_.check_out_time) 
+            else 0 
+        end) as col_1_0_,
+        sum(case 
+            when attendance0_.check_in_time&gt;=? 
+            and attendance0_.check_out_time&lt;=? 
+            and dayofweek(attendance0_.check_in_time)=? then TIMESTAMPDIFF(SECOND,
+            attendance0_.check_in_time,
+            attendance0_.check_out_time) 
+            else 0 
+        end) as col_2_0_,
+        sum(case 
+            when attendance0_.check_in_time&gt;=? 
+            and attendance0_.check_out_time&lt;=? 
+            and dayofweek(attendance0_.check_in_time)=? then TIMESTAMPDIFF(SECOND,
+            attendance0_.check_in_time,
+            attendance0_.check_out_time) 
+            else 0 
+        end) as col_3_0_,
+        sum(case 
+            when attendance0_.check_in_time&gt;=? 
+            and attendance0_.check_out_time&lt;=? 
+            and dayofweek(attendance0_.check_in_time)=? then TIMESTAMPDIFF(SECOND,
+            attendance0_.check_in_time,
+            attendance0_.check_out_time) 
+            else 0 
+        end) as col_4_0_,
+        sum(case 
+            when attendance0_.check_in_time&gt;=? 
+            and attendance0_.check_out_time&lt;=? 
+            and dayofweek(attendance0_.check_in_time)=? then TIMESTAMPDIFF(SECOND,
+            attendance0_.check_in_time,
+            attendance0_.check_out_time) 
+            else 0 
+        end) as col_5_0_,
+        sum(case 
+            when attendance0_.check_in_time&gt;=? 
+            and attendance0_.check_out_time&lt;=? 
+            and dayofweek(attendance0_.check_in_time)=? then TIMESTAMPDIFF(SECOND,
+            attendance0_.check_in_time,
+            attendance0_.check_out_time) 
+            else 0 
+        end) as col_6_0_ 
+    from
+        tbl_attendance attendance0_ 
+    where
+        attendance0_.member_id=? 
+        and (
+            attendance0_.check_in_time between ? and ?
+        )
+?[2m2024-01-15 17:47:55.465?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mcom.jpa.yanus.entityTest.AttendanceTest ?[0;39m ?[2m:?[0;39m [AttendanceForWeekDTO(Mon=null, Tue=null, Wed=null, Thur=null, Fri=null, Sat=null, Sun=null)]
+?[2m2024-01-15 17:47:55.516?[0;39m ?[32m INFO?[0;39m ?[35m6707?[0;39m ?[2m---?[0;39m ?[2m[    Test worker]?[0;39m ?[36mo.s.t.c.transaction.TransactionContext  ?[0;39m ?[2m:?[0;39m Committed transaction for test: [DefaultTestContext@5a2f016d testClass = AttendanceTest, testInstance = com.jpa.yanus.entityTest.AttendanceTest@624268ab, testMethod = findWeekAttendanceById@AttendanceTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@1a38ba58 testClass = AttendanceTest, locations = '{}', classes = '{class com.jpa.yanus.YanusApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@2fc0cc3, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@53812a9b, org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@d8305c2, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@531c311e, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@37b70343, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@75c56eb9], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -&gt; true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -&gt; true, 'org.springframework.test.context.event.ApplicationEventsTestExecutionListener.recordApplicationEvents' -&gt; false]]
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.2.1</a> at 2024. 1. 15. 오후 5:47:55</p>
+</div>
+</div>
+</body>
+</html>

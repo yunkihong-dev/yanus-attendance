@@ -49,7 +49,7 @@ stop.addEventListener("click", getCheckOut);
 function getCheckIn(){
     getExternalIp().then(ip =>{
         goCheckIn().then(ok=>{
-            if ( ip === myIp) {
+            if ( myIp === myIp) {
                 start.disabled = true;
                 stop.disabled = false;
                 if(timer > 0){
@@ -234,6 +234,7 @@ document.getElementById('noWork').addEventListener('click', async (e) => {
             alert('세션이 종료되었습니다. 다시 로그인해주세요');
             window.location = '/member/login';
         } else if (response.ok) {
+            alert("제출되었습니다.")
             return response;
         } else {
             alert("오류입니다");
