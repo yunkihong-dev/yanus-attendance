@@ -21,7 +21,7 @@ window.onload = function(){
         alert(member.memberName+"님, 환영합니다");
     //    세션에 출근상태인지 확인
         if (myRecentAttendance) {
-            let tf = confirm("출근중!");
+            let tf = confirm("출근시간을 이어서 하시겠습니까?");
             if(tf){
                 let today = new Date(); // 현재 시간
                 let myRecentAttendance1 = new Date(myRecentAttendance); // 최근 출석 시간
