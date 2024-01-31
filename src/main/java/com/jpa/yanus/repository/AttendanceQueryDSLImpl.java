@@ -7,7 +7,6 @@ import com.jpa.yanus.entity.QAttendance;
 import com.jpa.yanus.entity.QMember;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.NumberTemplate;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -21,7 +20,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.jpa.yanus.entity.QAttendance.attendance;
-import static com.querydsl.core.types.Projections.*;
 
 
 @Slf4j

@@ -2,6 +2,7 @@ package com.jpa.yanus.controller;
 
 import com.jpa.yanus.domain.AttendanceMemberJoinDTO;
 import com.jpa.yanus.domain.NoWorkWithOutMemberDTO;
+import com.jpa.yanus.entity.Attendance;
 import com.jpa.yanus.entity.Member;
 import com.jpa.yanus.repository.MemberRepository;
 import com.jpa.yanus.service.AttendanceService;
@@ -53,6 +54,12 @@ public class AttendanceController {
             List<AttendanceMemberJoinDTO> myTeamAttendanceList = attendanceService.findMyTeamAttendanceToday(member.get().getMemberTeamNum());
             log.info(myTeamAttendanceList.toString() +"컨트롤러");
 
+            Attendance attendance = attendanceService.findMostRecentAttendanceByMember(id);
+            if(attendance.getCheckOutTime().toString().equals(attendance.getCheckInTime().toString())){
+                model.addAttribute("myRecentAttendance",attendance.getCheckInTime());
+            }else{
+                model.addAttribute("myRecentAttendance",null);
+            }
             model.addAttribute("myTeamAttendanceList",myTeamAttendanceList);
             model.addAttribute("member", member.get());
 

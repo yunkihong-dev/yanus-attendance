@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,17 +41,18 @@ public class MemberController {
 
 
     @PostMapping("login")
-    public String login(Member member, HttpSession httpSession, HttpServletRequest request){
+    public RedirectView login(Member member, HttpSession httpSession, RedirectAttributes redirectAttributes){
         final Optional<Member> foundMember = memberService.getMember(member.getMemberId(),member.getMemberPassword());
         if(foundMember.isPresent()){
             log.info("로그인 성공!");
             httpSession.setAttribute("id", foundMember.get().getId());
 
-            return "redirect:/";
+            return new RedirectView("/");
         }
         else {
+            redirectAttributes.addFlashAttribute("login","fail");
             log.info("로그인 실패!");
-            return "/member/login";
+            return new RedirectView("/member/login");
         }
 
     }

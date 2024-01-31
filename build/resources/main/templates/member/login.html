@@ -24,5 +24,30 @@
             </form>
         </div>
     </div>
+
+    <div id="myModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <p id="modalMessage">아이디나 비밀번호를 다시 확인해주세요</p>
+        </div>
+    </div>
+
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let loginStatus = "[[${login}]]"; // 서버에서 전달된 로그인 상태
+
+        if (loginStatus === "fail") {
+            let modal = document.getElementById("myModal");
+            modal.style.display = "block";
+
+            // 모달 내부 또는 외부 클릭 시 모달 닫기
+            window.onclick = function(event) {
+                if (event.target === modal || event.target === modal.querySelector(".modal-content")) {
+                    modal.style.display = "none";
+                }
+            };
+        }
+    });
+
+</script>
 </html>

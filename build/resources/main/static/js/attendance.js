@@ -1,13 +1,52 @@
 
+let myIp = "220.69";
+let start = document.getElementById("start");
+let stop = document.getElementById("stop");
+let noWork = document.getElementById("noWork")
+let logOut = document.getElementById("log-out")
+stop.disabled = true;
+let timer_sec;
+let timer_min;
+let timer_hour;
+let timer_micro;
+let timer = 0;
 let a = 10;
+
 document.getElementById("percent").innerText=a+"%";
+
 window.onload = function(){
     if(member == null){
         alert("돌아가라")
     }else{
         alert(member.memberName+"님, 환영합니다");
-    }
+    //    세션에 출근상태인지 확인
+        if (myRecentAttendance) {
+            let tf = confirm("출근중!");
+            if(tf){
+                let today = new Date(); // 현재 시간
+                let myRecentAttendance1 = new Date(myRecentAttendance); // 최근 출석 시간
+                console.log(myRecentAttendance1);
+                let differenceInMillis = today.getTime() - myRecentAttendance1.getTime();
 
+                let differenceInSeconds = Math.floor(differenceInMillis / 1000);
+                let differenceInMinutes = Math.floor(differenceInSeconds / 60);
+                let differenceInHours = Math.floor(differenceInMinutes / 60);
+
+            // 시간, 분, 초로 변환
+                let hours = Math.floor(differenceInHours);
+                let minutes = Math.floor(differenceInMinutes % 60);
+                let seconds = Math.floor(differenceInSeconds % 60);
+
+                console.log(hours+"시간"); // 시간 차이
+                console.log(minutes+"분"); // 분 차이
+                console.log(seconds+"초"); // 초 차이
+                document.getElementById("hour").innerText = hours;
+                document.getElementById("min").innerText = minutes;
+                document.getElementById("sec").innerText =  seconds;
+                startStopWatch();
+            }
+        }
+    }
 }
 async function getExternalIp() {
     try {
@@ -27,17 +66,6 @@ document.getElementById("log-out").addEventListener('click', () => {
     }
 })
 
-let myIp = "220.69";
-let start = document.getElementById("start");
-let stop = document.getElementById("stop");
-let noWork = document.getElementById("noWork")
-let logOut = document.getElementById("log-out")
-stop.disabled = true;
-let timer_sec;
-let timer_min;
-let timer_hour;
-let timer_micro;
-let timer = 0;
 
 //click start button
 start.addEventListener("click",getCheckIn);
@@ -45,60 +73,62 @@ start.addEventListener("click",getCheckIn);
 stop.addEventListener("click", getCheckOut);
 
 
+function startStopWatch() {
+    start.disabled = true;
+    stop.disabled = false;
+    if(timer > 0){
+        return;
+    }
+    let sec = parseInt(document.getElementById("sec").innerText);
+    let min = parseInt(document.getElementById("min").innerText);
+    let hour = parseInt(document.getElementById("hour").innerText);
 
+    //start seconds
+    timer_sec = setInterval(function(){
+        //console.log(i);
+        sec++;
+        if(sec == 60) {
+            sec = "00";
+        } else if(sec < 10){
+            sec = "0" + sec;
+        }
+        document.getElementById("sec").innerText = sec;
+    }, 1000);
+
+    //start minutes
+    timer_min = setInterval(function(){
+        min++;
+
+        if(min == 60) {
+            min = 0;
+        } else if(min < 10){
+            min = "0" + min;
+        }
+
+        document.getElementById("min").innerText = min;
+    }, 60000);
+
+    //start hours
+    timer_hour = setInterval(function(){
+        //console.log(hour);
+        hour++;
+
+        if(hour < 10){
+            hour = "0" + hour;
+        }
+
+        document.getElementById("hour").innerText = hour;
+        console.log(hour)
+    }, 3600000);
+
+    timer++;
+
+}
 function getCheckIn(){
     getExternalIp().then(ip =>{
         goCheckIn().then(ok=>{
             if ( myIp === myIp) {
-                start.disabled = true;
-                stop.disabled = false;
-                if(timer > 0){
-                    return;
-                }
-                let sec = parseInt(document.getElementById("sec").innerText);
-                let min = parseInt(document.getElementById("min").innerText);
-                let hour = parseInt(document.getElementById("hour").innerText);
-
-                //start seconds
-                timer_sec = setInterval(function(){
-                    //console.log(i);
-                    sec++;
-                    if(sec == 60) {
-                        sec = "00";
-                    } else if(sec < 10){
-                        sec = "0" + sec;
-                    }
-                    document.getElementById("sec").innerText = sec;
-                }, 1000);
-
-                //start minutes
-                timer_min = setInterval(function(){
-                    min++;
-
-                    if(min == 60) {
-                        min = 0;
-                    } else if(min < 10){
-                        min = "0" + min;
-                    }
-
-                    document.getElementById("min").innerText = min;
-                }, 60000);
-
-                //start hours
-                timer_hour = setInterval(function(){
-                    //console.log(hour);
-                    hour++;
-
-                    if(hour < 10){
-                        hour = "0" + hour;
-                    }
-
-                    document.getElementById("hour").innerText = hour;
-                    console.log(hour)
-                }, 3600000);
-
-                timer++;
-
+                startStopWatch();
             }else{
                 alert("당신지금 어디야");
             }
@@ -114,7 +144,7 @@ function getCheckIn(){
 
 }
 function getCheckOut(){
-    if(hour.innerText<2){
+    if(hour.innerText<5){
         let tF= confirm("시간을 충족하지 못했습니다. 그래도 퇴근하시겠습니까?");
         if(tF){
             document.getElementById("msg").innerText = "어서 더 채워 주세요!";

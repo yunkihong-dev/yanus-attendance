@@ -3,7 +3,7 @@ server:
   port: 80
   servlet:
     session:
-      timeout: 86400 # 세션 타임아웃을 초 단위로 설정 (24시간)
+      timeout: 64800 # 세션 타임아웃을 초 단위로 설정 (18  시간)
 
 # jdbc
 #로컬 테스트용

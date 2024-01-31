@@ -200,11 +200,12 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/js/calendar.js"></script>
-<script src="/js/attendance.js"></script>
 <script type="application/javascript" th:inline="javascript">
 
     let member = [[${member}]];
     let myTeamAttendanceList = [[${myTeamAttendanceList}]];
-</script>
+    let myRecentAttendance = [[${myRecentAttendance}]];
 
+</script>
+<script src="/js/attendance.js"></script>
 </html>
