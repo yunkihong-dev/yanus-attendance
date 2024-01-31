@@ -37,9 +37,6 @@ window.onload = function(){
                 let minutes = Math.floor(differenceInMinutes % 60);
                 let seconds = Math.floor(differenceInSeconds % 60);
 
-                console.log(hours+"시간"); // 시간 차이
-                console.log(minutes+"분"); // 분 차이
-                console.log(seconds+"초"); // 초 차이
                 if(hours<10){
                     document.getElementById("hour").innerText ="0"+ hours;
                 }else if(hours === 0){
@@ -146,15 +143,16 @@ function startStopWatch() {
 }
 function getCheckIn(){
     getExternalIp().then(ip =>{
-        goCheckIn().then(ok=>{
-            if ( ip === myIp) {
-                startStopWatch();
-            }else{
-                alert("당신지금 어디야");
-            }
-        }).catch(error=>{
-            alert("출근하는데 문제가 생겼어요..\n에러는 : ",error)
-        })
+        if ( ip === myIp) {
+            console.log(ip);
+            startStopWatch();
+            goCheckIn().catch(error=>{
+                alert("출근하는데 문제가 생겼어요..\n에러는 : ",error)
+            })
+
+        }else{
+            alert("당신지금 어디야");
+        }
 
 
 

@@ -5,6 +5,7 @@ import com.jpa.yanus.domain.AttendanceMemberJoinDTO;
 import com.jpa.yanus.entity.Attendance;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface  AttendanceService {
@@ -15,7 +16,7 @@ public interface  AttendanceService {
 
     public void getCheckOut(Attendance attendance);
 
-    public Attendance findMostRecentAttendanceByMember(Long memberId);
+    public Optional<Attendance> findMostRecentAttendanceByMember(Long memberId);
 
     public List<AttendanceMemberJoinDTO> findMyTeamAttendanceToday(int memberTeamNum);
 

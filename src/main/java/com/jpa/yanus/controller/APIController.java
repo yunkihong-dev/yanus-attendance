@@ -19,6 +19,7 @@ import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -73,7 +74,7 @@ public class APIController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("세션에서 회원을 찾을 수 없음");
             }
             // 회원의 최근 출석 기록을 찾음
-            Attendance mostRecentAttendance = attendanceService.findMostRecentAttendanceByMember(memberId);
+            Optional<Attendance> mostRecentAttendance = attendanceService.findMostRecentAttendanceByMember(memberId);
 
             if (mostRecentAttendance == null) {
                 // 회원의 출석 기록을 찾을 수 없는 경우
@@ -85,11 +86,11 @@ public class APIController {
             LocalDateTime currentDateTime = LocalDateTime.now();
 
             // 최근 출석 기록의 checkOutTime을 업데이트
-            mostRecentAttendance.setCheckOutTime(currentDateTime);
+            mostRecentAttendance.get().setCheckOutTime(currentDateTime);
 
             log.info(mostRecentAttendance.toString());
             // attendanceService.getCheckOut 메서드가 AttendanceDTO를 기대하므로, toDTO 메서드를 사용하여 변환
-            attendanceService.getCheckOut(mostRecentAttendance);
+            attendanceService.getCheckOut(mostRecentAttendance.get());
 
             // 성공 응답 반환
             return ResponseEntity.ok("체크아웃 성공");

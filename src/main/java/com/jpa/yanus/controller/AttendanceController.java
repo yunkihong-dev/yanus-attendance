@@ -54,14 +54,18 @@ public class AttendanceController {
             List<AttendanceMemberJoinDTO> myTeamAttendanceList = attendanceService.findMyTeamAttendanceToday(member.get().getMemberTeamNum());
             log.info(myTeamAttendanceList.toString() +"컨트롤러");
 
-            Attendance attendance = attendanceService.findMostRecentAttendanceByMember(id);
-            if(attendance.getCheckOutTime().toString().equals(attendance.getCheckInTime().toString())){
-                model.addAttribute("myRecentAttendance",attendance.getCheckInTime());
+            Optional<Attendance> attendance = attendanceService.findMostRecentAttendanceByMember(id);
+            if(attendance.isPresent()){
+                if(attendance.get().getCheckOutTime().toString().equals(attendance.get().getCheckInTime().toString())){
+                    model.addAttribute("myRecentAttendance",attendance.get().getCheckInTime());
+                }
+                model.addAttribute("myTeamAttendanceList",myTeamAttendanceList);
+                model.addAttribute("member", member.get());
             }else{
                 model.addAttribute("myRecentAttendance",null);
+                model.addAttribute("myTeamAttendanceList",myTeamAttendanceList);
+                model.addAttribute("member", member.get());
             }
-            model.addAttribute("myTeamAttendanceList",myTeamAttendanceList);
-            model.addAttribute("member", member.get());
 
 
             return "member/attendance"; // 직접 뷰 이름 반환

@@ -21,7 +21,7 @@ window.onload = function(){
         alert(member.memberName+"님, 환영합니다");
     //    세션에 출근상태인지 확인
         if (myRecentAttendance) {
-            let tf = confirm("출근중!");
+            let tf = confirm("출근시간을 이어서 하시겠습니까?");
             if(tf){
                 let today = new Date(); // 현재 시간
                 let myRecentAttendance1 = new Date(myRecentAttendance); // 최근 출석 시간
@@ -37,12 +37,29 @@ window.onload = function(){
                 let minutes = Math.floor(differenceInMinutes % 60);
                 let seconds = Math.floor(differenceInSeconds % 60);
 
-                console.log(hours+"시간"); // 시간 차이
-                console.log(minutes+"분"); // 분 차이
-                console.log(seconds+"초"); // 초 차이
-                document.getElementById("hour").innerText = hours;
-                document.getElementById("min").innerText = minutes;
-                document.getElementById("sec").innerText =  seconds;
+                if(hours<10){
+                    document.getElementById("hour").innerText ="0"+ hours;
+                }else if(hours === 0){
+                    document.getElementById("hour").innerText ="00";
+                }else{
+                    document.getElementById("hour").innerText = hours.toString();
+                }
+                if(minutes<10){
+                    document.getElementById("min").innerText ="0"+  minutes;
+                }else if(minutes === 0){
+                    document.getElementById("min").innerText ="00";
+                }else{
+                    document.getElementById("min").innerText =minutes.toString();
+                }
+                if(seconds<10){
+                    document.getElementById("sec").innerText =  "0"+seconds;
+                }else if(seconds === 0){
+                    document.getElementById("sec").innerText =  "00";
+                }else{
+                    document.getElementById("sec").innerText =  seconds.toString();
+
+                }
+
                 startStopWatch();
             }
         }
@@ -126,15 +143,16 @@ function startStopWatch() {
 }
 function getCheckIn(){
     getExternalIp().then(ip =>{
-        goCheckIn().then(ok=>{
-            if ( myIp === myIp) {
-                startStopWatch();
-            }else{
-                alert("당신지금 어디야");
-            }
-        }).catch(error=>{
-            alert("출근하는데 문제가 생겼어요..\n에러는 : ",error)
-        })
+        if ( ip === myIp) {
+            console.log(ip);
+            startStopWatch();
+            goCheckIn().catch(error=>{
+                alert("출근하는데 문제가 생겼어요..\n에러는 : ",error)
+            })
+
+        }else{
+            alert("당신지금 어디야");
+        }
 
 
 

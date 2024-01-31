@@ -18,6 +18,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static com.jpa.yanus.entity.QAttendance.attendance;
 
@@ -37,13 +38,13 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
     }
 
     @Override
-    public Attendance findMostRecentAttendanceByMember(Long memberId) {
+    public Optional<Attendance> findMostRecentAttendanceByMember(Long memberId) {
         final Attendance foundAttendance = query.selectFrom(attendance)
                 .where(attendance.member.id.eq(memberId))
                 .orderBy(attendance.checkInTime.desc())
                 .fetchFirst();
 
-        return foundAttendance;
+        return Optional.ofNullable(foundAttendance);
     }
 
     @Override
