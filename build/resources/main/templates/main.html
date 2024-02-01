@@ -28,10 +28,11 @@
 
 <header>
 
-    <p>Welcome to Our Website</p>
+    <p>보안셀 페이지</p>
     <a href="/member/login" class="login-button" th:if="${member == null}">
         <button>Login</button>
     </a>
+    <button id="darkModeToggle">다크 모드 토글</button>
     <button class="login-button" id="modalOpenButton">머리식히기</button>
     <a href="/attendance/" class="work-button" th:if="${member != null}">
         <button>출근하러가기</button>

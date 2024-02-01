@@ -307,7 +307,8 @@ modalCloseButton.addEventListener('click', (e) => {
 
 });
 
-
+let color1 = '#00B4ED';
+let color2 = '#5CD2E6';
 var context = document
     .getElementById('myChart')
     .getContext('2d');
@@ -325,8 +326,8 @@ var myChart = new Chart(context, {
                 ],
                 backgroundColor: [
                     //색상
-                    '#00B4ED',
-                    '#5CD2E6'
+                    color1,
+                    color2
                 ],
                 borderWidth: 0 //경계선 굵기
             }
@@ -357,3 +358,27 @@ function showMoreNoWork(){
         document.getElementById('noWork-show-more-btn').style.display = 'none';
     }
 }
+
+const darkModeToggle = document.getElementById('darkModeToggle');
+
+darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
+
+document.getElementById('darkModeToggle').addEventListener('change', function() {
+    color1 = document.body.classList.contains('dark-mode') ? '#000' : '#00B4ED';
+    color2 = document.body.classList.contains('dark-mode') ? '#393939' : '#5CD2E6';
+
+    // 차트 데이터 업데이트
+    myChart.data.datasets[0].backgroundColor[0] = color1;
+    myChart.data.datasets[0].backgroundColor[1] = color2;
+
+    // 차트 업데이트
+    myChart.update();
+
+    if(this.checked) {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+});

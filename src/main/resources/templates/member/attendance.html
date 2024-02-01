@@ -3,6 +3,7 @@
 <head>
     <link rel="icon" href="/image/logo.png"/>
     <link rel="stylesheet" href="/css/attendance.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="/css/calendar.css"/>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -12,6 +13,14 @@
 </head>
 <body>
 <header>
+    <div class="toggle-switch">
+        <input type="checkbox" id="darkModeToggle" class="checkbox">
+        <label for="darkModeToggle" class="label">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+            <div class="ball"></div>
+        </label>
+    </div>
     <a class="width-fit-content center block" href="/">
         <img src="/image/logo.png">
     </a>
@@ -23,7 +32,7 @@
     <div id="log-out">
 
         <label>로그아웃</label>
-        <img id="log-out-icon" src="https://cdn4.iconfinder.com/data/icons/liny/24/logout-line-512.png" alt="log-out-icon">
+        <img id="log-out-icon" src="/image/log-out-icon.svg" alt="log-out-icon">
     </div>
     <div class="width-100p bar">
         <label id="category">근태관리</label>

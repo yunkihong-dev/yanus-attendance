@@ -758,6 +758,9 @@ modalCloseButton.addEventListener('click', (e) => {
 
 
 
+
+
+// 도트 박스 js
 const canvas = document.getElementById('logo-canvas');
 const ctx = canvas.getContext('2d');
 const dots = [];
@@ -855,4 +858,10 @@ canvas.addEventListener('mouseenter', () => {
 
 canvas.addEventListener('mouseleave', () => {
     isMouseOver = false;
+});
+
+const darkModeToggleButton = document.getElementById('darkModeToggle');
+
+darkModeToggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
 });

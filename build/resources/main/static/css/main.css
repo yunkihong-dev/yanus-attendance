@@ -1,13 +1,26 @@
+:root {
+    --primary-color-bright1: #5CD2E6; /* 라이트 모드 메인 색상 */
+    --primary-color-bright2: #fff; /* 라이트 모드 보조 색상 */
+    --contrast-color: #393939; /* #5CD2E6의 대비 색상 */
+    --secondary-contrast-color: #0f0f0f; /* #00B4ED의 대비 색상 */
+    --tertiary-contrast-color: #868383; /* #39DD00의 대비 색상 */
+}
+
+body.dark-mode {
+    --primary-color-bright1: #393939; /* 다크 모드 메인 색상 */
+    --primary-color-bright2: #0f0f0f; /* 다크 모드 보조 색상 */
+}
+
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #5CD2E6;
+    background-color: var(--primary-color-bright1);
     color: #333;
 }
 
 header {
-    background-color: #FFF;
+    background-color: var(--primary-color-bright2);
     padding: 1em;
     text-align: center;
     display: flex;
@@ -33,7 +46,7 @@ button:hover {
 }
 
 section {
-    max-width: 800px;
+    max-width: fit-content;
     margin: 2em auto;
     padding: 1em;
     background-color: white;
@@ -292,4 +305,10 @@ canvas {
     color: #fff; /* 다크 모드 섹션 텍스트 색상 */
 }
 
-/* 기타 요소들에 대한 다크 모드 스타일 정의 */
+.dark-mode footer{
+    background-color: #000000;
+    color:#fff;
+}
+.dark-mode header p{
+    color:#fff;
+}
