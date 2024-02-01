@@ -4,6 +4,15 @@ const modalCloseButton = document.getElementById('modalCloseButton');
 const modal = document.getElementById('modalContainer');
 
 
+modalOpenButton.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    document.body.classList.add('dark-mode'); // 다크 모드 클래스 추가
+});
+
+modalCloseButton.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    document.body.classList.remove('dark-mode'); // 다크 모드 클래스 제거
+});
 
 modalOpenButton.addEventListener('click', () => {
     modal.classList.remove('hidden');
@@ -745,4 +754,105 @@ modalCloseButton.addEventListener('click', (e) => {
     modal.classList.add('hidden');
     cancelAnimationFrame(animationFrameId);
     reset(false);
+});
+
+
+
+const canvas = document.getElementById('logo-canvas');
+const ctx = canvas.getContext('2d');
+const dots = [];
+const dotSize = 2;
+const logo = [
+    "   ####          ####              #######          ####                     ##          ##  ##",
+    "   ####          ####            ############       ####                     ##          ##  ##",
+    "   ##################           ####      ####      ########                ####         ##  ##",
+    "   ##################           ####      ####      ########               ##  ##    ######  ##",
+    "   ####          ####           ####      ####      ####                  ##    ##   ######  ##",
+    "   ####          ####           ####      ####      ####                 ##      ##      ##  ##",
+    "   ####          ####             ##########        ####                ##        ##     ##  ##",
+    "   ####          ####               ######          ####",
+    "   ##################                               ####",
+    "   ##################",
+    "",
+    "",
+    "                                                                        ######################",
+    "          ###                         ####                                                ####",
+    "          ###                         ####                                                ####",
+    "          ###                         ####                              ######################                                                               ",
+    "          ###                         ####                              ######################",
+    "   ##################                 #################                 ####",
+    "   ##################                 #################                 ####",
+    "   ##################                 #################                 ######################",
+    "",
+];
+const logoSize = { width: logo[0].length * dotSize, height: logo.length * dotSize };
+let mouse = { x: 0, y: 0 };
+let isMouseOver = false;
+
+canvas.width = window.innerWidth * 0.5; // 창의 너비의 절반으로 설정
+canvas.height = window.innerHeight * 0.5; // 창의 높이의 절반으로 설정
+
+function init() {
+    const offsetX = (canvas.width - logoSize.width) / 2;
+    const offsetY = (canvas.height - logoSize.height) / 2;
+
+    for (let i = 0; i < logo.length; i++) {
+        const row = logo[i];
+        for (let j = 0; j < row.length; j++) {
+            if (row[j] === "#") {
+                const x = j * dotSize + offsetX;
+                const y = i * dotSize + offsetY;
+                dots.push({ x, y, originalX: x, originalY: y });
+            }
+        }
+    }
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'black';
+    dots.forEach(dot => {
+        ctx.beginPath();
+        ctx.arc(dot.x, dot.y, dotSize, 0, Math.PI * 2);
+        ctx.fill();
+    });
+}
+
+function scatterDots() {
+    if (!isMouseOver) return;
+
+    dots.forEach(dot => {
+        const dx = dot.x - mouse.x;
+        const dy = dot.y - mouse.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < 15) {
+            dot.x += Math.random() * 40 - 20;
+            dot.y += Math.random() * 40 - 20;
+        } else {
+            dot.x += (dot.originalX - dot.x) * 0.05;
+            dot.y += (dot.originalY - dot.y) * 0.05;
+        }
+    });
+}
+
+function animate() {
+    scatterDots();
+    draw();
+    requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+window.addEventListener('mousemove', (event) => {
+    mouse.x = event.clientX - canvas.getBoundingClientRect().left;
+    mouse.y = event.clientY - canvas.getBoundingClientRect().top;
+});
+
+canvas.addEventListener('mouseenter', () => {
+    isMouseOver = true;
+});
+
+canvas.addEventListener('mouseleave', () => {
+    isMouseOver = false;
 });

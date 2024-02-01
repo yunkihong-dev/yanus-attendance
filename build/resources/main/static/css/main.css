@@ -279,3 +279,17 @@ Guide
 #controls > span:last-child > span {
     transform: rotate(90deg);
 }
+canvas {
+    height: auto; /* 자동으로 높이 조절 */
+}
+.dark-mode body {
+    background-color: #222; /* 다크 모드 배경색 */
+    color: #fff; /* 다크 모드 텍스트 색상 */
+}
+
+.dark-mode section {
+    background-color: #444; /* 다크 모드 섹션 배경색 */
+    color: #fff; /* 다크 모드 섹션 텍스트 색상 */
+}
+
+/* 기타 요소들에 대한 다크 모드 스타일 정의 */
