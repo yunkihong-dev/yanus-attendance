@@ -4,6 +4,7 @@
     --contrast-color: #393939; /* #5CD2E6의 대비 색상 */
     --secondary-contrast-color: #0f0f0f; /* #00B4ED의 대비 색상 */
     --tertiary-contrast-color: #868383; /* #39DD00의 대비 색상 */
+    --header-light: #00B4ED;
 }
 
 body.dark-mode {
@@ -294,6 +295,7 @@ Guide
 }
 canvas {
     height: auto; /* 자동으로 높이 조절 */
+    width: 100%;
 }
 .dark-mode body {
     background-color: #222; /* 다크 모드 배경색 */
@@ -311,4 +313,75 @@ canvas {
 }
 .dark-mode header p{
     color:#fff;
+}
+
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--header-light);
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.label i {
+    position: absolute;
+    color: white;
+    transition: .4s;
+}
+
+.label i.fa-moon {
+    left: 8px;
+    top: 7px;
+}
+
+.label i.fa-sun {
+    right: 8px;
+    top: 7px;
+    opacity: 1;
+}
+
+.ball {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.checkbox:checked + .label {
+    background-color: #4c4c4c;
+}
+
+.checkbox:checked + .label .ball {
+    transform: translateX(26px);
+}
+
+.checkbox:checked + .label i.fa-moon {
+    opacity: 1;
+}
+
+.checkbox:checked + .label i.fa-sun {
+    opacity: 0;
 }

@@ -15,6 +15,11 @@ let a = 10;
 document.getElementById("percent").innerText=a+"%";
 
 window.onload = function(){
+    const darkModeSetting = localStorage.getItem('darkMode');
+    if(darkModeSetting === 'enabled') {
+        document.body.classList.add('dark-mode');
+        darkModeToggle.checked = true; // 토글 버튼 상태 업데이트
+    }
     if(member == null){
         alert("돌아가라")
     }else{
@@ -359,16 +364,11 @@ function showMoreNoWork(){
     }
 }
 
-const darkModeToggle = document.getElementById('darkModeToggle');
 
-darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-});
-
-document.getElementById('darkModeToggle').addEventListener('change', function() {
+darkModeToggle.addEventListener('change', function() {
     color1 = document.body.classList.contains('dark-mode') ? '#000' : '#00B4ED';
     color2 = document.body.classList.contains('dark-mode') ? '#393939' : '#5CD2E6';
-
+    document.body.classList.toggle('dark-mode');
     // 차트 데이터 업데이트
     myChart.data.datasets[0].backgroundColor[0] = color1;
     myChart.data.datasets[0].backgroundColor[1] = color2;
@@ -376,9 +376,9 @@ document.getElementById('darkModeToggle').addEventListener('change', function() 
     // 차트 업데이트
     myChart.update();
 
-    if(this.checked) {
-        document.body.classList.add('dark-mode');
+    if(document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('darkMode', 'enabled');
     } else {
-        document.body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'disabled');
     }
 });
