@@ -12,6 +12,45 @@ let timer_micro;
 let timer = 0;
 let a = 10;
 
+let color1 = '#00B4ED';
+let color2 = '#5CD2E6';
+var context = document
+    .getElementById('myChart')
+    .getContext('2d');
+var myChart = new Chart(context, {
+    type: 'doughnut', // 차트의 형태
+    data: { // 차트에 들어갈 데이터
+        datasets: [
+            { //데이터
+                label: [
+                    '근무량',
+                    '남은근무'
+                ], //차트 제목
+                data: [
+                    a,100-a //x축 label에 대응되는 데이터 값
+                ],
+                backgroundColor: [
+                    //색상
+                    color1,
+                    color2
+                ],
+                borderWidth: 0 //경계선 굵기
+            }
+        ]
+    },
+    options: {
+        scales: {
+            yAxes: [
+                {
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }
+            ]
+        }
+    }
+});
+
 document.getElementById("percent").innerText=a+"%";
 
 window.onload = function(){
@@ -19,6 +58,8 @@ window.onload = function(){
     if(darkModeSetting === 'enabled') {
         document.body.classList.add('dark-mode');
         darkModeToggle.checked = true; // 토글 버튼 상태 업데이트
+        myChart.update();
+
     }
     if(member == null){
         alert("돌아가라")
@@ -312,44 +353,6 @@ modalCloseButton.addEventListener('click', (e) => {
 
 });
 
-let color1 = '#00B4ED';
-let color2 = '#5CD2E6';
-var context = document
-    .getElementById('myChart')
-    .getContext('2d');
-var myChart = new Chart(context, {
-    type: 'doughnut', // 차트의 형태
-    data: { // 차트에 들어갈 데이터
-        datasets: [
-            { //데이터
-                label: [
-                    '근무량',
-                    '남은근무'
-                ], //차트 제목
-                data: [
-                    a,100-a //x축 label에 대응되는 데이터 값
-                ],
-                backgroundColor: [
-                    //색상
-                    color1,
-                    color2
-                ],
-                borderWidth: 0 //경계선 굵기
-            }
-        ]
-    },
-    options: {
-        scales: {
-            yAxes: [
-                {
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }
-            ]
-        }
-    }
-});
 
 function showMoreNoWork(){
     let hiddenRows = Array.from(document.querySelectorAll('.hidden-noWork'));
@@ -364,11 +367,15 @@ function showMoreNoWork(){
     }
 }
 
-
 darkModeToggle.addEventListener('change', function() {
-    color1 = document.body.classList.contains('dark-mode') ? '#000' : '#00B4ED';
-    color2 = document.body.classList.contains('dark-mode') ? '#393939' : '#5CD2E6';
+    // 먼저 다크 모드 상태에 따라 색상을 결정합니다.
+    const isDarkModeEnabled = document.body.classList.contains('dark-mode');
+    color1 = isDarkModeEnabled ? '#00B4ED' : '#000';
+    color2 = isDarkModeEnabled ? '#5CD2E6' : '#393939';
+
+    // 그 후에 다크 모드 상태를 토글합니다.
     document.body.classList.toggle('dark-mode');
+
     // 차트 데이터 업데이트
     myChart.data.datasets[0].backgroundColor[0] = color1;
     myChart.data.datasets[0].backgroundColor[1] = color2;
@@ -376,6 +383,7 @@ darkModeToggle.addEventListener('change', function() {
     // 차트 업데이트
     myChart.update();
 
+    // 마지막으로 변경된 다크 모드 상태를 localStorage에 저장합니다.
     if(document.body.classList.contains('dark-mode')) {
         localStorage.setItem('darkMode', 'enabled');
     } else {

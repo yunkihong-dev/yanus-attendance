@@ -5,6 +5,8 @@
     --secondary-contrast-color: #0f0f0f; /* #00B4ED의 대비 색상 */
     --tertiary-contrast-color: #868383; /* #39DD00의 대비 색상 */
     --header-light: #00B4ED;
+    --text-light: #000000;
+    --text-dark: #ffffff;
 }
 
 body.dark-mode {

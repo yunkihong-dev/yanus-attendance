@@ -13,16 +13,6 @@ window.onload = function() {
 
 modalOpenButton.addEventListener('click', () => {
     modal.classList.remove('hidden');
-    document.body.classList.add('dark-mode'); // 다크 모드 클래스 추가
-});
-
-modalCloseButton.addEventListener('click', () => {
-    modal.classList.add('hidden');
-    document.body.classList.remove('dark-mode'); // 다크 모드 클래스 제거
-});
-
-modalOpenButton.addEventListener('click', () => {
-    modal.classList.remove('hidden');
 // ------------------------------------------------------------
 // assets
 // ------------------------------------------------------------
@@ -819,14 +809,20 @@ function init() {
 }
 
 function draw() {
+    // 현재 다크 모드 상태에 따른 색상을 가져옵니다.
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    const style = getComputedStyle(document.body);
+    const dotColor = isDarkMode ? style.getPropertyValue('--text-dark') : style.getPropertyValue('--text-light');
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = dotColor; // 다크 모드에 따른 색상으로 설정
     dots.forEach(dot => {
         ctx.beginPath();
         ctx.arc(dot.x, dot.y, dotSize, 0, Math.PI * 2);
         ctx.fill();
     });
 }
+
 
 function scatterDots() {
     if (!isMouseOver) return;
@@ -867,27 +863,22 @@ canvas.addEventListener('mouseleave', () => {
     isMouseOver = false;
 });
 
+darkModeToggle.addEventListener('change', function() {
+    // 먼저 다크 모드 상태에 따라 색상을 결정합니다.
+    const isDarkModeEnabled = document.body.classList.contains('dark-mode');
+    color1 = isDarkModeEnabled ? '#00B4ED' : '#000';
+    color2 = isDarkModeEnabled ? '#5CD2E6' : '#393939';
 
-const darkModeToggle = document.getElementById('darkModeToggle');
-
-darkModeToggle.addEventListener('click', () => {
+    // 그 후에 다크 모드 상태를 토글합니다.
     document.body.classList.toggle('dark-mode');
-});
 
-document.getElementById('darkModeToggle').addEventListener('change', function() {
-    color1 = document.body.classList.contains('dark-mode') ? '#000' : '#00B4ED';
-    color2 = document.body.classList.contains('dark-mode') ? '#393939' : '#5CD2E6';
 
-    // 차트 데이터 업데이트
-    myChart.data.datasets[0].backgroundColor[0] = color1;
-    myChart.data.datasets[0].backgroundColor[1] = color2;
-
-    // 차트 업데이트
-    myChart.update();
-
+    // 마지막으로 변경된 다크 모드 상태를 localStorage에 저장합니다.
     if(document.body.classList.contains('dark-mode')) {
         localStorage.setItem('darkMode', 'enabled');
     } else {
         localStorage.setItem('darkMode', 'disabled');
     }
+
+    draw();
 });

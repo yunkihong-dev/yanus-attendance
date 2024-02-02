@@ -406,7 +406,10 @@ body.dark-mode #stop{
 body.dark-mode #modalContent{
     background-color: var(--background-dark);
 }
-
+body.dark-mode #go-admin-btn{
+    background-color: var(--small-title-dark);
+    color:var(--text-dark)
+}
 .toggle-switch {
     position: relative;
     display: inline-block;
