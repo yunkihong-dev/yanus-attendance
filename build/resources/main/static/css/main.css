@@ -317,6 +317,23 @@ canvas {
     color:#fff;
 }
 
+.dark-mode span{
+    color: white;
+}
+.dark-mode h2{
+    color: white;
+}
+.dark-mode label{
+    color: white;
+}
+
+span, h2, label{
+    color: black;
+}
+
+.dark-mode #modalContent{
+    background-color: var(--primary-color-bright2);
+}
 
 .toggle-switch {
     position: relative;
@@ -386,4 +403,96 @@ canvas {
 
 .checkbox:checked + .label i.fa-sun {
     opacity: 0;
+}
+.modal.hidden{
+    display: none;
+}
+/* 로그인 모달 전체 배경 */
+.modal {
+    position: fixed; /* 화면에 고정 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* 반투명 배경 */
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+/* 로그인 모달 내용 컨테이너 */
+#loginModal .modal-content {
+    background: var(--primary-color-bright2);
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px; /* 모달의 최대 너비 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 닫기 버튼 스타일 */
+#loginModal #close-button {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 폼 요소 스타일 */
+#loginModal .form-group {
+    margin-bottom: 15px;
+}
+
+#loginModal label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#loginModal input[type="text"],
+#loginModal input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* 박스 크기 계산 방식 */
+}
+
+#loginModal .login-button {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#loginModal .login-button:hover {
+    background-color: #0056b3;
+}
+
+#loginName{
+    text-align: center;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(3px); }
+}
+
+.shaking {
+    animation: shake 0.5s ease;
+}
+
+#loginModal input:focus {
+    border:3px solid green; /* 테두리 색상을 노란색으로 설정 */
+    outline: none; /* 기본 아웃라인 제거 (선택적) */
+    box-shadow: 0 0 5px green; /* 포커스 시 노란색 그림자 효과 추가 (선택적) */
 }

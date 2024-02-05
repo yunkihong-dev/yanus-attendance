@@ -1,10 +1,7 @@
 package com.jpa.yanus.domain;
 
 import com.jpa.yanus.type.MemberType;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,4 +16,13 @@ public class MemberDTO {
     private String memberPassword;
     private MemberType memberType;
 
+
+    @Builder
+    public MemberDTO(Long id, String memberName, String memberId, String memberPassword, MemberType memberType) {
+        this.id = id;
+        this.memberName = memberName;
+        this.memberId = memberId;
+        this.memberPassword = memberPassword;
+        this.memberType = memberType;
+    }
 }

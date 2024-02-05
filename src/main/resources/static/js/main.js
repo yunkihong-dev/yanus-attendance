@@ -1,7 +1,17 @@
 
 const modalOpenButton = document.getElementById('modalOpenButton');
+
 const modalCloseButton = document.getElementById('modalCloseButton');
+
 const modal = document.getElementById('modalContainer');
+
+const loginOpenBtn = document.getElementById('login-button');
+
+const loginModal = document.getElementById("loginModal");
+
+const closeLoginModalBtn = document.getElementById("close-button")
+
+const logoutBtn = document.getElementById("log-out");
 
 window.onload = function() {
     const darkModeSetting = localStorage.getItem('darkMode');
@@ -882,3 +892,46 @@ darkModeToggle.addEventListener('change', function() {
 
     draw();
 });
+
+loginOpenBtn.addEventListener('click',function () {
+    loginModal.classList.remove("hidden");
+})
+
+closeLoginModalBtn.addEventListener('click',function () {
+    loginModal.classList.add("hidden");
+})
+document.getElementById("login-btn").addEventListener('click', async function (e) {
+    e.preventDefault();
+    let memberId = document.getElementById("memberId").value;
+    let memberPassword = document.getElementById("memberPassword").value;
+    let loginModalContent = document.getElementById("login-modal-content");
+    try {
+        const response = await fetch('/member/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                memberId: memberId,
+                memberPassword: memberPassword
+            }),
+        });
+
+        const result = await response.json(); // 또는 .json() 사용
+
+        if (response.ok) {
+            alert(result.message);
+            location.reload();
+            loginOpenBtn.classList.add("hidden");
+            logoutBtn.classList.remove("hidden");
+        } else {
+            throw new Error("로그인 실패");
+        }
+    } catch (error) {
+        loginModalContent.classList.add("shaking");
+        setTimeout(() => {
+            loginModalContent.classList.remove('shaking');
+        }, 500);
+    }
+});
+

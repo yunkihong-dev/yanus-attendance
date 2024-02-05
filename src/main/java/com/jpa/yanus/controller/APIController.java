@@ -118,8 +118,6 @@ public class APIController {
             noWork.setUploadDate(localDate);
             noWork.setStatus(StatusType.WAITING);
 
-            // noWorkDTO에 이미 selectedDate가 있으므로 따로 파싱할 필요 없음
-
             noWorkService.insertNoWork(noWork);
 
             // 성공 응답 반환
