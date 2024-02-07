@@ -40,14 +40,6 @@ window.onload = function() {
     }
 }
 
-
-
-
-
-
-
-
-
 modalOpenButton.addEventListener('click', () => {
     modal.classList.remove('hidden');
 // ------------------------------------------------------------
