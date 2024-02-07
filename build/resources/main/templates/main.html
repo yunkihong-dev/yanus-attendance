@@ -26,7 +26,7 @@
 <header>
 
     <p>보안셀 페이지</p>
-    <a id="login-button" class="" th:if="${member == null}">
+    <a id="login-button"   th:attr="class = ${member != null} ? ' hidden ': ''">
         <button >로그인</button>
     </a>
     <div class="toggle-switch">
@@ -38,10 +38,10 @@
         </label>
     </div>
     <button class="login-button" id="modalOpenButton">머리식히기</button>
-    <a href="/attendance/" class="work-button" th:if="${member != null}">
+    <a href="/attendance/" th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'">
         <button>출근하러가기</button>
     </a>
-    <a href="/member/logout"  id="log-out" class="work-button hidden" th:if="${member != null}">
+    <a href="/member/logout"  id="log-out" th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'" >
         <button>로그아웃</button>
     </a>
 </header>

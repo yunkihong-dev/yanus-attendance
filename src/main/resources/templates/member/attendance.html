@@ -205,6 +205,25 @@
         <button class="btns" id="modalCloseButton">닫기</button>
     </form>
 </div>
+
+<div id="reusableModal" class="reusable-modal">
+    <div class="reusable-modal-content">
+        <span id="reusable-modal-close">&times;</span>
+        <p id="reusableModalMessage"></p>
+    </div>
+</div>
+
+
+<div id="confirmModal" class="confirm-modal">
+    <div class="confirm-modal-content">
+        <p id="confirmModalMessage"></p>
+        <div class="confirm-buttons">
+            <button class="confirm-button confirm" onclick="handleConfirm(true)">확인</button>
+            <button class="confirm-button cancel" onclick="handleConfirm(false)">취소</button>
+        </div>
+    </div>
+</div>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

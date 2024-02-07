@@ -14,6 +14,48 @@ let a = 10;
 
 let color1 = '#00B4ED';
 let color2 = '#5CD2E6';
+
+function showReusableModal(message) {
+    let modal = document.getElementById("reusableModal");
+    let modalMessage = document.getElementById("reusableModalMessage");
+    modalMessage.textContent = message;
+    modal.style.display = "block";
+
+    let span = document.getElementById("reusable-modal-close");
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+}
+// 확인 또는 취소 버튼 클릭 시 호출되는 함수
+function handleConfirm(response) {
+    var modal = document.getElementById("confirmModal");
+    modal.style.display = "none";
+    return response; // 반환 값으로 true 또는 false를 반환합니다.
+}
+
+// confirm 모달을 표시하는 함수
+function showConfirmModal(message) {
+    return new Promise((resolve, reject) => {
+        var modal = document.getElementById("confirmModal");
+        var modalMessage = document.getElementById("confirmModalMessage");
+        modalMessage.textContent = message;
+        modal.style.display = "block";
+
+        // 사용자의 입력을 resolve합니다.
+        window.handleConfirm = function(response) {
+            modal.style.display = "none";
+            resolve(response);
+            console.log(response);
+            delete window.handleConfirm; // 이벤트 핸들러를 삭제합니다.
+        };
+    });
+}
+
 var context = document
     .getElementById('myChart')
     .getContext('2d');
@@ -62,52 +104,53 @@ window.onload = function(){
 
     }
     if(member == null){
-        alert("돌아가라")
+        showReusableModal("돌아가라")
     }else{
-        alert(member.memberName+"님, 환영합니다");
+        showReusableModal(member.memberName+"님, 환영합니다");
     //    세션에 출근상태인지 확인
         if (myRecentAttendance) {
-            let tf = confirm("출근시간을 이어서 하시겠습니까?");
-            if(tf){
-                let today = new Date(); // 현재 시간
-                let myRecentAttendance1 = new Date(myRecentAttendance); // 최근 출석 시간
-                console.log(myRecentAttendance1);
-                let differenceInMillis = today.getTime() - myRecentAttendance1.getTime();
+            showConfirmModal("출근시간을 이어서 하시겠습니까?").then(res =>{
+                if(res){
+                    let today = new Date(); // 현재 시간
+                    let myRecentAttendance1 = new Date(myRecentAttendance); // 최근 출석 시간
+                    console.log(myRecentAttendance1);
+                    let differenceInMillis = today.getTime() - myRecentAttendance1.getTime();
 
-                let differenceInSeconds = Math.floor(differenceInMillis / 1000);
-                let differenceInMinutes = Math.floor(differenceInSeconds / 60);
-                let differenceInHours = Math.floor(differenceInMinutes / 60);
+                    let differenceInSeconds = Math.floor(differenceInMillis / 1000);
+                    let differenceInMinutes = Math.floor(differenceInSeconds / 60);
+                    let differenceInHours = Math.floor(differenceInMinutes / 60);
 
-            // 시간, 분, 초로 변환
-                let hours = Math.floor(differenceInHours);
-                let minutes = Math.floor(differenceInMinutes % 60);
-                let seconds = Math.floor(differenceInSeconds % 60);
+                    // 시간, 분, 초로 변환
+                    let hours = Math.floor(differenceInHours);
+                    let minutes = Math.floor(differenceInMinutes % 60);
+                    let seconds = Math.floor(differenceInSeconds % 60);
 
-                if(hours<10){
-                    document.getElementById("hour").innerText ="0"+ hours;
-                }else if(hours === 0){
-                    document.getElementById("hour").innerText ="00";
-                }else{
-                    document.getElementById("hour").innerText = hours.toString();
+                    if(hours<10){
+                        document.getElementById("hour").innerText ="0"+ hours;
+                    }else if(hours === 0){
+                        document.getElementById("hour").innerText ="00";
+                    }else{
+                        document.getElementById("hour").innerText = hours.toString();
+                    }
+                    if(minutes<10){
+                        document.getElementById("min").innerText ="0"+  minutes;
+                    }else if(minutes === 0){
+                        document.getElementById("min").innerText ="00";
+                    }else{
+                        document.getElementById("min").innerText =minutes.toString();
+                    }
+                    if(seconds<10){
+                        document.getElementById("sec").innerText =  "0"+seconds;
+                    }else if(seconds === 0){
+                        document.getElementById("sec").innerText =  "00";
+                    }else{
+                        document.getElementById("sec").innerText =  seconds.toString();
+
+                    }
+
+                    startStopWatch();
                 }
-                if(minutes<10){
-                    document.getElementById("min").innerText ="0"+  minutes;
-                }else if(minutes === 0){
-                    document.getElementById("min").innerText ="00";
-                }else{
-                    document.getElementById("min").innerText =minutes.toString();
-                }
-                if(seconds<10){
-                    document.getElementById("sec").innerText =  "0"+seconds;
-                }else if(seconds === 0){
-                    document.getElementById("sec").innerText =  "00";
-                }else{
-                    document.getElementById("sec").innerText =  seconds.toString();
-
-                }
-
-                startStopWatch();
-            }
+            });
         }
     }
 }
@@ -123,10 +166,11 @@ async function getExternalIp() {
 }
 
 document.getElementById("log-out").addEventListener('click', () => {
-    let tf = confirm("로그아웃 하시겠습니까?");
-    if (tf) {
-        window.location.href = '/member/logout';
-    }
+    showConfirmModal("로그아웃 하시겠습니까?").then(res =>{
+        if(res){
+            window.location.href = '/member/logout';
+        }
+    });
 })
 
 
@@ -193,45 +237,46 @@ function getCheckIn(){
             console.log(ip);
             startStopWatch();
             goCheckIn().catch(error=>{
-                alert("출근하는데 문제가 생겼어요..\n에러는 : ",error)
+                showReusableModal("출근하는데 문제가 생겼어요..\n에러는 : ",error)
             })
 
         }else{
-            alert("당신지금 어디야");
+            showReusableModal("당신지금 어디야");
         }
 
 
 
     }).catch(err=>{
-        alert("ip를 받아오는데 문제가 발생했어요\n에러는 : ",err);
+        showReusableModal("ip를 받아오는데 문제가 발생했어요\n에러는 : ",err);
     })
 
 }
 function getCheckOut(){
     if(hour.innerText<5){
-        let tF= confirm("시간을 충족하지 못했습니다. 그래도 퇴근하시겠습니까?");
-        if(tF){
-            document.getElementById("msg").innerText = "어서 더 채워 주세요!";
-            clearInterval(timer_micro);
-            clearInterval(timer_sec);
-            clearInterval(timer_min);
-            clearInterval(timer_hour);
+        showConfirmModal("시간을 충족하지 못했습니다. 그래도 퇴근하시겠습니까?").then(res=>{
+            if(res){
+                document.getElementById("msg").innerText = "어서 더 채워 주세요!";
+                clearInterval(timer_micro);
+                clearInterval(timer_sec);
+                clearInterval(timer_min);
+                clearInterval(timer_hour);
 
-            timer--;
-            if(timer < 0){
-                timer = 0;
+                timer--;
+                if(timer < 0){
+                    timer = 0;
+                }
+                goCheckOut().then(res =>{
+                    start.disabled = false;
+                    stop.disabled = true;
+                }).catch(err=>{
+                    showReusableModal("퇴근하는데 문제가 생겼어요..\n에러는 : ",err);
+                })
+            }else{
+                start.disabled = true;
+                stop.disabled = false;
+
             }
-            goCheckOut().then(res =>{
-                start.disabled = false;
-                stop.disabled = true;
-            }).catch(err=>{
-                alert("퇴근하는데 문제가 생겼어요..\n에러는 : ",err);
-            })
-        }else{
-            start.disabled = true;
-            stop.disabled = false;
-
-        }
+        })
     }else{
         document.getElementById("msg").innerText = "오늘의 할당량을 마치셨습니다!";
         clearInterval(timer_micro);
@@ -247,7 +292,7 @@ function getCheckOut(){
             start.disabled = false;
             stop.disabled = true;
         }).catch(err=>{
-            alert("퇴근하는데 문제가 생겼어요..\n에러는 : ",err);
+            showReusableModal("퇴근하는데 문제가 생겼어요..\n에러는 : ",err);
         })
     }
 }
@@ -266,7 +311,7 @@ async function goCheckIn() {
         });
 
         if (response.status === 404) {
-            alert("세션이 종료되었습니다. 다시 로그인해주세요")
+            showReusableModal("세션이 종료되었습니다. 다시 로그인해주세요");
         } else if (response.ok) {
             return response;
         } else {
@@ -289,7 +334,7 @@ async function goCheckOut(){
         });
 
         if (response.status === 404) {
-            alert('세션이 종료되었습니다. 다시 로그인해주세요');
+            showReusableModal('세션이 종료되었습니다. 다시 로그인해주세요');
         } else if (response.ok) {
             return response;
         } else {
@@ -325,13 +370,13 @@ document.getElementById('noWork').addEventListener('click', async (e) => {
         });
 
         if (response.status === 404) {
-            alert('세션이 종료되었습니다. 다시 로그인해주세요');
+            showReusableModal('세션이 종료되었습니다. 다시 로그인해주세요');
             window.location = '/member/login';
         } else if (response.ok) {
-            alert("제출되었습니다.")
+            showReusableModal("제출되었습니다.")
             return response;
         } else {
-            alert("오류입니다");
+            showReusableModal("오류입니다");
         }
     } catch (error) {
         return error;
