@@ -1,3 +1,26 @@
+let darkModeToggle = document.getElementById("darkModeToggle");
+
+
+
+window.onload = function() {
+    const darkModeSetting = localStorage.getItem('darkMode');
+    if (darkModeSetting === 'enabled') {
+        document.body.classList.add('dark-mode');
+        darkModeToggle.checked = true; // 토글 버튼 상태 업데이트
+        updateChartColorsForDarkMode(true);
+
+    } else {
+        updateChartColorsForDarkMode(false);
+    }
+}
+
+
+
+
+
+
+
+
 
 function selectAll(selectAll){
     const checkboxes = document.getElementsByName('members');
@@ -56,7 +79,7 @@ function showMoreNoWork(){
 }
 
 
-// AJAX 또는 Fetch API를 사용하여 서버로 selectedItems를 전송
+// fetch API를 사용하여 서버로 selectedItems를 전송
 function OkToNoWork() {
     const selectedItems = Array.from(document.querySelectorAll('input[type="checkbox"][name="noWorks"]:checked')).map(checkbox => checkbox.value);
 
@@ -85,6 +108,7 @@ function OkToNoWork() {
         });
 
 }
+
 function NotOkToNoWork() {
     const selectedItems = Array.from(document.querySelectorAll('input[type="checkbox"][name="noWorks"]:checked')).map(checkbox => checkbox.value);
 
@@ -95,7 +119,7 @@ function NotOkToNoWork() {
         alert("한개 이상 선택해주세요");
         return;
     }
-    // AJAX 또는 Fetch API를 사용하여 서버로 selectedItems를 전송
+    //fetch API를 사용하여 서버로 selectedItems를 전송
     fetch('/api/NoWorkNotOk', {
         method: 'POST',
         headers: {
@@ -114,4 +138,22 @@ function NotOkToNoWork() {
 
 }
 
+
+
+darkModeToggle.addEventListener('change', function() {
+    // 먼저 다크 모드 상태에 따라 색상을 결정.
+    const isDarkModeEnabled = document.body.classList.contains('dark-mode');
+    color1 = isDarkModeEnabled ? '#00B4ED' : '#000';
+    color2 = isDarkModeEnabled ? '#5CD2E6' : '#393939';
+
+    // 그 후에 다크 모드 상태를 토글.
+    document.body.classList.toggle('dark-mode');
+
+    // 마지막으로 변경된 다크 모드 상태를 localStorage에 저장.
+    if(document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('darkMode', 'enabled');
+    } else {
+        localStorage.setItem('darkMode', 'disabled');
+    }
+});
 

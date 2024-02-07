@@ -217,6 +217,19 @@ header{
         padding: 8px;
         background-color: #5CD2E6;
     }
+    #myChartDiv{
+        display: none;
+    }
+    #graph-left{
+        justify-content: space-between;
+        margin: 26px 9px;
+    }
+    #schedule{
+        width: calc(100% - 30px);
+    }
+    #img-div{
+        display: none;
+    }
 }
 
 #schedule{
@@ -224,6 +237,7 @@ header{
     width: calc(100% - 40px);
     min-width: 300px;
 }
+
 .stick-graph{
     height: 136px;
     width: 40px;
@@ -409,12 +423,11 @@ body.dark-mode #go-admin-btn{
     background-color: var(--small-title-dark);
     color:var(--text-dark)
 }
-
-.reusable-modal-close{
-    color : #aaa;
+body.dark-mode #noWork-show-more-btn{
+    color:var(--text-dark);
 }
 
-
+/*다크모드 토글 스위치*/
 .toggle-switch {
     position: relative;
     display: inline-block;
@@ -488,6 +501,10 @@ body.dark-mode #go-admin-btn{
     opacity: 0;
 }
 
+
+
+
+/*alert 모달*/
 .reusable-modal {
     display: none;
     position: fixed;
@@ -534,6 +551,9 @@ body.dark-mode #go-admin-btn{
     cursor: pointer;
 }
 
+
+
+/* confirm 모달 */
 .confirm-modal {
     display: none;
     position: fixed;
@@ -581,3 +601,8 @@ body.dark-mode #go-admin-btn{
     color: white;
     border: none;
 }
+
+
+
+
+

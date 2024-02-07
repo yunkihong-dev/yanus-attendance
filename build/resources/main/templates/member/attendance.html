@@ -65,7 +65,7 @@
             </div>
             <div th:each="myTeamAttendanceList : ${myTeamAttendanceList}">
                 <p th:text="${myTeamAttendanceList.formattedCheckOutTime}">출근한 시간</p>
-                <p th:text="${myTeamAttendanceList.memberName.equals(member.memberName)}? '나':${myTeamAttendanceList.memberName}" >이름</p>
+                <p th:text="${myTeamAttendanceList.memberName.equals(member.memberName)}? '나': ${myTeamAttendanceList.memberName}" >이름</p>
             </div>
         </div>
     </div>
