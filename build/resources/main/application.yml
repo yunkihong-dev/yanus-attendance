@@ -21,7 +21,7 @@ spring:
 #    url: jdbc:mysql://yanus-db.cb4pkxlnks4i.ap-northeast-2.rds.amazonaws.com:3306/yanus?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useTimezone=true
 #    username: admin
 #    password: 12345678
-#
+
 
   mvc:
     hiddenmethod:
