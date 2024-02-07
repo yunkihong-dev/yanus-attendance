@@ -4,4 +4,5 @@ import com.jpa.yanus.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberRepository  extends JpaRepository<Member, Long> , MemberQueryDSL {
+    public Member findByMemberName(String memberName);
 }

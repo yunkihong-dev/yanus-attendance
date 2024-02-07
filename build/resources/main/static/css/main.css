@@ -492,7 +492,7 @@ span, h2, label{
 }
 
 #loginModal input:focus {
-    border:3px solid green; /* 테두리 색상을 노란색으로 설정 */
+    border-color: green; /* 테두리 색상을 노란색으로 설정 */
     outline: none; /* 기본 아웃라인 제거 (선택적) */
     box-shadow: 0 0 5px green; /* 포커스 시 노란색 그림자 효과 추가 (선택적) */
 }

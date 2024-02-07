@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -89,7 +90,6 @@ public class APIController {
             mostRecentAttendance.get().setCheckOutTime(currentDateTime);
 
             log.info(mostRecentAttendance.toString());
-            // attendanceService.getCheckOut 메서드가 AttendanceDTO를 기대하므로, toDTO 메서드를 사용하여 변환
             attendanceService.getCheckOut(mostRecentAttendance.get());
 
             // 성공 응답 반환
@@ -182,6 +182,7 @@ public class APIController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류 발생");
         }
     }
+
 
 
 }

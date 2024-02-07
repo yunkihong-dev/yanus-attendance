@@ -18,6 +18,7 @@ window.onload = function() {
     if (darkModeSetting === 'enabled') {
         document.body.classList.add('dark-mode');
         darkModeToggle.checked = true; // 토글 버튼 상태 업데이트
+
     }
 }
 
@@ -775,20 +776,20 @@ const dotSize = 2;
 const logo = [
     "   ####          ####              #######          ####                     ##          ##  ##",
     "   ####          ####            ############       ####                     ##          ##  ##",
-    "   ##################           ####      ####      ########                ####         ##  ##",
+    "   ##################           ####      ####      ####                    ####         ##  ##",
     "   ##################           ####      ####      ########               ##  ##    ######  ##",
-    "   ####          ####           ####      ####      ####                  ##    ##   ######  ##",
+    "   ####          ####           ####      ####      ########              ##    ##   ######  ##",
     "   ####          ####           ####      ####      ####                 ##      ##      ##  ##",
     "   ####          ####             ##########        ####                ##        ##     ##  ##",
     "   ####          ####               ######          ####",
     "   ##################                               ####",
-    "   ##################",
+    "   ##################                               ####",
     "",
     "",
     "                                                                        ######################",
     "          ###                         ####                                                ####",
     "          ###                         ####                                                ####",
-    "          ###                         ####                              ######################                                                               ",
+    "          ###                         ####                              ######################",
     "          ###                         ####                              ######################",
     "   ##################                 #################                 ####",
     "   ##################                 #################                 ####",
@@ -873,7 +874,10 @@ canvas.addEventListener('mouseleave', () => {
     isMouseOver = false;
 });
 
-darkModeToggle.addEventListener('change', function() {
+darkModeToggle.addEventListener('change',changeDarkMode() );
+
+
+function changeDarkMode() {
     // 먼저 다크 모드 상태에 따라 색상을 결정합니다.
     const isDarkModeEnabled = document.body.classList.contains('dark-mode');
     color1 = isDarkModeEnabled ? '#00B4ED' : '#000';
@@ -891,15 +895,16 @@ darkModeToggle.addEventListener('change', function() {
     }
 
     draw();
-});
+}
 
 loginOpenBtn.addEventListener('click',function () {
     loginModal.classList.remove("hidden");
-})
+});
 
 closeLoginModalBtn.addEventListener('click',function () {
     loginModal.classList.add("hidden");
-})
+});
+
 document.getElementById("login-btn").addEventListener('click', async function (e) {
     e.preventDefault();
     let memberId = document.getElementById("memberId").value;

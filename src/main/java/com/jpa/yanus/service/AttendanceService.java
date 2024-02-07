@@ -3,6 +3,8 @@ package com.jpa.yanus.service;
 import com.jpa.yanus.domain.AttendanceDTO;
 import com.jpa.yanus.domain.AttendanceMemberJoinDTO;
 import com.jpa.yanus.entity.Attendance;
+import com.jpa.yanus.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +35,13 @@ public interface  AttendanceService {
                 .build();
     }
 
+    default Attendance toEntity(AttendanceMemberJoinDTO attendanceMemberJoinDTODTO, MemberRepository memberRepository){
+        return Attendance.builder().id(attendanceMemberJoinDTODTO.getId())
+                .checkInTime(attendanceMemberJoinDTODTO.getCheckInTime())
+                .checkOutTime(attendanceMemberJoinDTODTO.getCheckOutTime())
+                .member(memberRepository.findByMemberName(attendanceMemberJoinDTODTO.getMemberName()))
+                .build();
+    }
     default AttendanceDTO toDTO(Attendance attendance){
         return AttendanceDTO.builder().id(attendance.getId())
                 .checkInTime(attendance.getCheckInTime())
