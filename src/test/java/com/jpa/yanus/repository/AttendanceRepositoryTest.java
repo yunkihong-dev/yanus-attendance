@@ -23,8 +23,6 @@ public class AttendanceRepositoryTest {
     private MemberRepository memberRepository;
     @Test
     public void findMostRecentAttendanceByMemberTest(){
-        Attendance attendance =attendanceRepository.findMostRecentAttendanceByMember(1L);
-        log.info(attendance.toString());
     }
     @Test
     public void findMostResentAttendanceByTeamNum(){

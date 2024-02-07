@@ -488,6 +488,7 @@ body.dark-mode #go-admin-btn{
 .checkbox:checked + .label i.fa-sun {
     opacity: 0;
 }
+
 .reusable-modal {
     display: none;
     position: fixed;

@@ -26,9 +26,6 @@
 <header>
 
     <p>보안셀 페이지</p>
-    <a id="login-button"   th:attr="class = ${member != null} ? ' hidden ': ''">
-        <button >로그인</button>
-    </a>
     <div class="toggle-switch">
         <input type="checkbox" id="darkModeToggle" class="checkbox">
         <label for="darkModeToggle" class="label">
@@ -38,11 +35,14 @@
         </label>
     </div>
     <button class="login-button" id="modalOpenButton">머리식히기</button>
-    <a href="/attendance/" th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'">
+    <a href="/attendance/" id="go-work-btn" th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'">
         <button>출근하러가기</button>
     </a>
     <a href="/member/logout"  id="log-out" th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'" >
         <button>로그아웃</button>
+    </a>
+    <a id="login-button"   th:attr="class = ${member != null} ? ' hidden ': ''">
+        <button >로그인</button>
     </a>
 </header>
 
@@ -102,6 +102,17 @@
         <button class="btns" id="modalCloseButton">닫기</button>
     </div>
 </div>
+
+<div id="reusableModal" class="reusable-modal">
+    <div class="reusable-modal-content">
+        <span id="reusable-modal-close">&times;</span>
+        <p id="reusableModalMessage"></p>
+    </div>
+</div>
+
+
+
+
 <script src="js/1.js"></script>
 <script src="js/null.js"></script>
 <footer>

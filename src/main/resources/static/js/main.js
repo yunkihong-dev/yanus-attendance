@@ -12,15 +12,41 @@ const loginModal = document.getElementById("loginModal");
 const closeLoginModalBtn = document.getElementById("close-button")
 
 const logoutBtn = document.getElementById("log-out");
+const goWorkBtn = document.getElementById("go-work-btn");
+
+
+function showReusableModal(message) {
+    let modal = document.getElementById("reusableModal");
+    let modalMessage = document.getElementById("reusableModalMessage");
+    modalMessage.textContent = message;
+    modal.style.display = "block";
+
+    let span = document.getElementById("reusable-modal-close");
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+}
 
 window.onload = function() {
     const darkModeSetting = localStorage.getItem('darkMode');
     if (darkModeSetting === 'enabled') {
         document.body.classList.add('dark-mode');
         darkModeToggle.checked = true; // 토글 버튼 상태 업데이트
-
     }
 }
+
+
+
+
+
+
+
+
 
 modalOpenButton.addEventListener('click', () => {
     modal.classList.remove('hidden');
@@ -874,7 +900,7 @@ canvas.addEventListener('mouseleave', () => {
     isMouseOver = false;
 });
 
-darkModeToggle.addEventListener('change',changeDarkMode() );
+darkModeToggle.addEventListener('change', changeDarkMode);
 
 
 function changeDarkMode() {
@@ -925,12 +951,13 @@ document.getElementById("login-btn").addEventListener('click', async function (e
         const result = await response.json(); // 또는 .json() 사용
 
         if (response.ok) {
-            alert(result.message);
-            location.reload();
+            showReusableModal(result.message);
             loginOpenBtn.classList.add("hidden");
             logoutBtn.classList.remove("hidden");
+            goWorkBtn.classList.remove("hidden");
+            loginModal.classList.add("hidden");
         } else {
-            throw new Error("로그인 실패");
+            throw new Error ("로그인 실패");
         }
     } catch (error) {
         loginModalContent.classList.add("shaking");

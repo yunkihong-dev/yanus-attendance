@@ -2,8 +2,9 @@
 let myIp = "220.69";
 let start = document.getElementById("start");
 let stop = document.getElementById("stop");
-let noWork = document.getElementById("noWork")
-let logOut = document.getElementById("log-out")
+let noWork = document.getElementById("noWork");
+let logOut = document.getElementById("log-out");
+
 stop.disabled = true;
 let timer_sec;
 let timer_min;
@@ -41,7 +42,7 @@ function handleConfirm(response) {
 // confirm 모달을 표시하는 함수
 function showConfirmModal(message) {
     return new Promise((resolve, reject) => {
-        var modal = document.getElementById("confirmModal");
+        let modal = document.getElementById("confirmModal");
         var modalMessage = document.getElementById("confirmModalMessage");
         modalMessage.textContent = message;
         modal.style.display = "block";
@@ -50,16 +51,15 @@ function showConfirmModal(message) {
         window.handleConfirm = function(response) {
             modal.style.display = "none";
             resolve(response);
-            console.log(response);
             delete window.handleConfirm; // 이벤트 핸들러를 삭제합니다.
         };
     });
 }
 
-var context = document
+let context = document
     .getElementById('myChart')
     .getContext('2d');
-var myChart = new Chart(context, {
+let myChart = new Chart(context, {
     type: 'doughnut', // 차트의 형태
     data: { // 차트에 들어갈 데이터
         datasets: [
@@ -92,6 +92,18 @@ var myChart = new Chart(context, {
         }
     }
 });
+function updateChartColorsForDarkMode(isDarkMode) {
+    // 다크 모드 상태에 따라 색상을 결정
+    color1 = isDarkMode ? '#000' : '#00B4ED';
+    color2 = isDarkMode ? '#393939' : '#5CD2E6';
+
+    // 차트 데이터 업데이트
+    myChart.data.datasets[0].backgroundColor[0] = color1;
+    myChart.data.datasets[0].backgroundColor[1] = color2;
+
+    // 차트 업데이트
+    myChart.update();
+}
 
 document.getElementById("percent").innerText=a+"%";
 
@@ -100,8 +112,10 @@ window.onload = function(){
     if(darkModeSetting === 'enabled') {
         document.body.classList.add('dark-mode');
         darkModeToggle.checked = true; // 토글 버튼 상태 업데이트
-        myChart.update();
+        updateChartColorsForDarkMode(true);
 
+    }else{
+        updateChartColorsForDarkMode(false);
     }
     if(member == null){
         showReusableModal("돌아가라")
@@ -153,6 +167,10 @@ window.onload = function(){
             });
         }
     }
+
+
+
+
 }
 async function getExternalIp() {
     try {
