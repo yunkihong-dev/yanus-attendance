@@ -134,7 +134,7 @@ function OkToNoWork() {
             }
         })
         .catch(error => {
-            alert('Error:', error);
+            showReusableModal('Error:', error);
         });
 
 }
