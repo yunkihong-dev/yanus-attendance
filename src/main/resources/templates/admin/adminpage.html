@@ -137,9 +137,9 @@
                 </tr>
                 <tr th:each="noWorkList, iterStat : ${noWorkList}"  th:class="${iterStat.count > 5} ? 'hidden-noWork' : ''">
                     <td ><input th:value="${noWorkList.id}" name="noWorks" type="checkbox"></td>
-                    <td th:if="${noWorkList.status.toString() == 'WAITING'}">대기</td>
-                    <td th:if="${noWorkList.status.toString() == 'ABLE'}">승인</td>
-                    <td th:if="${noWorkList.status.toString() == 'UNABLE'}">거절</td>
+                    <td th:id="${noWorkList.id}" th:if="${noWorkList.status.toString() == 'WAITING'}">대기</td>
+                    <td th:id="${noWorkList.id}" th:if="${noWorkList.status.toString() == 'ABLE'}">승인</td>
+                    <td th:id="${noWorkList.id}" th:if="${noWorkList.status.toString() == 'UNABLE'}">거절</td>
                     <td th:text="${noWorkList.selectedDate}">작성일</td>
                     <td th:text="${noWorkList.memberName}">이름</td>
                     <td th:text="${noWorkList.category}">알바</td>
@@ -153,6 +153,28 @@
         </div>
     </div>
 </div>
+
+
+<div id="reusableModal" class="reusable-modal">
+    <div class="reusable-modal-content">
+        <span id="reusable-modal-close">&times;</span>
+        <p id="reusableModalMessage"></p>
+    </div>
+</div>
+
+
+<div id="confirmModal" class="confirm-modal">
+    <div class="confirm-modal-content">
+        <p id="confirmModalMessage"></p>
+        <div class="confirm-buttons">
+            <button class="confirm-button confirm" onclick="handleConfirm(true)">확인</button>
+            <button class="confirm-button cancel" onclick="handleConfirm(false)">취소</button>
+        </div>
+    </div>
+</div>
+
+
+
 </body>
 <script src="/js/admin.js"></script>
 <script type="application/javascript" th:inline="javascript">

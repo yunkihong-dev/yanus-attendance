@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -40,5 +41,15 @@ public class MemberController {
         session.invalidate();
         return new RedirectView("/");
     }
+
+//    @PostMapping("/member/deleteMembers")
+//    public ResponseEntity<?> getMembersDelete(@RequestBody List<Long> memberIds){
+//        final List<Optional<Member>> memberList = memberService
+//
+//
+//
+//
+//
+//    }
 
 }

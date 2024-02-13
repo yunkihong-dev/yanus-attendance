@@ -1,26 +1,52 @@
 let darkModeToggle = document.getElementById("darkModeToggle");
 
+function showReusableModal(message) {
+    let modal = document.getElementById("reusableModal");
+    let modalMessage = document.getElementById("reusableModalMessage");
+    modalMessage.textContent = message;
+    modal.style.display = "block";
 
+    let span = document.getElementById("reusable-modal-close");
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+}
+// 확인 또는 취소 버튼 클릭 시 호출되는 함수
+function handleConfirm(response) {
+    var modal = document.getElementById("confirmModal");
+    modal.style.display = "none";
+    return response; // 반환 값으로 true 또는 false를 반환합니다.
+}
+
+// confirm 모달을 표시하는 함수
+function showConfirmModal(message) {
+    return new Promise((resolve, reject) => {
+        let modal = document.getElementById("confirmModal");
+        var modalMessage = document.getElementById("confirmModalMessage");
+        modalMessage.textContent = message;
+        modal.style.display = "block";
+
+        // 사용자의 입력을 resolve합니다.
+        window.handleConfirm = function(response) {
+            modal.style.display = "none";
+            resolve(response);
+            delete window.handleConfirm; // 이벤트 핸들러를 삭제합니다.
+        };
+    });
+}
 
 window.onload = function() {
     const darkModeSetting = localStorage.getItem('darkMode');
     if (darkModeSetting === 'enabled') {
         document.body.classList.add('dark-mode');
         darkModeToggle.checked = true; // 토글 버튼 상태 업데이트
-        updateChartColorsForDarkMode(true);
-
-    } else {
-        updateChartColorsForDarkMode(false);
     }
 }
-
-
-
-
-
-
-
-
 
 function selectAll(selectAll){
     const checkboxes = document.getElementsByName('members');
@@ -39,10 +65,12 @@ function selectAllNoWork(selectAll){
 }
 
 document.getElementById("log-out").addEventListener('click', () => {
-    let tf = confirm("로그아웃 하시겠습니까?");
-    if (tf) {
-        window.location.href = '/member/logout';
-    }
+    showConfirmModal("로그아웃 하시겠습니까?").then(res => {
+        if (res) {
+            window.location.href = '/member/logout';
+        }
+    })
+
 })
 document.getElementById('logout-text').addEventListener('mouseover', function () {
     this.textContent = '로그아웃';
@@ -87,7 +115,7 @@ function OkToNoWork() {
         selectedItems.shift();
     }
     if(selectedItems.length === 0 ){
-        alert("한개 이상 선택해주세요");
+        showReusableModal("한개 이상 선택해주세요");
         return;
     }
     // AJAX 또는 Fetch API를 사용하여 서버로 selectedItems를 전송
@@ -100,8 +128,10 @@ function OkToNoWork() {
     })
         .then(response => response.text()) // 응답을 텍스트로 처리
         .then(data => {
-            alert(data); // "정상처리 되었습니다" 출력
-            location.reload();
+            showReusableModal(data); // "정상처리 되었습니다" 출력
+            for(let value of selectedItems){
+                document.getElementById(value).innerText= "승인";
+            }
         })
         .catch(error => {
             alert('Error:', error);
@@ -116,7 +146,7 @@ function NotOkToNoWork() {
         selectedItems.shift();
     }
     if(selectedItems.length ===0){
-        alert("한개 이상 선택해주세요");
+        showReusableModal("한개 이상 선택해주세요");
         return;
     }
     //fetch API를 사용하여 서버로 selectedItems를 전송
@@ -129,11 +159,13 @@ function NotOkToNoWork() {
     })
         .then(response => response.text()) // 응답을 텍스트로 처리
         .then(data => {
-            alert(data); // "정상처리 되었습니다" 출력
-            location.reload();
+            showReusableModal(data); // "정상처리 되었습니다" 출력
+            for (let value of selectedItems) {
+                document.getElementById(value).innerText = "거절";
+            }
         })
         .catch(error => {
-            alert('Error:', error);
+            showReusableModal('Error:', error);
         });
 
 }
