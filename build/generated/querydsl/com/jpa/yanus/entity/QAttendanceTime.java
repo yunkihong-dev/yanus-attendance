@@ -19,21 +19,31 @@ public class QAttendanceTime extends EntityPathBase<AttendanceTime> {
 
     public static final QAttendanceTime attendanceTime = new QAttendanceTime("attendanceTime");
 
-    public final NumberPath<Long> fri = createNumber("fri", Long.class);
+    public final DateTimePath<java.time.LocalDateTime> endDate = createDateTime("endDate", java.time.LocalDateTime.class);
+
+    public final BooleanPath fri = createBoolean("fri");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final NumberPath<Long> mon = createNumber("mon", Long.class);
+    public final BooleanPath mon = createBoolean("mon");
 
-    public final NumberPath<Long> sat = createNumber("sat", Long.class);
+    public final BooleanPath sat = createBoolean("sat");
 
-    public final NumberPath<Long> sun = createNumber("sun", Long.class);
+    public final DateTimePath<java.time.LocalDateTime> startDate = createDateTime("startDate", java.time.LocalDateTime.class);
 
-    public final NumberPath<Long> thur = createNumber("thur", Long.class);
+    public final BooleanPath sun = createBoolean("sun");
 
-    public final NumberPath<Long> tue = createNumber("tue", Long.class);
+    public final NumberPath<Integer> teamNum = createNumber("teamNum", Integer.class);
 
-    public final NumberPath<Long> wed = createNumber("wed", Long.class);
+    public final BooleanPath thu = createBoolean("thu");
+
+    public final BooleanPath tue = createBoolean("tue");
+
+    public final DateTimePath<java.time.LocalDateTime> uploadDate = createDateTime("uploadDate", java.time.LocalDateTime.class);
+
+    public final BooleanPath wed = createBoolean("wed");
+
+    public final DateTimePath<java.time.LocalDateTime> workStartTime = createDateTime("workStartTime", java.time.LocalDateTime.class);
 
     public QAttendanceTime(String variable) {
         super(AttendanceTime.class, forVariable(variable));

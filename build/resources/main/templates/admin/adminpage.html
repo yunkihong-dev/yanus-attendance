@@ -37,7 +37,7 @@
                 <p>회원정보</p>
             </div>
             <div class="flex">
-                <button class="btns small-title">회원 삭제</button>
+                <button id="delete-member-btn" class="btns small-title">회원 삭제</button>
                 <button class="btns small-title">관리자로 전환</button>
                 <button class="btns small-title">팀 전환</button>
             </div>
@@ -56,14 +56,14 @@
                     <tr th:if="${memberList.isEmpty()}">
                         <td colspan="4">등록된 멤버가 없습니다.</td>
                     </tr>
-                    <tr th:each="memberList, iterStat : ${memberList}" th:class="${iterStat.count > 5} ? 'hidden-member' : ''">
-                        <td><input th:value="memberList.id" name="members" type="checkbox"></td>
-                        <td th:text="${memberList.memberName}">이름</td>
-                        <td th:text="${memberList.memberTeamNum}+'팀'">소속팀</td>
+                    <tr th:each="member, iterStat : ${memberList}" th:class="${iterStat.count > 5} ? 'hidden-member' : ''">
+                        <td><input th:value="${member.id}" name="members" type="checkbox"></td>
+                        <td th:text="${member.memberName}">이름</td>
+                        <td th:text="${member.memberTeamNum} + '팀'">소속팀</td>
                         <td>
-                            <span th:if="${memberList.memberType == T(com.jpa.yanus.type.MemberType).NORMAL}">일반</span>
-                            <span th:if="${memberList.memberType == T(com.jpa.yanus.type.MemberType).ADMIN}">팀장</span>
-                            <span th:if="${memberList.memberType == T(com.jpa.yanus.type.MemberType).SUPERADMIN}">셀장</span>
+                            <span th:if="${member.memberType.toString() == 'NORMAL'}">일반</span>
+                            <span th:if="${member.memberType.toString() == 'ADMIN'}">팀장</span>
+                            <span th:if="${member.memberType.toString() == 'SUPERADMIN'}">셀장</span>
                         </td>
                     </tr>
                 </tbody>
@@ -74,41 +74,73 @@
     <div id="attendancediv">
         <div class="flex justify-contents-space-between boxes" >
             <div class="small-title" id="first-title">
-                <p>나의 팀 출근정보</p>
+                <p>출근정보</p>
             </div>
+            <div class="flex">
+                <form class="flex" id="attendanceForm" action="/admin/adminpage" method="GET">
+                    <!-- 오늘 버튼 -->
+                    <button type="button" class="btns small-title" id="todayButton">오늘</button>
+
+                    <!-- 날짜 선택 -->
+                    <input type="date" name="from" id="date-start">
+                    ~
+                    <input type="date" name="to" id="date-end">
+
+                    <!-- 팀원 선택 -->
+                    <div id="myDropdown" class="dropdown-container">
+                        <a href="javascript:void(0);" class="dropdown-toggle btns small-title" id="dropdownToggle">팀원 선택</a>
+                        <div class="dropdown-content">
+                            <div th:each="memberList, iterStat : ${memberList}">
+                                <a href="#" class="team-member" th:data-value="${memberList.id}" th:text="${memberList.memberName}">이름</a>
+                            </div>
+
+
+                            <button type="button" id="deselect-dropdown" class="deselect-button">선택 해제</button>
+                            <button type="button" id="close-dropdown" class="close-button">닫기</button>
+                        </div>
+
+
+
+                    </div>
+
+                    <!-- 조회 버튼 -->
+                    <button type="submit" class="btns small-title" id="searchButton">조회</button>
+                </form>
+            </div>
+
         </div>
         <div class="boxes tableDiv">
-            <table class="width-98p" >
+            <table class="width-98p">
                 <thead>
                 <tr>
-                    <th>이름</th>
-                    <th>소속 팀</th>
-                    <th>상태</th>
+                    <th onclick="sortTable(this, 0)">이름 <span class="sort-icon">&#8597;</span></th>
+                    <th onclick="sortTable(this, 1)">소속 팀 <span class="sort-icon">&#8597;</span></th>
+                    <th onclick="sortTable(this, 2)">날짜 <span class="sort-icon">&#8597;</span></th>
+<!--                    <th onclick="sortTable(this, 3)">지각 여부 <span class="sort-icon">&#8597;</span></th>-->
                     <th>출근 시간</th>
                     <th>퇴근 시간</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="attendanceTableBody">
                 <tr th:if="${attendanceList.isEmpty()}">
-                    <td colspan="5">출근한 인원이 없습니다.</td>
+                    <td colspan="6">출근한 인원이 없습니다.</td>
                 </tr>
                 <tr th:each="attendanceList : ${attendanceList}">
                     <td th:text="${attendanceList.memberName}">홍길동</td>
                     <td th:text="${attendanceList.memberTeamNum}">1팀</td>
-                    <td th:if="${attendanceList.formattedCheckInTime == attendanceList.formattedCheckOutTime}">출근</td>
-                    <td th:if="${attendanceList.formattedCheckInTime != attendanceList.formattedCheckOutTime}">퇴근</td>
+                    <td th:text="${attendanceList.formattedCheckOutDate}">n월 n일</td>
+<!--                    <td th:text="${attendanceList.lateStatus}">지각!</td>-->
                     <td th:text="${attendanceList.formattedCheckInTime}">17:00:00</td>
-                    <td th:if="${attendanceList.formattedCheckInTime == attendanceList.formattedCheckOutTime}">--:--:--</td>
-                    <td th:if="${attendanceList.formattedCheckInTime != attendanceList.formattedCheckOutTime}" th:text="${attendanceList.formattedCheckOutTime}"></td>
+                    <td th:text="${attendanceList.formattedCheckOutTime}">19:00:00</td>
                 </tr>
                 </tbody>
-
             </table>
         </div>
+
     </div>
 
 </div>
-<div class="width-98p center">
+<div id="no-work-container" class="width-98p center">
     <div class="flex justify-contents-space-between boxes" >
         <div class="small-title" id="first-title">
             <p>회원정보</p>
@@ -154,15 +186,6 @@
     </div>
 </div>
 
-
-<div id="reusableModal" class="reusable-modal">
-    <div class="reusable-modal-content">
-        <span id="reusable-modal-close">&times;</span>
-        <p id="reusableModalMessage"></p>
-    </div>
-</div>
-
-
 <div id="confirmModal" class="confirm-modal">
     <div class="confirm-modal-content">
         <p id="confirmModalMessage"></p>
@@ -174,12 +197,63 @@
 </div>
 
 
+<div id="reusableModal" class="reusable-modal">
+    <div class="reusable-modal-content">
+        <span id="reusable-modal-close">&times;</span>
+        <p id="reusableModalMessage"></p>
+    </div>
+</div>
+
+<div id="attendance-modal">
+    <div class="attendance-modal-content">
+        <h3 class="attendance-modal-title">출근시간 조정</h3>
+        <form>
+            <!-- 날짜 범위 -->
+            <div class="attendance-form-group">
+                <label for="startDate">시작 날짜:</label>
+                <input id="startDate" type="date" name="startDate" required>
+            </div>
+            <div class="attendance-form-group">
+                <label for="endDate">종료 날짜:</label>
+                <input id="endDate" type="date" name="endDate" required>
+            </div>
+
+            <!-- 요일 선택 -->
+            <div class="attendance-form-group">
+                <label>요일 선택:</label>
+                <div class="attendance-weekday-options">
+                    <label><input type="checkbox" name="weekday" value="월"> 월</label>
+                    <label><input type="checkbox" name="weekday" value="화"> 화</label>
+                    <label><input type="checkbox" name="weekday" value="수"> 수</label>
+                    <label><input type="checkbox" name="weekday" value="목"> 목</label>
+                    <label><input type="checkbox" name="weekday" value="금"> 금</label>
+                    <label><input type="checkbox" name="weekday" value="토"> 토</label>
+                    <label><input type="checkbox" name="weekday" value="일"> 일</label>
+                </div>
+            </div>
+
+            <!-- 시간 선택 -->
+            <div class="attendance-form-group">
+                <label for="startTime">출근 시간:</label>
+                <input id="startTime" type="time" name="startTime" required>
+            </div>
+
+            <!-- 버튼 -->
+            <div class="attendance-modal-buttons">
+                <input type="button" class="attendance-confirm-button confirm" value="저장" onclick="handleAttendanceFormSubmit()"/>
+                <button type="button" class="attendance-confirm-button cancel" onclick="closeAttendanceModal(this)">취소</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 </body>
 <script src="/js/admin.js"></script>
 <script type="application/javascript" th:inline="javascript">
 
     let member = [[${member}]];
+
     let noWorkList = [[${noWorkList}]];
     let memberList = [[${memberList}]];
     let attendanceList = [[${attendanceList}]];

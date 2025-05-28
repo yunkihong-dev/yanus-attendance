@@ -3,6 +3,7 @@ package com.jpa.yanus.service;
 import com.jpa.yanus.domain.MemberDTO;
 import com.jpa.yanus.entity.Member;
 import com.jpa.yanus.repository.MemberRepository;
+import com.jpa.yanus.type.StatusType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,4 +38,17 @@ public class MemberServiceImpl implements MemberService {
     public void insertMember(MemberDTO memberDTO) {
         memberRepository.save(toEntity(memberDTO));
     }
+
+    @Override
+    @Transactional
+    public List<Member> softDeleteByMemberIds(List<Long> ids) {
+        List<Member> members = memberRepository.findAllById(ids);
+
+        for (Member member : members) {
+            member.setMemberStatus(StatusType.UNABLE);
+        }
+
+        return members;
+    }
+
 }

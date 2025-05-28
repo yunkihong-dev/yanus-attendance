@@ -13,6 +13,11 @@ public interface AttendanceQueryDSL {
     public Optional<Attendance> findMostRecentAttendanceByMember(Long memberId);
 
     public List<AttendanceMemberJoinDTO> findMostResentAttendanceByTeamNum(int memberTeamNum);
+
     public List<AttendanceMemberJoinDTO> findAllMostResentAttendance();
+
     public List<AttendanceForWeekDTO> findWeekAttendanceById(Long memberId);
+
+    public List<AttendanceMemberJoinDTO> findAllAttendanceByFromDateAndToDateAndIds(String from, String to, List<Long> ids);
+
 }

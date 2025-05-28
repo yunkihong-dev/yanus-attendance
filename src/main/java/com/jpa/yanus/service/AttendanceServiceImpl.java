@@ -35,8 +35,6 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public void getCheckIn(Attendance attendance) {
-
-        log.info(attendance.getCheckInTime().toString()+"서비스");
         attendanceRepository.save(attendance);
     }
 
@@ -52,13 +50,17 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public List<AttendanceMemberJoinDTO> findMyTeamAttendanceToday(int memberTeamNum) {
-        log.info(attendanceRepository.findMostResentAttendanceByTeamNum(memberTeamNum)+"서비스");
         return attendanceRepository.findMostResentAttendanceByTeamNum(memberTeamNum);
     }
 
     @Override
     public List<AttendanceMemberJoinDTO> findAllAttendanceToday() {
         return attendanceRepository.findAllMostResentAttendance();
+    }
+
+    @Override
+    public List<AttendanceMemberJoinDTO> findAttendanceByDateRangeAndMembers(String from, String to, List<Long> ids) {
+        return attendanceRepository.findAllAttendanceByFromDateAndToDateAndIds(from, to, ids);
     }
 
     @Scheduled(cron = "0 0 0 * * *")

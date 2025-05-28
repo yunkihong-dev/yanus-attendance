@@ -2,9 +2,11 @@ package com.jpa.yanus.controller;
 
 
 import com.jpa.yanus.entity.Attendance;
+import com.jpa.yanus.entity.AttendanceTime;
 import com.jpa.yanus.entity.Member;
 import com.jpa.yanus.entity.NoWork;
 import com.jpa.yanus.service.AttendanceService;
+import com.jpa.yanus.service.AttendanceTimeService;
 import com.jpa.yanus.service.MemberService;
 import com.jpa.yanus.service.NoWorkService;
 import com.jpa.yanus.type.StatusType;
@@ -20,6 +22,7 @@ import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,6 +37,8 @@ public class APIController {
     private final MemberService memberService;
 
     private final NoWorkService noWorkService;
+
+    private final AttendanceTimeService attendanceTimeService;
 
     @PostMapping("checkIn")
     public ResponseEntity<String> checkIn(@SessionAttribute(name = "id", required = false) Long memberId, Attendance attendance){
@@ -183,6 +188,32 @@ public class APIController {
         }
     }
 
+    @PostMapping("insert-work-time")
+    public ResponseEntity<String> insertWorkTime(@SessionAttribute(name = "id", required = false) Long memberId,
+                                                 @RequestBody AttendanceTime attendanceTime) {
+        try {
+            if (memberId == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("세션이 종료되었습니다.");
+            }
+            log.info("???");
+            // 회원 정보 조회
+            Member member = memberService.getMemberById(memberId)
+                    .orElseThrow(() -> new NoSuchElementException("해당 회원을 찾을 수 없습니다."));
+
+            // 팀 번호 설정
+            attendanceTime.setTeamNum(member.getMemberTeamNum());
+            attendanceTime.setUploadDate(LocalDateTime.now());
+
+            // 로직 처리 (추가 작업이 있다면 여기에 작성)
+            attendanceTimeService.save(attendanceTime);
+
+            return ResponseEntity.ok("근무 시간이 성공적으로 저장되었습니다.");
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류가 발생했습니다.");
+        }
+    }
 
 
 }

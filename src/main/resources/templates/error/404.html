@@ -19,6 +19,9 @@
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             border-radius: 8px;
+            height: 168px;
+            overflow: hidden;
+            transition: height 0.5s ease;
         }
 
         .error-message {
@@ -46,13 +49,79 @@
         .home-link:hover {
             background-color: #0056b3;
         }
+
+        @font-face {
+            font-family: 'BDCartoonShoutRegular';
+            src: url('/fonts/BD_Cartoon_Shout-webfont.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        #pacman-div {
+            visibility: hidden; /* 요소는 렌더링되지만 보이지 않음 */
+            opacity: 0; /* 요소를 투명하게 설정 */
+            transition: opacity 0.3s ease; /* 부드러운 전환 효과 */
+        }
+
+        #pacman-div.visible {
+            visibility: visible; /* 요소를 보이게 설정 */
+            opacity: 1; /* 투명도 100% */
+        }
+        #pacman {
+            height:450px;
+            width:342px;
+            margin:20px auto;
+        }
+
+
+        h1 { font-family: BDCartoonShoutRegular; text-align:center; }
+
+        a { text-decoration:none; }
+
+        #show-game{
+            display: inline-block;
+            padding: 12px 25px;
+            color: white;
+            background-color: #28a745; margin-top: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-family: BDCartoonShoutRegular;
+        }
     </style>
+    <script src="/js/pacman.js"></script>
+    <script src="/js/modernizr-1.5.min.js"></script>
 </head>
 <body>
 <div class="container">
     <div class="error-message">오우! 페이지를 찾을 수 없어요</div>
     <div class="error-description">찾으시는 페이지가 없네요. 메인페이지로 갈까요?</div>
     <a href="/" class="home-link">메인 페이지로 가기</a>
+    <button id="show-game" class="home-link" onclick="show_game()">엇 이게뭐지?</button>
+    <div id="pacman-div">
+        <h1>HTML5 Pacman</h1>
+
+        <div id="pacman"></div>
+    </div>
 </div>
 </body>
+<script>
+    let pacman_div = document.getElementById("pacman-div");
+    let container = document.getElementsByClassName("container")[0]; // 첫 번째 요소 접근
+
+    function show_game() {
+        container.style.height = "fit-content"; // 컨테이너 높이 동적 조정
+        pacman_div.classList.add("visible"); // 보이게 설정
+    }
+
+    var el = document.getElementById("pacman");
+
+    if (Modernizr.canvas && Modernizr.localstorage &&
+        Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
+        window.setTimeout(function () { PACMAN.init(el, "./"); }, 0);
+    } else {
+        el.innerHTML = "Sorry, needs a decent browser<br /><small>" +
+            "(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>";
+    }
+
+</script>
 </html>

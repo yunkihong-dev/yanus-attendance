@@ -25,4 +25,5 @@ public interface MemberService {
     }
 
 
+    List<Member> softDeleteByMemberIds(List<Long> id);
 }

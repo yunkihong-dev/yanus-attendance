@@ -955,7 +955,7 @@ document.getElementById("login-btn").addEventListener('click', async function (e
             goWorkBtn.classList.remove("hidden");
             loginModal.classList.add("hidden");
         } else {
-            throw new Error ("로그인 실패");
+            showReusableModal(result.message);
         }
     } catch (error) {
         loginModalContent.classList.add("shaking");

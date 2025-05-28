@@ -21,4 +21,6 @@ public class AttendanceTest {
     public void findWeekAttendanceById(){
         log.info(attendanceRepository.findWeekAttendanceById(1L).toString());
     }
+
+
 }

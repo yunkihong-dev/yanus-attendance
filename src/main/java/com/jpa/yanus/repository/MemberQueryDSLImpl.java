@@ -1,6 +1,8 @@
 package com.jpa.yanus.repository;
 
 import com.jpa.yanus.entity.Member;
+import com.jpa.yanus.entity.QMember;
+import com.jpa.yanus.type.StatusType;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class MemberQueryDSLImpl implements MemberQueryDSL{
     @Override
     public List<Member> findAll() {
 
-        final List<Member> members = query.select(member).from(member).fetch();
+        final List<Member> members = query.select(member).from(member).where(member.memberStatus.eq(StatusType.ABLE)).fetch();
         return members;
     }
 
@@ -32,4 +34,5 @@ public class MemberQueryDSLImpl implements MemberQueryDSL{
                 .fetchOne();
         return Optional.ofNullable(foundMember);
     }
+
 }

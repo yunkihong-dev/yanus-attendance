@@ -270,7 +270,7 @@ function getCheckIn(){
 
 }
 function getCheckOut(){
-    if(hour.innerText<5){
+    if(hour.innerText<3){
         showConfirmModal("시간을 충족하지 못했습니다. 그래도 퇴근하시겠습니까?").then(res=>{
             if(res){
                 document.getElementById("msg").innerText = "어서 더 채워 주세요!";

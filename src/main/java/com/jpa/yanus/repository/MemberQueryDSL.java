@@ -10,4 +10,5 @@ public interface MemberQueryDSL {
     public List<Member> findAll();
 
     public Optional<Member> findByMemberIdAndMemberPassword(String memberId, String memberPassword);
+
 }

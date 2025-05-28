@@ -70,6 +70,7 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
                         attendance.id,
                         attendance.checkInTime,
                         attendance.checkOutTime,
+                        attendance.checkOutTime.as("checkOutDate"),
                         member.memberName,
                         member.memberTeamNum))
                 .from(attendance)
@@ -97,6 +98,7 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
                         attendance.id,
                         attendance.checkInTime,
                         attendance.checkOutTime,
+                        attendance.checkOutTime.as("checkOutDate"),
                         member.memberName,
                         member.memberTeamNum))
                 .from(attendance)
@@ -114,10 +116,8 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
         QAttendance attendance = QAttendance.attendance;
 
         LocalDateTime startDate = LocalDateTime.now().with(DayOfWeek.MONDAY).withHour(0).withMinute(0).withSecond(0).withNano(0);
-        log.info(startDate.toString());
 
         LocalDateTime endDate = LocalDateTime.now().with(DayOfWeek.SUNDAY).withHour(23).withMinute(59).withSecond(59).withNano(999999999);
-        log.info(endDate.toString());
         String sums = "SUM(CASE WHEN {0}.checkInTime >= {1} AND {0}.checkOutTime <= {2} AND FUNCTION('DAYOFWEEK', {0}.checkInTime) = {3} THEN TIMESTAMPDIFF(SECOND, {0}.checkInTime, {0}.checkOutTime) ELSE 0 END)";
         List<AttendanceForWeekDTO> result = query
                 .select(Projections.bean(AttendanceForWeekDTO.class,
@@ -148,6 +148,36 @@ public class AttendanceQueryDSLImpl implements AttendanceQueryDSL {
                 .fetch();
         return result;
     }
+
+    @Override
+    public List<AttendanceMemberJoinDTO> findAllAttendanceByFromDateAndToDateAndIds(String from, String to, List<Long> ids) {
+        QAttendance attendance = QAttendance.attendance;
+        QMember member = QMember.member;
+
+        // from, to 문자열을 LocalDateTime으로 변환
+        LocalDateTime fromDate = LocalDate.parse(from).atStartOfDay();
+        LocalDateTime toDate = LocalDate.parse(to).plusDays(1).atStartOfDay();
+
+        // QueryDSL로 쿼리를 작성
+        List<AttendanceMemberJoinDTO> result = query
+                .select(Projections.constructor(AttendanceMemberJoinDTO.class,
+                        attendance.id,
+                        attendance.checkInTime,
+                        attendance.checkOutTime,
+                        attendance.checkOutTime.as("checkOutDate"),
+                        member.memberName,
+                        member.memberTeamNum))
+                .from(attendance)
+                .join(attendance.member, member)
+                .where(attendance.checkInTime.between(fromDate, toDate)
+                        .and(attendance.member.id.in(ids)))
+                .orderBy(attendance.checkInTime.asc())
+                .fetch();
+
+        log.info(result.toString() + "QueryDSL");
+        return result;
+    }
+
 
 
 }
