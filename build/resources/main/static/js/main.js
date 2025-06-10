@@ -928,12 +928,12 @@ loginOpenBtn.addEventListener('click',function () {
 closeLoginModalBtn.addEventListener('click',function () {
     loginModal.classList.add("hidden");
 });
-
 document.getElementById("login-btn").addEventListener('click', async function (e) {
     e.preventDefault();
     let memberId = document.getElementById("memberId").value;
     let memberPassword = document.getElementById("memberPassword").value;
     let loginModalContent = document.getElementById("login-modal-content");
+
     try {
         const response = await fetch('/member/login', {
             method: 'POST',
@@ -946,17 +946,33 @@ document.getElementById("login-btn").addEventListener('click', async function (e
             }),
         });
 
-        const result = await response.json(); // 또는 .json() 사용
+        const result = await response.json();
 
         if (response.ok) {
             showReusableModal(result.message);
-            loginOpenBtn.classList.add("hidden");
+
+            // 버튼 DOM 요소들
+            const loginBtn = document.getElementById("login-button");
+            const logoutBtn = document.getElementById("log-out");
+            const goWorkBtn = document.getElementById("go-work-btn");
+            const goAdminBtn = document.getElementById("go-admin-btn");
+            const loginModal = document.getElementById("loginModal");
+
+            // UI 업데이트
+            loginBtn.classList.add("hidden");
             logoutBtn.classList.remove("hidden");
             goWorkBtn.classList.remove("hidden");
             loginModal.classList.add("hidden");
+
+            // 관리자 권한이 있으면 관리자 버튼도 표시
+            if (result.memberType === 'ADMIN' || result.memberType === 'SUPERADMIN') {
+                goAdminBtn.classList.remove("hidden");
+            }
+
         } else {
             showReusableModal(result.message);
         }
+
     } catch (error) {
         loginModalContent.classList.add("shaking");
         setTimeout(() => {
@@ -964,4 +980,3 @@ document.getElementById("login-btn").addEventListener('click', async function (e
         }, 500);
     }
 });
-

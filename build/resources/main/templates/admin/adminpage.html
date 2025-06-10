@@ -53,19 +53,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr th:if="${memberList.isEmpty()}">
-                        <td colspan="4">등록된 멤버가 없습니다.</td>
-                    </tr>
-                    <tr th:each="member, iterStat : ${memberList}" th:class="${iterStat.count > 5} ? 'hidden-member' : ''">
-                        <td><input th:value="${member.id}" name="members" type="checkbox"></td>
-                        <td th:text="${member.memberName}">이름</td>
-                        <td th:text="${member.memberTeamNum} + '팀'">소속팀</td>
-                        <td>
-                            <span th:if="${member.memberType.toString() == 'NORMAL'}">일반</span>
-                            <span th:if="${member.memberType.toString() == 'ADMIN'}">팀장</span>
-                            <span th:if="${member.memberType.toString() == 'SUPERADMIN'}">셀장</span>
-                        </td>
-                    </tr>
+                <tr th:if="${memberList.isEmpty()}">
+                    <td colspan="4">등록된 멤버가 없습니다.</td>
+                </tr>
+                <tr th:each="member, iterStat : ${memberList}" th:class="${iterStat.count > 5} ? 'hidden-member' : ''">
+                    <td><input th:value="${member.id}" name="members" type="checkbox"></td>
+                    <td th:text="${member.memberName}">이름</td>
+                    <td class="team-cell" th:attr="data-member-id=${member.id}" th:text="${member.memberTeamNum}+'팀'">팀</td>
+                    <td>
+                        <span th:if="${member.memberType.toString() == 'NORMAL'}">일반</span>
+                        <span th:if="${member.memberType.toString() == 'ADMIN'}">팀장</span>
+                        <span th:if="${member.memberType.toString() == 'SUPERADMIN'}">셀장</span>
+                    </td>
+                </tr>
                 </tbody>
             </table>
             <button class="show-more-btn center btns" id="show-more-btn" onclick="showMore()">더보기</button>

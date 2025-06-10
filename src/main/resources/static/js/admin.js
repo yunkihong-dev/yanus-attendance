@@ -515,3 +515,52 @@ function handleAttendanceFormSubmit() {
             showReusableModal(`오류 발생: ${error.message}`);
         });
 }
+let isEditMode = false;
+
+document.querySelector(".btns.small-title:nth-child(3)").addEventListener("click", async () => {
+    const teamCells = document.querySelectorAll(".team-cell");
+
+    if (!isEditMode) {
+        // 🟢 팀 번호를 input으로 변경
+        teamCells.forEach((cell) => {
+            const currentTeam = cell.textContent.trim().replace("팀", "");
+            cell.innerHTML = `<input type="number" class="team-input" value="${currentTeam}" min="1" style="width: 60px;" />`;
+        });
+        isEditMode = true;
+    } else {
+        // 🔄 입력값을 읽어 서버에 전송하고 다시 텍스트로 변경
+        const updates = [];
+
+        teamCells.forEach((cell) => {
+            const memberId = cell.getAttribute("data-member-id");
+            const input = cell.querySelector("input");
+            const newTeam = input.value;
+            updates.push({ memberId, teamNum: newTeam });
+
+            // <td> 내용 복원
+            cell.textContent = `${newTeam}팀`;
+        });
+
+        try {
+            const response = await fetch("/member/changeTeam", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ updates })  // ✅ 서버에서는 updates 배열 받도록 설정
+            });
+
+            if (!response.ok) throw new Error("팀 변경 실패");
+
+            const result = await response.json();
+            console.log("팀 전환 완료:", result);
+            showReusableModal("팀 전환이 완료되었습니다.");
+
+        } catch (error) {
+            console.error("에러:", error);
+            showReusableModal("팀 전환 중 오류가 발생했습니다.");
+        }
+
+        isEditMode = false;
+    }
+});

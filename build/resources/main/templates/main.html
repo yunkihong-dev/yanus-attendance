@@ -41,6 +41,13 @@
     <a href="/member/logout"  id="log-out" th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'" >
         <button>로그아웃</button>
     </a>
+    <a href="/admin/adminpage" id ="go-admin-btn"
+       th:if="${member != null and (member.memberType.toString() == 'ADMIN' or member.memberType.toString() == 'SUPERADMIN')}"
+       th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'"ㄱㄱ>
+        <button>관리자 페이지</button>
+    </a>
+
+
     <a id="login-button"   th:attr="class = ${member != null} ? ' hidden ': ''">
         <button >로그인</button>
     </a>

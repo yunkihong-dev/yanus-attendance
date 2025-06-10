@@ -1,5 +1,6 @@
 package com.jpa.yanus.controller;
 
+import com.jpa.yanus.domain.MemberTeamUpdateDTO;
 import com.jpa.yanus.entity.Member;
 import com.jpa.yanus.service.MemberService;
 import com.jpa.yanus.type.StatusType;
@@ -57,6 +58,17 @@ public class MemberController {
             log.error("회원 삭제 중 오류 발생", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("message", "회원 삭제 중 오류가 발생했습니다.", "status", "fail"));
+        }
+    }
+
+    @PostMapping("/changeTeam")
+    public ResponseEntity<?> changeTeam(@RequestBody Map<String, List<MemberTeamUpdateDTO>> updatesMap) {
+        List<MemberTeamUpdateDTO> updates = updatesMap.get("updates");
+        try {
+            memberService.changeTeam(updates);
+            return ResponseEntity.ok(Map.of("message", "변경 완료", "status", "success"));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(Map.of("message", "500 error", "status", "fail"));
         }
     }
 

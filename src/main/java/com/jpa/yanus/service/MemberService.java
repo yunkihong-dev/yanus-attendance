@@ -1,6 +1,7 @@
 package com.jpa.yanus.service;
 
 import com.jpa.yanus.domain.MemberDTO;
+import com.jpa.yanus.domain.MemberTeamUpdateDTO;
 import com.jpa.yanus.entity.Member;
 
 import java.util.List;
@@ -26,4 +27,6 @@ public interface MemberService {
 
 
     List<Member> softDeleteByMemberIds(List<Long> id);
+
+    public void changeTeam(List<MemberTeamUpdateDTO> memberTeamUpdateDTOList);
 }
