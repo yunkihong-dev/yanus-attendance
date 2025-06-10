@@ -46,7 +46,7 @@
             <table id="member-table"class="width-98p" >
                 <thead>
                 <tr>
-                    <th><input name="members" value="selectAll" onclick="selectAll(this)" type="checkbox"></th>
+                    <th><input name="members"  value="selectAll" onclick="selectAll(this)" type="checkbox"  th:if="${member.memberType.toString() == 'SUPERADMIN'}"></th>
                     <th>이름</th>
                     <th>소속 팀</th>
                     <th>회원구분</th>
@@ -57,7 +57,7 @@
                     <td colspan="4">등록된 멤버가 없습니다.</td>
                 </tr>
                 <tr th:each="member, iterStat : ${memberList}" th:class="${iterStat.count > 5} ? 'hidden-member' : ''">
-                    <td><input th:value="${member.id}" name="members" type="checkbox"></td>
+                    <td><input th:value="${member.id}" name="members" type="checkbox"  th:if="${member.memberType.toString() == 'SUPERADMIN'}"></td>
                     <td th:text="${member.memberName}">이름</td>
                     <td class="team-cell" th:attr="data-member-id=${member.id}" th:text="${member.memberTeamNum}+'팀'">팀</td>
                     <td>
