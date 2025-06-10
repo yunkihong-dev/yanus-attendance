@@ -62,7 +62,7 @@ public class MemberController {
     }
 
     @PostMapping("/changeTeam")
-    public ResponseEntity<?> changeTeam(@RequestBody Map<String, List<MemberTeamUpdateDTO>> updatesMap) {
+    public ResponseEntity<?> changeTeam(@RequestBody Map<String, List<MemberTeamUpdateDTO>> updatesMap, HttpSession httpSession) {
         List<MemberTeamUpdateDTO> updates = updatesMap.get("updates");
         try {
             memberService.changeTeam(updates);

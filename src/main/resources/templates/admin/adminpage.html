@@ -36,7 +36,7 @@
             <div class="small-title" id="first-title">
                 <p>회원정보</p>
             </div>
-            <div class="flex">
+            <div class="flex" th:if="${member.memberType.toString() == 'SUPERADMIN'}">
                 <button id="delete-member-btn" class="btns small-title">회원 삭제</button>
                 <button class="btns small-title">관리자로 전환</button>
                 <button class="btns small-title">팀 전환</button>
