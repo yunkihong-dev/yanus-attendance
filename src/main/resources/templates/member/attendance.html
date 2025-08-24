@@ -1,240 +1,338 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleag.org">
+<html lang="ko" xmlns:th="http://www.thymeleag.org">
 <head>
     <link rel="icon" href="/image/logo.png"/>
     <link rel="stylesheet" href="/css/attendance.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/css/calendar.css"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>근태관리</title>
+    <title>근태관리 - 보안셀</title>
 </head>
 <body>
-<header>
-    <div class="toggle-switch">
-        <input type="checkbox" id="darkModeToggle" class="checkbox">
-        <label for="darkModeToggle" class="label">
-            <i class="fas fa-moon"></i>
-            <i class="fas fa-sun"></i>
-            <div class="ball"></div>
-        </label>
+<!-- Header -->
+<header class="main-header">
+    <div class="header-left">
+        <div class="toggle-switch">
+            <input type="checkbox" id="darkModeToggle" class="checkbox">
+            <label for="darkModeToggle" class="label">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+                <div class="ball"></div>
+            </label>
+        </div>
     </div>
-    <a class="width-fit-content center block" href="/">
-        <img src="/image/logo.png">
-    </a>
-    <div th:if="${member.memberType.toString() == 'ADMIN' || member.memberType.toString() == 'SUPERADMIN'}"  id="go-admin-btn">
-        <a href="/admin/adminpage">
-            <label>관리자페이지로 이동</label>
+    
+    <div class="header-center">
+        <a class="logo-link" href="/">
+            <img src="/image/logo.png" alt="보안셀 로고">
         </a>
     </div>
-    <div id="log-out">
-
-        <label>로그아웃</label>
-        <img id="log-out-icon" src="/image/log-out-icon.svg" alt="log-out-icon">
+    
+    <div class="header-right">
+        <div th:if="${member.memberType.toString() == 'ADMIN' || member.memberType.toString() == 'SUPERADMIN'}" class="admin-btn">
+            <a href="/admin/adminpage">
+                <i class="fas fa-cog"></i>
+                <span>관리자</span>
+            </a>
+        </div>
+        
+        <div class="logout-btn" id="log-out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>로그아웃</span>
+        </div>
     </div>
-    <div class="width-100p bar">
-        <label id="category">근태관리</label>
+    
+    <div class="page-title">
+        <h1><i class="fas fa-clock"></i> 근태관리</h1>
     </div>
 </header>
-<div class="flex"id="contents">
-    <div class="boxes  left-box" >
-        <div class="small-title" id="first-title">
-            <p>오늘 근로한 시간</p>
+
+<!-- Main Content -->
+<main class="main-content">
+    <!-- Today's Work Section -->
+    <section class="work-section">
+        <div class="work-card">
+            <div class="card-header">
+                <h2><i class="fas fa-calendar-day"></i> 오늘 근로한 시간</h2>
+            </div>
+            <div class="time-display">
+                <span class="time-unit" id="hour">00</span>
+                <span class="time-separator">:</span>
+                <span class="time-unit" id="min">00</span>
+                <span class="time-separator">:</span>
+                <span class="time-unit" id="sec">00</span>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-primary" id="start">
+                    <i class="fas fa-play"></i> 출근
+                </button>
+                <button class="btn btn-success" id="stop">
+                    <i class="fas fa-stop"></i> 퇴근
+                </button>
+                <button class="btn btn-secondary" id="modalOpenButton">
+                    <i class="fas fa-calendar-plus"></i> 미출근
+                </button>
+            </div>
+            <p class="work-message" id="msg">오늘의 의무출근 시간을 아직 채우지 못했습니다. 어서 출근해서 채워주세요</p>
         </div>
-        <div>
-            <a class="font-size-thirtytwo"><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></a>
-        </div>
-        <div>
-            <div class=" width-fit-content" id="btn-box">
-                <button class="btns" id="start">출근</button>
-                <button class="btns" id="stop">퇴근</button>
-                <button class="btns" id="modalOpenButton">미 출근</button>
+    </section>
+
+    <!-- Team Attendance Section -->
+    <section class="team-section">
+        <div class="team-card">
+            <div class="card-header">
+                <h2><i class="fas fa-users"></i> 팀원 출근 현황</h2>
+            </div>
+            <div class="team-list" id="crews-div">
+                <div class="empty-state" th:if="${myTeamAttendanceList.isEmpty()}">
+                    <i class="fas fa-user-clock"></i>
+                    <p>출근한 팀원이 없어요!</p>
+                </div>
+                <div class="team-member" th:each="myTeamAttendanceList : ${myTeamAttendanceList}">
+                    <div class="member-time" th:text="${myTeamAttendanceList.formattedCheckOutTime}">출근한 시간</div>
+                    <div class="member-name" th:text="${myTeamAttendanceList.memberName.equals(member.memberName)}? '나': ${myTeamAttendanceList.memberName}">이름</div>
+                </div>
             </div>
         </div>
-        <p class="font-size-ten" id="msg">오늘의 의무출근 시간을 아직 채우지 못했습니다. 어서 출근해서 채워주세요</p>
-    </div>
-    <div class="boxes">
-        <div class="small-title">
-            <p>팀원이 출근한 시간</p>
+    </section>
+
+    <!-- Developer Image Section -->
+    <section class="image-section" id="img-div">
+        <img id="developer-img" src="/image/developer.png" alt="개발자 일러스트">
+    </section>
+</main>
+
+<!-- Work Schedule Section -->
+<section class="schedule-section">
+    <div class="schedule-card">
+        <div class="card-header">
+            <h2><i class="fas fa-chart-bar"></i> 총 근무시간</h2>
         </div>
-        <div class="flex justify-contents-space-between " id="crews-div">
-            <div class="center" th:if="${myTeamAttendanceList.isEmpty()}">
-                출근한 팀원이 없어요!
-            </div>
-            <div th:each="myTeamAttendanceList : ${myTeamAttendanceList}">
-                <p th:text="${myTeamAttendanceList.formattedCheckOutTime}">출근한 시간</p>
-                <p th:text="${myTeamAttendanceList.memberName.equals(member.memberName)}? '나': ${myTeamAttendanceList.memberName}" >이름</p>
-            </div>
-        </div>
-    </div>
-    <div class="boxes" id="img-div">
-        <img id="developer-img" src="/image/developer.png" alt="developer">
-    </div>
-</div>
-<div class="boxes" id="schedule">
-    <div class="small-title" id="first-title">
-        <p>총 근무시간</p>
-    </div>
-    <p id="detail">여러분의 팀장님이 근무 스케줄을 체크합니다.</p>
-    <div class="flex width-100p">
-        <div class="flex width-100p"id = "graph-left">
-            <div class="graph-div">
-                <div class="stick-graph">
-                    <div class="stick-graph-day-back">
-                        <div class="stick-graph-day-front" id="mon">
+        <p class="schedule-description">여러분의 팀장님이 근무 스케줄을 체크합니다.</p>
+        
+        <div class="schedule-content">
+            <div class="graph-container">
+                <div class="weekly-graph" id="graph-left">
+                    <div class="graph-day">
+                        <div class="stick-graph">
+                            <div class="stick-graph-day-back">
+                                <div class="stick-graph-day-front" id="mon"></div>
+                            </div>
                         </div>
+                        <span class="day-label">월</span>
                     </div>
-
-                </div>
-                <p class="week">월</p>
-            </div>
-            <div class="graph-div">
-                <div class="stick-graph">
-                    <div class="stick-graph-day-back">
-                        <div class="stick-graph-day-front" id="two"></div>
+                    <div class="graph-day">
+                        <div class="stick-graph">
+                            <div class="stick-graph-day-back">
+                                <div class="stick-graph-day-front" id="two"></div>
+                            </div>
+                        </div>
+                        <span class="day-label">화</span>
                     </div>
-
-                </div>
-                <p class="week">화</p>
-            </div>
-            <div class="graph-div">
-                <div class="stick-graph">
-                    <div class="stick-graph-day-back">
-                        <div class="stick-graph-day-front" id="wen"></div>
+                    <div class="graph-day">
+                        <div class="stick-graph">
+                            <div class="stick-graph-day-back">
+                                <div class="stick-graph-day-front" id="wen"></div>
+                            </div>
+                        </div>
+                        <span class="day-label">수</span>
                     </div>
-                </div>
-                <p class="week">수</p>
-            </div>
-            <div class="graph-div">
-                <div class="stick-graph">
-                    <div class="stick-graph-day-back">
-                        <div class="stick-graph-day-front" id="thur"></div>
+                    <div class="graph-day">
+                        <div class="stick-graph">
+                            <div class="stick-graph-day-back">
+                                <div class="stick-graph-day-front" id="thur"></div>
+                            </div>
+                        </div>
+                        <span class="day-label">목</span>
                     </div>
-                </div>
-                <p class="week">목</p>
-            </div>
-            <div class="graph-div">
-                <div class="stick-graph">
-                    <div class="stick-graph-day-back">
-                        <div class="stick-graph-day-front" id="fri"></div>
+                    <div class="graph-day">
+                        <div class="stick-graph">
+                            <div class="stick-graph-day-back">
+                                <div class="stick-graph-day-front" id="fri"></div>
+                            </div>
+                        </div>
+                        <span class="day-label">금</span>
                     </div>
-                </div>
-                <p class="week">금</p>
-            </div>
-            <div class="graph-div">
-                <div class="stick-graph">
-                    <div class="stick-graph-weekend-back">
-                        <div class="stick-graph-weekend-front" id="sat"></div>
+                    <div class="graph-day">
+                        <div class="stick-graph">
+                            <div class="stick-graph-weekend-back">
+                                <div class="stick-graph-weekend-front" id="sat"></div>
+                            </div>
+                        </div>
+                        <span class="day-label">토</span>
                     </div>
-                </div>
-                <p class="week">토</p>
-            </div>
-            <div class="graph-div">
-                <div class="stick-graph">
-                    <div class="stick-graph-weekend-back">
-                        <div class="stick-graph-weekend-front" id="sun"></div>
+                    <div class="graph-day">
+                        <div class="stick-graph">
+                            <div class="stick-graph-weekend-back">
+                                <div class="stick-graph-weekend-front" id="sun"></div>
+                            </div>
+                        </div>
+                        <span class="day-label">일</span>
                     </div>
                 </div>
-                <p class="week">일</p>
+                
+                <div class="chart-container" id="myChartDiv">
+                    <canvas id="myChart"></canvas>
+                    <div class="chart-percentage" id="percent"></div>
+                </div>
             </div>
-
         </div>
-        <div id="myChartDiv">
-            <canvas id="myChart"></canvas>
-            <p id="percent"></p>
+    </div>
+</section>
+
+<!-- No Work List Section -->
+<section class="no-work-section">
+    <div class="no-work-card">
+        <div class="card-header">
+            <h2><i class="fas fa-list-alt"></i> 이번주 미출근 사유 작성 내역</h2>
+        </div>
+        
+        <div class="table-container">
+            <table class="no-work-table">
+                <thead>
+                    <tr>
+                        <th>처리 상태</th>
+                        <th>신청 일자</th>
+                        <th>범주</th>
+                        <th>상세 내용</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="empty-row" th:if="${noWorkList.isEmpty()}">
+                        <td colspan="4">
+                            <div class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <p>미출근 사유 신청 내역이 없습니다.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="no-work-row" th:each="noWorkList, iterStat : ${noWorkList}" th:class="${iterStat.count > 5} ? 'hidden-noWork' : ''">
+                        <td class="status-cell">
+                            <span class="status-badge" th:if="${noWorkList.status.toString() == 'WAITING'}">대기</span>
+                            <span class="status-badge approved" th:if="${noWorkList.status.toString() == 'ABLE'}">승인</span>
+                            <span class="status-badge rejected" th:if="${noWorkList.status.toString() == 'UNABLE'}">거절</span>
+                        </td>
+                        <td th:text="${noWorkList.selectedDate}">작성일</td>
+                        <td th:text="${noWorkList.category}">알바</td>
+                        <td th:text="${noWorkList.detail}">디테일</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <button class="btn btn-outline show-more-btn" id="noWork-show-more-btn" onclick="showMoreNoWork()"
+                th:if="${noWorkList != null && noWorkList.size() > 5}">
+            <i class="fas fa-chevron-down"></i> 더보기
+        </button>
+    </div>
+</section>
+
+<!-- No Work Modal -->
+<div id="modalContainer" class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content" id="modalContent">
+        <div class="modal-header">
+            <h3><i class="fas fa-calendar-plus"></i> 미출근 사유 등록</h3>
+            <button class="modal-close" id="modalCloseButton">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button class="calendar-nav" id="prev-month">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span id="month-year">December 2022</span>
+                    <button class="calendar-nav" id="next-month">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="calendar-body"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="categorySelect">
+                    <i class="fas fa-tag"></i> 범주
+                </label>
+                <select id="categorySelect" class="form-select">
+                    <option disabled selected>범주를 선택하세요</option>
+                    <option value="알바">알바</option>
+                    <option value="병가">병가</option>
+                    <option value="생일">생일</option>
+                    <option value="기타">기타</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="detailTextarea">
+                    <i class="fas fa-edit"></i> 상세 사유
+                </label>
+                <textarea id="detailTextarea" class="form-textarea" 
+                          placeholder="필요시 사유를 자세히 작성해주세요" rows="5"></textarea>
+            </div>
+            
+            <input type="hidden" id="selected-date" name="date">
+        </div>
+        
+        <div class="modal-footer">
+            <button class="btn btn-primary" id="noWork">
+                <i class="fas fa-check"></i> 제출
+            </button>
+            <button class="btn btn-secondary" id="modalCloseButton">
+                <i class="fas fa-times"></i> 닫기
+            </button>
         </div>
     </div>
 </div>
-<div class="boxes" id="noWorkList">
-    <div class="small-title" id="first-title">
-        <p>이번주 미출근 사유 작성 내역</p>
-    </div>
-    <table class="width-100p" >
-        <thead>
-        <tr>
-            <th>처리 상태</th>
-            <th>신청 일자</th>
-            <th>범주</th>
-            <th>상세 내용</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${noWorkList.isEmpty()}">
-            <td colspan="4">미출근 사유 신청 내역이 없습니다.</td>
-        </tr>
-        <tr th:each="noWorkList, iterStat : ${noWorkList}"  th:class="${iterStat.count > 5} ? 'hidden-noWork' : ''">
-            <td th:if="${noWorkList.status.toString() == 'WAITING'}">대기</td>
-            <td th:if="${noWorkList.status.toString() == 'ABLE'}">승인</td>
-            <td th:if="${noWorkList.status.toString() == 'UNABLE'}">거절</td>
-            <td th:text="${noWorkList.selectedDate}">작성일</td>
-            <td th:text="${noWorkList.category}">알바</td>
-            <td th:text="${noWorkList.detail}">디테일</td>
-        </tr>
-      </tbody>
 
-    </table>
-    <button class="show-more-btn center btns" id="noWork-show-more-btn" onclick="showMoreNoWork()"
-            th:if="${noWorkList != null && noWorkList.size() > 5}">더보기</button>
-
-</div>
-
-<div id="modalContainer" class="hidden">
-    <form id="modalContent" >
-        <div class="calendar-container">
-            <div class="calendar-header">
-                <span id="prev-month">&lt;</span>
-                <span id="month-year">December 2022</span>
-                <span id="next-month">&gt;</span>
-            </div>
-            <div class="calendar-body">
-            </div>
+<!-- Alert Modal -->
+<div id="reusableModal" class="alert-modal">
+    <div class="alert-modal-content">
+        <button class="alert-close" id="reusable-modal-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="alert-message">
+            <i class="fas fa-info-circle"></i>
+            <p id="reusableModalMessage"></p>
         </div>
-        <div class="selectBox">
-            <select id="categorySelect" class="select">
-                <option disabled selected>범주</option>
-                <option value="알바">알바</option>
-                <option value="병가">병가</option>
-                <option value="생일">생일</option>
-                <option value="기타">기타</option>
-            </select>
-        </div>
-        <textarea name="detail" id="detailTextarea" cols="30" rows="10" placeholder="필요시 사유를 자세히 작성해주세요"></textarea>
-        <input type="hidden" id="selected-date" name="date">
-        <button class="btns" id="noWork">제출</button>
-        <button class="btns" id="modalCloseButton">닫기</button>
-    </form>
-</div>
-
-<div id="reusableModal" class="reusable-modal">
-    <div class="reusable-modal-content">
-        <span id="reusable-modal-close">&times;</span>
-        <p id="reusableModalMessage"></p>
     </div>
 </div>
 
-
+<!-- Confirm Modal -->
 <div id="confirmModal" class="confirm-modal">
     <div class="confirm-modal-content">
-        <p id="confirmModalMessage"></p>
-        <div class="confirm-buttons">
-            <button class="confirm-button confirm" onclick="handleConfirm(true)">확인</button>
-            <button class="confirm-button cancel" onclick="handleConfirm(false)">취소</button>
+        <div class="confirm-header">
+            <i class="fas fa-question-circle"></i>
+            <h3>확인</h3>
+        </div>
+        <div class="confirm-body">
+            <p id="confirmModalMessage"></p>
+        </div>
+        <div class="confirm-footer">
+            <button class="btn btn-secondary" onclick="handleConfirm(false)">
+                <i class="fas fa-times"></i> 취소
+            </button>
+            <button class="btn btn-primary" onclick="handleConfirm(true)">
+                <i class="fas fa-check"></i> 확인
+            </button>
         </div>
     </div>
 </div>
 
-</body>
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="/js/calendar.js"></script>
 <script type="application/javascript" th:inline="javascript">
-
     let member = [[${member}]];
     let myTeamAttendanceList = [[${myTeamAttendanceList}]];
     let myRecentAttendance = [[${myRecentAttendance}]];
-
 </script>
 <script src="/js/attendance.js"></script>
+</body>
 </html>

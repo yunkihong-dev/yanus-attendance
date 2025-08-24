@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleag.org">
+<html lang="ko" xmlns:th="http://www.thymeleag.org">
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/image/logo.png"/>
     <link rel="stylesheet" href="/css/main.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Press+Start+2P"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>메인페이지</title>
-    <style>
-
-    </style>
+    <title>보안셀 - 메인페이지</title>
     <script>
         window.console = window.console || function (t) {};
     </script>
@@ -23,63 +20,89 @@
 <body>
 <script src="js/1.js"></script>
 
+<!-- Header -->
 <header>
-
-    <p>보안셀 페이지</p>
-    <div class="toggle-switch">
-        <input type="checkbox" id="darkModeToggle" class="checkbox">
-        <label for="darkModeToggle" class="label">
-            <i class="fas fa-moon"></i>
-            <i class="fas fa-sun"></i>
-            <div class="ball"></div>
-        </label>
+    <div class="header-left">
+        <p><i class="fas fa-shield-alt"></i> 보안셀</p>
     </div>
-    <button class="login-button" id="modalOpenButton">머리식히기</button>
-    <a href="/attendance/" id="go-work-btn" th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'">
-        <button>출근하러가기</button>
-    </a>
-    <a href="/member/logout"  id="log-out" th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'" >
-        <button>로그아웃</button>
-    </a>
-    <a href="/admin/adminpage" id ="go-admin-btn"
-       th:if="${member != null and (member.memberType.toString() == 'ADMIN' or member.memberType.toString() == 'SUPERADMIN')}"
-       th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'"ㄱㄱ>
-        <button>관리자 페이지</button>
-    </a>
-
-
-    <a id="login-button"   th:attr="class = ${member != null} ? ' hidden ': ''">
-        <button >로그인</button>
-    </a>
+    
+    <div class="header-center">
+        <div class="toggle-switch">
+            <input type="checkbox" id="darkModeToggle" class="checkbox">
+            <label for="darkModeToggle" class="label">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+                <div class="ball"></div>
+            </label>
+        </div>
+    </div>
+    
+    <div class="header-right">
+        <button class="game-button" id="modalOpenButton">
+            <i class="fas fa-gamepad"></i> 머리식히기
+        </button>
+        
+        <a href="/attendance/" id="go-work-btn" th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'">
+            <i class="fas fa-clock"></i> 출근하러가기
+        </a>
+        
+        <a href="/member/logout" id="log-out" th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'">
+            <i class="fas fa-sign-out-alt"></i> 로그아웃
+        </a>
+        
+        <a href="/admin/adminpage" id="go-admin-btn"
+           th:if="${member != null and (member.memberType.toString() == 'ADMIN' or member.memberType.toString() == 'SUPERADMIN')}"
+           th:attr="class = ${member != null} ? 'work-button ': 'work-button hidden'">
+            <i class="fas fa-cog"></i> 관리자 페이지
+        </a>
+        
+        <a id="login-button" th:attr="class = ${member != null} ? ' hidden ': ''">
+            <i class="fas fa-sign-in-alt"></i> 로그인
+        </a>
+    </div>
 </header>
 
-<section>
-    <canvas id="logo-canvas"></canvas>
-</section>
+<!-- Main Content -->
+<main>
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">보안셀에 오신 것을 환영합니다</h1>
+            <p class="hero-subtitle">안전하고 편리한 출근 관리 시스템</p>
+            <div class="canvas-container">
+                <canvas id="logo-canvas"></canvas>
+            </div>
+        </div>
+    </section>
+</main>
 
+<!-- Login Modal -->
 <div id="loginModal" class="modal hidden">
-    <div id="login-modal-content" class="modal-content" >
-        <span id="close-button">×</span>
-        <h2 id="loginName">로그인</h2>
+    <div id="login-modal-content" class="modal-content">
+        <span id="close-button">&times;</span>
+        <h2 id="loginName"><i class="fas fa-user-circle"></i> 로그인</h2>
         <form id="loginForm">
             <div class="form-group">
-                <label for="memberId">아이디:</label>
+                <label for="memberId">
+                    <i class="fas fa-user"></i> 아이디
+                </label>
                 <input id="memberId" type="text" placeholder="아이디를 입력하세요" required>
             </div>
             <div class="form-group">
-                <label for="memberPassword">비밀번호:</label>
+                <label for="memberPassword">
+                    <i class="fas fa-lock"></i> 비밀번호
+                </label>
                 <input id="memberPassword" type="password" placeholder="비밀번호를 입력하세요" required>
             </div>
-            <button id="login-btn" class="login-button">로그인</button>
+            <button id="login-btn" class="login-button">
+                <i class="fas fa-sign-in-alt"></i> 로그인
+            </button>
         </form>
     </div>
 </div>
 
-
-
-
+<!-- Game Modal -->
 <div id="modalContainer" class="hidden">
-    <div id="modalContent" >
+    <div id="modalContent">
         <div id="game">
             <div id="road">
                 <div id="cloud"></div>
@@ -96,20 +119,24 @@
             <div id="home">
                 <h1>Dash</h1>
                 <p id="text"></p>
-
                 <div id="highscore"></div>
             </div>
         </div>
+        
         <div id="controls">
             <span><span>C</span>insert coin</span>
             <span><span>M</span>mute</span>
             <span><span>&lt;</span><span>&gt;</span>move</span>
             <span><span>&lt;</span><span>&gt;</span>accelerate</span>
         </div>
-        <button class="btns" id="modalCloseButton">닫기</button>
+        
+        <button class="btns" id="modalCloseButton">
+            <i class="fas fa-times"></i> 닫기
+        </button>
     </div>
 </div>
 
+<!-- Reusable Modal -->
 <div id="reusableModal" class="reusable-modal">
     <div class="reusable-modal-content">
         <span id="reusable-modal-close">&times;</span>
@@ -117,16 +144,24 @@
     </div>
 </div>
 
-
-
-
+<!-- Scripts -->
 <script src="js/1.js"></script>
 <script src="js/null.js"></script>
-<footer>
-    &copy; 2023 Our Company. All rights reserved.
-</footer>
-</body>
 <script src="js/main.js"></script>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2024 보안셀. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#"><i class="fas fa-info-circle"></i> 정보</a>
+            <a href="#"><i class="fas fa-question-circle"></i> 도움말</a>
+            <a href="#"><i class="fas fa-envelope"></i> 문의</a>
+        </div>
+    </div>
+</footer>
+
 <script th:inline="javascript">
 </script>
+</body>
 </html>
